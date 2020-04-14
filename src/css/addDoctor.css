@@ -1,0 +1,44 @@
+.my-Register-page {
+    padding-top: 9em;
+    min-height: 200vh;
+    height: 100%;
+    opacity: 0.8;
+    position: static;
+    background-attachment: fixed;
+    background-position: center;
+    background-image: url(../static/img/addDoctor-background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 3.5em;
+  }
+  
+  .my-Register-card {
+    margin-right: 5em;
+    width: 100%;
+    max-width: 40rem;
+    background-color: rgba(226, 242, 253, 0.5);
+    margin-bottom: 4em;
+    border:rgb(139, 208, 255) 1px solid;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  .my-Register-card h5 {
+    font-size: 1.5em;
+  }
+  
+  .my-Register-card form label,
+  .my-Register-card form input,
+  .my-Register-card form button {
+    font-size: 1em;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .my-Register-card {
+      margin: auto;
+      width: 95%;
+      background-color: rgba(226, 242, 253, 0.5);
+      margin-bottom: 4em;
+      border:rgb(139, 208, 255) 1px solid;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
+    }
+  }
