@@ -1,16 +1,23 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Redirect,
+  HashRouter as Router,
+} from "react-router-dom";
+// import Login from "./components/auth/Login";
 import addDoctor from "./components/admin/addDoctor";
-import Nabbar from "./components/layout/Navbar";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Nabbar />
+    <Router>
       <Switch>
+        {/* <Route exact path="/" component={Login} /> */}
         <Route exact path="/" component={addDoctor} />
+        {/* <Route exact path="/admin/addPatient" component={addPatient} /> */}
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 

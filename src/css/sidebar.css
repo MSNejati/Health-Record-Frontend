@@ -1,0 +1,42 @@
+#sidebar {
+  min-width: 20em;
+  min-height: 100vh;
+  background: #5676f6;
+  color: #fff;
+  text-align: right;
+}
+
+#sidebar .sidebar-header h3{
+  padding: 1em;
+  background: #4f6bdb;
+  font-size: 2.2em;
+}
+
+#sidebar ul.components {
+  padding: 1em;
+  border-bottom: 2px solid #4f6bdb;
+}
+
+#sidebar ul p {
+  color: #fff;
+  padding: 0.75em 0.5em;
+  font-size: 2em;
+}
+
+#sidebar ul li a {
+  color: #fff;
+  padding: 0.5em;
+  font-size: 1.5em;
+  display: block;
+}
+
+#sidebar ul li a:hover {
+  color: #5676f6;
+  background: #fff;
+}
+
+#sidebar ul li.active > a,
+a[aria-expanded="true"] {
+  color: #fff;
+  background: #4f6bdb;
+}
