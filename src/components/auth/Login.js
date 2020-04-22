@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "../../actions/auth";
 import "../../css/login.css";
 import Navbar from "../layout/Navbar";
 
@@ -8,8 +11,14 @@ class Login extends Component {
     password: "",
   };
 
+  static propTypes = {
+    login: PropTypes.func.isRequired,
+    auth: PropTypes.object,
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
+    this.props.login(this.state.username, this.state.password);
   };
 
   handleChange = (event) => {
@@ -72,4 +81,9 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { login })(Login);
