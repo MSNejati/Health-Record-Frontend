@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
 import "../../css/login.css";
 import Navbar from "../layout/Navbar";
+import { userAPI } from "../../apis/requests";
 
 class Login extends Component {
   state = {
@@ -16,7 +17,8 @@ class Login extends Component {
     auth: PropTypes.object,
   };
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     const user = {
       username: this.state.username,
       password: this.state.password,

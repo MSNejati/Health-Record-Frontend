@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../../css/register.css";
 import "../../css/sidebar.css";
+import { addDoctor } from "./../../actions/auth";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-class addDoctor extends Component {
+class AddDoctor extends Component {
   state = {
     firstName: "",
     lastName: "",
-    gender: "",
+    gender: "0",
     birthDate: "",
     phone: "",
     address: "",
@@ -17,9 +20,27 @@ class addDoctor extends Component {
     showingAlert: false,
     isActive: false,
   };
-
+  static propTypes = {
+    addDoctor: PropTypes.func.isRequired,
+    auth: PropTypes.object,
+  };
   handleSubmit = (event) => {
     event.preventDefault();
+    const doctor = {
+      user: {
+        username: this.state.nationalId,
+        password: this.state.nationalId,
+      },
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      phone_number: this.state.phone,
+      address: this.state.address,
+      birth_date: this.state.birthDate,
+      speciality: this.state.speciality,
+      bio: this.state.bio,
+      gender: this.state.gender,
+    };
+    this.props.addDoctor(doctor);
   };
 
   handleChange = (event) => {
@@ -62,12 +83,12 @@ class addDoctor extends Component {
               </Link>
             </li>
             <li className="active">
-              <Link to="/" className="nav-link ">
+              <Link to="/add-doctor" className="nav-link ">
                 ثبت نام پزشک
               </Link>
             </li>
             <li>
-              <Link to="/" className="nav-link">
+              <Link to="/add-patient" className="nav-link">
                 ثبت نام بیمار
               </Link>
             </li>
@@ -223,13 +244,16 @@ class addDoctor extends Component {
                       htmlFor="gender"
                       className="float-right"
                       value={gender}
-                      onChange={this.handleChange}
                     >
                       جنسیت
                     </label>
-                    <select id="gender">
-                      <option>مرد</option>
-                      <option>زن</option>
+                    <select
+                      id="gender"
+                      onChange={this.handleChange}
+                      value={gender}
+                    >
+                      <option value="0">مرد</option>
+                      <option value="0">زن</option>
                     </select>
                   </div>
                   <button
@@ -243,10 +267,15 @@ class addDoctor extends Component {
             </div>
           </div>
         </div>
-        <div class="overlay"></div>
+        <div className="overlay"></div>
       </div>
     );
   }
 }
 
-export default addDoctor;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { addDoctor })(AddDoctor);
