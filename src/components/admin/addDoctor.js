@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../../css/register.css";
-import "../../css/sidebar.css";
 import { addDoctor } from "./../../actions/auth";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
