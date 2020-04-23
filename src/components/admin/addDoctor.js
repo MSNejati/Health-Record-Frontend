@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Link, NavLink } from "react-router-dom";
 import "../../css/register.css";
-import Sidebar from "../admin/sidebar";
+import "../../css/sidebar.css";
 
 class addDoctor extends Component {
   state = {
@@ -12,7 +13,9 @@ class addDoctor extends Component {
     address: "",
     speciality: "",
     bio: "",
+    nationalId: "",
     showingAlert: false,
+    isActive: false,
   };
 
   handleSubmit = (event) => {
@@ -22,6 +25,13 @@ class addDoctor extends Component {
   handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
+    });
+  };
+
+  handleToggleSidebar = (event) => {
+    event.preventDefault();
+    this.setState({
+      isActive: !this.state.isActive,
     });
   };
 
@@ -35,14 +45,62 @@ class addDoctor extends Component {
       address,
       speciality,
       bio,
+      nationalId,
     } = this.state;
 
     return (
       <div className="wrapper">
-        <Sidebar />
+        <nav id="sidebar" className={this.state.isActive ? "active" : ""}>
+          <div className="sidebar-header">
+            <h3>کارنامه سلامت</h3>
+          </div>
+          <ul className="list-unstyled components">
+            <p> بیمه ایران</p>
+            <li>
+              <Link to="/" className="nav-link">
+                خانه
+              </Link>
+            </li>
+            <li className="active">
+              <Link to="/" className="nav-link ">
+                ثبت نام پزشک
+              </Link>
+            </li>
+            <li>
+              <Link to="/" className="nav-link">
+                ثبت نام بیمار
+              </Link>
+            </li>
+            <li>
+              <Link to="/" className="nav-link">
+                درباره ما
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <div id="content">
+          <nav className="navbar navbar-expand-lg">
+            <div className="container-fluid">
+              <button
+                type="button"
+                id="sidebarCollapse"
+                className="btn btn-info"
+                onClick={this.handleToggleSidebar}
+                style={{ backgroundColor: "#5676f6", borderColor: "#4f6bdb" }}
+              >
+                <i className="fas fa-align-right"></i>
+                <span> منوی کاربر</span>
+              </button>
+            </div>
+          </nav>
           <div className="my-Register-page">
-            <div className="my-Register-card card text-right">
+            <div
+              className={
+                this.state.isActive
+                  ? "my-Register-card card text-right active"
+                  : "my-Register-card card text-right"
+              }
+            >
               <h5 className="card-header text-body text-center pt-3 font-weight-bold">
                 ثبت نام پزشک
               </h5>
@@ -75,6 +133,20 @@ class addDoctor extends Component {
                         value={lastName}
                       />
                     </div>
+                    <div className="form-group col-md">
+                      <label htmlFor="lastName" className="float-right">
+                        کدملی
+                      </label>
+                      <input
+                        dir="ltr"
+                        type="text"
+                        className="form-control"
+                        id="nationalId"
+                        placeholder="کد ملی"
+                        onChange={this.handleChange}
+                        value={nationalId}
+                      />
+                    </div>
                   </div>
                   <div className="form-row">
                     <div className="form-group col-md">
@@ -92,7 +164,7 @@ class addDoctor extends Component {
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="phone" className="float-right">
-                        شماره تلفن
+                        شماره موبایل
                       </label>
                       <input
                         dir="ltr"
