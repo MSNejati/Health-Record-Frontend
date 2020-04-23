@@ -1,0 +1,11 @@
+.my-navbar {
+  text-align: right;
+}
+
+.my-navbar a {
+  font-size: 2em;
+}
+
+.my-navbar ul li {
+  font-size: 0.75em;
+}
