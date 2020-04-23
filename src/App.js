@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   BrowserRouter,
   Switch,
@@ -10,17 +10,23 @@ import { Provider } from "react-redux";
 import { Provider as AlertProvider } from "react-alert";
 import Login from "./components/auth/Login";
 import store from "./store";
+import { loadUser } from "./actions/auth";
 
-function App() {
-  return (
-    <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Login} />
-        </Switch>
-      </Router>
-    </Provider>
-  );
+class App extends Component {
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Login} />
+          </Switch>
+        </Router>
+      </Provider>
+    );
+  }
 }
 
 export default App;

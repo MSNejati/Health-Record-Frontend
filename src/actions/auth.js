@@ -1,18 +1,67 @@
 import axios from "axios";
-import { returnErrors, createMessage } from "./messages";
-import apiRequest from "../apis/requests";
+import { sendErrors, sendMessage } from "./message";
+import { userAPI } from "../apis/requests";
 import {
   USER_LOADING,
   USER_LOADED,
-  AUTH_ERROR,
+  //   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  GET_ACCESS_TOKEN,
+  //   GET_ACCESS_TOKEN,
   NO_USER_FOUND,
 } from "./types";
 
-export const loadUser = () => (dispatch, getState) => {};
+export const setToken = (getState) => {
+  const token = getState().auth.access;
+  if (token) {
+    axios.defaults.headers = { Authorization: "Bearer " + token };
+    return true;
+  }
+  return false;
+};
 
-export const login = (username, password) => (dispatch, getState) => {};
+export const loadUser = () => (dispatch, getState) => {
+  dispatch({ type: USER_LOADING });
+  if (!setToken(getState)) {
+    dispatch({
+      type: NO_USER_FOUND,
+    });
+    return;
+  }
+  axios.get(userAPI("RETRIEVE")).then((res) => {
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
+    });
+  });
+};
 
-export const tokenConfig = (getState) => {};
+export const login = (user) => (dispatch, getState) => {
+  axios
+    .post(userAPI("LOGIN"), user)
+    .then((res) => {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data,
+      });
+      if (!setToken(getState)) {
+        dispatch({
+          type: NO_USER_FOUND,
+        });
+        return;
+      }
+      axios.get(userAPI("RETRIEVE")).then((res) => {
+        dispatch({
+          type: USER_LOADED,
+          payload: res.data,
+        });
+      });
+    })
+
+    .catch((err) => {
+      dispatch(sendErrors(err.response.data, err.response.status));
+      dispatch({
+        type: LOGIN_FAIL,
+      });
+    });
+};
