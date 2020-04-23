@@ -31,7 +31,23 @@ class Login extends Component {
       [event.target.id]: event.target.value,
     });
   };
-
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      switch (this.props.auth.user.role) {
+        case 0:
+          this.props.history.push("/add-doctor");
+          break;
+        case 1:
+          this.props.history.push("/doctor/profile");
+          break;
+        case 2:
+          this.props.history.push("/patient/profile");
+          break;
+        default:
+          break;
+      }
+    }
+  }
   render() {
     const { username, password } = this.state;
 
