@@ -7,7 +7,7 @@ import {
   //   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  //   GET_ACCESS_TOKEN,
+  GET_ACCESS_TOKEN,
   NO_USER_FOUND,
 } from "./types";
 
@@ -28,12 +28,45 @@ export const loadUser = () => (dispatch, getState) => {
     });
     return;
   }
-  axios.get(userAPI("RETRIEVE")).then((res) => {
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data,
+  axios
+    .get(userAPI("RETRIEVE"))
+    .then((res) => {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch(sendErrors(err.response.data, err.response.status));
+      axios
+        .post(userAPI("REFRESH"), {
+          refresh: localStorage.getItem("ref_token"),
+        })
+        .then((res) => {
+          dispatch({
+            type: GET_ACCESS_TOKEN,
+            payload: res.data,
+          });
+          if (!setToken(getState)) {
+            dispatch({
+              type: NO_USER_FOUND,
+            });
+            return;
+          }
+          axios.get(userAPI("RETRIEVE")).then((res) => {
+            dispatch({
+              type: USER_LOADED,
+              payload: res.data,
+            });
+          });
+        })
+        .catch((err) => {
+          dispatch(sendErrors(err.response.data, err.response.status));
+          dispatch({
+            type: LOGIN_FAIL,
+          });
+        });
     });
-  });
 };
 
 export const login = (user) => (dispatch, getState) => {
@@ -57,7 +90,6 @@ export const login = (user) => (dispatch, getState) => {
         });
       });
     })
-
     .catch((err) => {
       dispatch(sendErrors(err.response.data, err.response.status));
       dispatch({
