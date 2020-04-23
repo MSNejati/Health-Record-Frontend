@@ -16,9 +16,12 @@ class Login extends Component {
     auth: PropTypes.object,
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.props.login(this.state.username, this.state.password);
+  handleSubmit = () => {
+    const user = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+    this.props.login(user);
   };
 
   handleChange = (event) => {

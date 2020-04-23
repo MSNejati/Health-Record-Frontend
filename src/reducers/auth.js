@@ -6,6 +6,7 @@ import {
   LOGIN_FAIL,
   GET_ACCESS_TOKEN,
   NO_USER_FOUND,
+  LOGOUT_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
