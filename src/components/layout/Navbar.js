@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, navLink } from "react-router-dom";
 import "../../css/navbar.css";
 
 class Navbar extends Component {
@@ -18,7 +18,22 @@ class Navbar extends Component {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to="/" className="nav-link">
+                دکتر
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/" className="nav-link">
+                مریض
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/" className="nav-link">
                 درباره ما
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/" className="nav-link">
+                حساب کاربری
               </Link>
             </li>
           </ul>

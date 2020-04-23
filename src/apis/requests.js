@@ -10,5 +10,9 @@ export const userAPI = (type) => {
       return `${HOSTNAME}auth/retrieve/`;
     case "REFRESH":
       return `${HOSTNAME}auth/refresh/`;
+    case "MANAGE_PATIENTS":
+      return `${HOSTNAME}auth/manager/patients/`;
+    case "MANAGE_DOCTORS":
+      return `${HOSTNAME}auth/manager/doctors/`;
   }
 };

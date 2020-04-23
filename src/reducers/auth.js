@@ -11,8 +11,8 @@ import {
 
 const initialState = {
   access: localStorage.getItem("acc_token"),
-  isAuthenticated: null,
-  isLoading: false,
+  isAuthenticated: false,
+  isLoading: true,
   user: null,
 };
 
@@ -39,11 +39,10 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         isLoading: true,
       };
-    case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
-      // localStorage.removeItem("acc_token");
-      // localStorage.removeItem("ref_token");
+      localStorage.removeItem("acc_token");
+      localStorage.removeItem("ref_token");
       return {
         ...state,
         access: null,
