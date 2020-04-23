@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
 import "../../css/register.css";
 import "../../css/sidebar.css";
 import { addDoctor } from "./../../actions/auth";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import SideBar from "./sideBar";
 
 class AddDoctor extends Component {
   state = {
@@ -71,34 +71,7 @@ class AddDoctor extends Component {
 
     return (
       <div className="wrapper">
-        <nav id="sidebar" className={this.state.isActive ? "active" : ""}>
-          <div className="sidebar-header">
-            <h3>کارنامه سلامت</h3>
-          </div>
-          <ul className="list-unstyled components">
-            <p> بیمه ایران</p>
-            <li>
-              <Link to="/" className="nav-link">
-                خانه
-              </Link>
-            </li>
-            <li className="active">
-              <Link to="/add-doctor" className="nav-link ">
-                ثبت نام پزشک
-              </Link>
-            </li>
-            <li>
-              <Link to="/add-patient" className="nav-link">
-                ثبت نام بیمار
-              </Link>
-            </li>
-            <li>
-              <Link to="/" className="nav-link">
-                درباره ما
-              </Link>
-            </li>
-          </ul>
-        </nav>
+        <SideBar isActive={this.state.isActive} />
         <div id="content">
           <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
