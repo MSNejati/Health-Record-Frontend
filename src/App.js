@@ -12,6 +12,10 @@ import store from "./store";
 import { loadUser } from "./actions/auth";
 import AddDoctor from "./components/admin/addDoctor";
 import AddPatient from "./components/admin/addPatient";
+import PrivateRoute from "./components/layout/PrivateRoute";
+import CommonRoute from "./components/layout/CommonRoute";
+import DotorProfile from "./components/doctor/DotorProfile";
+import PatientProfile from "./components/patient/PatientProfile";
 
 class App extends Component {
   componentDidMount() {
@@ -22,9 +26,31 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/add-doctor" component={AddDoctor} />
-            <Route exact path="/add-patient" component={AddPatient} />
+            <CommonRoute exact path="/login" component={Login} />
+            <PrivateRoute
+              exact
+              path="/add-doctor"
+              component={AddDoctor}
+              role="manager"
+            />
+            <PrivateRoute
+              exact
+              path="/add-patient"
+              component={AddPatient}
+              role="manager"
+            />
+            <PrivateRoute
+              exact
+              path="/doctor/profile"
+              component={DotorProfile}
+              role="doctor"
+            />
+            <PrivateRoute
+              exact
+              path="/patient/profile"
+              component={PatientProfile}
+              role="patient"
+            />
           </Switch>
         </Router>
       </Provider>
