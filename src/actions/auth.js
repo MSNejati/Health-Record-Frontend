@@ -11,7 +11,7 @@ import {
   NO_USER_FOUND,
 } from "./types";
 
-export const setToken = (getState) => {
+const setToken = (getState) => {
   const token = getState().auth.access;
   if (token) {
     axios.defaults.headers = { Authorization: "Bearer " + token };
@@ -96,4 +96,16 @@ export const login = (user) => (dispatch, getState) => {
         type: LOGIN_FAIL,
       });
     });
+};
+
+export const addPatient = (patient) => (dispatch) => {
+  axios.post(userAPI("MANAGE_PATIENTS"), patient).catch((err) => {
+    dispatch(sendErrors(err.response.data, err.response.status));
+  });
+};
+
+export const addDoctor = (doctor) => (dispatch) => {
+  axios.post(userAPI("MANAGE_DOCTORS"), doctor).catch((err) => {
+    dispatch(sendErrors(err.response.data, err.response.status));
+  });
 };
