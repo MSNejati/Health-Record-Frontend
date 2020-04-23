@@ -14,5 +14,7 @@ export const userAPI = (type) => {
       return `${HOSTNAME}auth/manager/patients/`;
     case "MANAGE_DOCTORS":
       return `${HOSTNAME}auth/manager/doctors/`;
+    case "PROFILE":
+      return `${HOSTNAME}auth/profile/`;
   }
 };
