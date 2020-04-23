@@ -4,11 +4,11 @@ import { userAPI } from "../apis/requests";
 import {
   USER_LOADING,
   USER_LOADED,
-  //   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   GET_ACCESS_TOKEN,
   NO_USER_FOUND,
+  LOGOUT_SUCCESS,
 } from "./types";
 
 const setToken = (getState) => {
@@ -21,7 +21,6 @@ const setToken = (getState) => {
 };
 
 export const loadUser = () => (dispatch, getState) => {
-  dispatch({ type: USER_LOADING });
   if (!setToken(getState)) {
     dispatch({
       type: NO_USER_FOUND,
@@ -73,6 +72,7 @@ export const login = (user) => (dispatch, getState) => {
   axios
     .post(userAPI("LOGIN"), user)
     .then((res) => {
+      dispatch({ type: USER_LOADING });
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -96,6 +96,19 @@ export const login = (user) => (dispatch, getState) => {
         type: LOGIN_FAIL,
       });
     });
+};
+
+export const logout = () => (dispatch) => {
+  axios
+    .post(userAPI("LOGOUT"), {
+      refresh: localStorage.getItem("ref_token"),
+    })
+    .then((res) =>
+      dispatch({
+        type: LOGOUT_SUCCESS,
+        payload: res.data,
+      })
+    );
 };
 
 export const addPatient = (patient) => (dispatch) => {

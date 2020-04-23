@@ -1,4 +1,4 @@
-import { GET_ERRORS, CREATE_MESSAGE } from "./../actions/types";
+import { GET_ERRORS, CREATE_MESSAGE, LOGOUT_SUCCESS } from "./../actions/types";
 
 const initialState = {
   messages: null,
@@ -11,6 +11,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         errors: action.payload,
+      };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        messages: action.payload,
       };
 
     case CREATE_MESSAGE:
