@@ -3,15 +3,22 @@ import SideBar from "./sideBar";
 import axios from "axios";
 import { userAPI } from "./../../apis/requests";
 import Loading from "./../layout/Loading";
-import "./../../css/register.css";
-import ppic from "./../../static/img/51-512.png";
+import "./../../css/profile.css";
+import EditIcon from "./../../static/icons/edit_icon.svg";
+import EditDialog from "./../layout/EditDialog";
 
 export class DotorProfile extends Component {
   state = {
     showingAlert: false,
     isActive: false,
     doctor: null,
+    editField: null,
   };
+
+  onEdit = (field) => {
+    this.setState({ editField: field });
+  };
+
   handleToggleSidebar = (event) => {
     event.preventDefault();
     this.setState({
@@ -42,10 +49,7 @@ export class DotorProfile extends Component {
               </button>
             </div>
           </nav>
-          <div
-            className="my-Register-page"
-            style={{ marginRight: "4vw", fontSize: "1.5em" }}
-          >
+          <div className="my-Register-page">
             <div
               className={
                 this.state.isActive
@@ -58,79 +62,267 @@ export class DotorProfile extends Component {
                   style={{
                     width: "100px",
                     height: "100px",
-                    borderRedius: "100%",
+                    borderRadius: "20%",
                   }}
-                  src={ppic}
+                  src={this.state.doctor.avatar}
                 ></img>
               </div>
-              <div className="card-body">
+              <div className="card-body" style={{ whiteSpace: "nowrap" }}>
                 <div className="form-row">
                   <div className="form-group col-md">
-                    <label htmlFor="firstName" className="float-right ml-2">
+                    <label htmlFor="firstName" className="float-right">
                       نام:
+                      {this.state.doctor.first_name}
+                      <button
+                        type="button"
+                        className="btn float-left p-0"
+                        data-toggle="modal"
+                        data-target="#editDialog"
+                        onClick={() => {
+                          this.onEdit("first_name");
+                        }}
+                      >
+                        <img
+                          src={EditIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt="ویرایش"
+                        ></img>
+                      </button>
                     </label>
-                    {this.state.doctor.first_name}
                   </div>
                   <div className="form-group col-md">
-                    <label htmlFor="lastName" className="float-right ml-2">
+                    <label htmlFor="lastName" className="float-right">
                       نام خانوادگی:
+                      {this.state.doctor.last_name}
+                      <button
+                        type="button"
+                        className="btn float-left p-0"
+                        data-toggle="modal"
+                        data-target="#editDialog"
+                        onClick={() => {
+                          this.onEdit("last_name");
+                        }}
+                      >
+                        <img
+                          src={EditIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt="ویرایش"
+                        ></img>
+                      </button>
                     </label>
-                    {this.state.doctor.last_name}
                   </div>
                   <div className="form-group col-md">
-                    <label htmlFor="lastName" className="float-right ml-2">
+                    <label htmlFor="lastName" className="float-right">
                       کدملی:
+                      {this.state.doctor.user.username}
                     </label>
-                    {this.state.doctor.user.username}
                   </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md">
-                    <label htmlFor="birthDate" className="float-right ml-2">
-                      تاریخ تولد:
+                    <label htmlFor="address" className="float-right">
+                      تلفن ثابت:
+                      <label style={{ direction: "ltr" }}>
+                        {this.state.doctor.phone_number}
+                      </label>
+                      <button
+                        type="button"
+                        className="btn float-left p-0"
+                        data-toggle="modal"
+                        data-target="#editDialog"
+                        onClick={() => {
+                          this.onEdit("phone_number");
+                        }}
+                      >
+                        <img
+                          src={EditIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt="ویرایش"
+                        ></img>
+                      </button>
                     </label>
-                    {this.state.doctor.birth_date}
                   </div>
                   <div className="form-group col-md">
-                    <label htmlFor="phone" className="float-right ml-2">
+                    <label htmlFor="phone" className="float-right">
                       شماره موبایل:
+                      {this.state.doctor.mobile_number}
+                      <button
+                        type="button"
+                        className="btn float-left p-0"
+                        data-toggle="modal"
+                        data-target="#editDialog"
+                        onClick={() => {
+                          this.onEdit("mobile_number");
+                        }}
+                      >
+                        <img
+                          src={EditIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt="ویرایش"
+                        ></img>
+                      </button>
                     </label>
-                    {this.state.doctor.phone_number}
                   </div>
                   <div className="form-group col-md">
-                    <label htmlFor="speciality" className="float-right ml-2">
+                    <label htmlFor="speciality" className="float-right">
                       تخصص:
+                      {this.state.doctor.speciality}
+                      <button
+                        type="button"
+                        className="btn float-left p-0"
+                        data-toggle="modal"
+                        data-target="#editDialog"
+                        onClick={() => {
+                          this.onEdit("speciality");
+                        }}
+                      >
+                        <img
+                          src={EditIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt="ویرایش"
+                        ></img>
+                      </button>
                     </label>
-                    {this.state.doctor.speciality}
                   </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md">
-                    <label htmlFor="address" className="float-right ml-2">
+                    <label htmlFor="birthDate" className="float-right">
+                      تاریخ تولد:
+                      <label style={{ direction: "ltr" }}>
+                        {this.state.doctor.birth_date}
+                      </label>
+                      <button
+                        type="button"
+                        className="btn float-left p-0"
+                        data-toggle="modal"
+                        data-target="#editDialog"
+                        onClick={() => {
+                          this.onEdit("birth_date");
+                        }}
+                      >
+                        <img
+                          src={EditIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt="ویرایش"
+                        ></img>
+                      </button>
+                    </label>
+                  </div>
+                  <div className="form-group col-md">
+                    <label htmlFor="gender" className="float-right">
+                      جنسیت:
+                      {this.state.doctor.gender ? (
+                        <label>زن</label>
+                      ) : (
+                        <label>مرد</label>
+                      )}
+                    </label>
+                  </div>
+                  <div className="form-group col-md">
+                    <label htmlFor="email" className="float-right p-0">
                       ایمیل:
+                      <label style={{ direction: "ltr" }}>
+                        {this.state.doctor.user.email}
+                      </label>
+                      <button
+                        type="button"
+                        className="btn float-left p-0"
+                        data-toggle="modal"
+                        data-target="#editDialog"
+                        onClick={() => {
+                          this.onEdit("email");
+                        }}
+                      >
+                        <img
+                          src={EditIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt="ویرایش"
+                        ></img>
+                      </button>
                     </label>
-                    {this.state.doctor.user.email}
                   </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md">
-                    <label htmlFor="address" className="float-right ml-2">
+                    <label htmlFor="address" className="float-right">
                       آدرس:
+                      {this.state.doctor.address}
+                      <button
+                        type="button"
+                        className="btn float-left p-0"
+                        data-toggle="modal"
+                        data-target="#editDialog"
+                        onClick={() => {
+                          this.onEdit("address");
+                        }}
+                      >
+                        <img
+                          src={EditIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt="ویرایش"
+                        ></img>
+                      </button>
                     </label>
-                    {this.state.doctor.address}
                   </div>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="bio" className="float-right ml-2">
-                    درباره شما:
-                  </label>
-                  {this.state.doctor.bio}
+                <div className="form-row">
+                  <div className="form-group col-md">
+                    <label htmlFor="bio" className="float-right">
+                      درباره شما:
+                      {this.state.doctor.bio}
+                      <button
+                        type="button"
+                        className="btn float-left p-0"
+                        data-toggle="modal"
+                        data-target="#editDialog"
+                        onClick={() => {
+                          this.onEdit("bio");
+                        }}
+                      >
+                        <img
+                          src={EditIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt="ویرایش"
+                        ></img>
+                      </button>
+                    </label>
+                  </div>
                 </div>
+                <button className="btn btn-secondary"> تغییر رمز عبور</button>
               </div>
             </div>
           </div>
         </div>
         <div className="overlay"></div>
+        <EditDialog field={this.state.editField} />
       </div>
     ) : (
       <Loading />
