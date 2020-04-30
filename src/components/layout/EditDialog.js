@@ -13,6 +13,7 @@ const dict = {
   email: "ایمیل",
   speciality: "تخصص",
   bio: "بیو",
+  avatar: "آواتار",
 };
 
 const errorMsg = {
@@ -37,11 +38,17 @@ export class EditProfileDialog extends Component {
     this.state = {
       value: "",
       errors: null,
+      type: "text",
     };
   }
   componentDidUpdate(prev) {
     if (prev.field !== this.props.field) {
       this.setState({ errors: null, value: "" });
+      if (this.props.field === "avatar") {
+        this.setState({ type: "file" });
+      } else {
+        this.setState({ type: "text" });
+      }
     }
   }
   onSubmit = (e) => {
@@ -104,7 +111,7 @@ export class EditProfileDialog extends Component {
                     <div className="col-sm-9">
                       <input
                         value={this.state.value}
-                        type="text"
+                        type={this.state.type}
                         className={
                           this.state.errors
                             ? "form-control is-invalid"
@@ -114,7 +121,6 @@ export class EditProfileDialog extends Component {
                         required
                         name="value"
                         onChange={this.onChange}
-                        ref="value"
                       />
                       <div className="invalid-feedback">
                         {errorMsg[this.props.field]}
@@ -127,9 +133,6 @@ export class EditProfileDialog extends Component {
                     type="button"
                     className="btn btn-outline-danger"
                     data-dismiss="modal"
-                    onClick={() => {
-                      this.refs.value.value = "";
-                    }}
                   >
                     لغو
                   </button>
