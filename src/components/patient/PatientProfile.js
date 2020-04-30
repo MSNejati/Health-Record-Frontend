@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import SideBar from "./sideBar";
 import axios from "axios";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { userAPI } from "./../../apis/requests";
 import Loading from "./../layout/Loading";
 import "./../../css/profile.css";
@@ -16,6 +18,10 @@ export class PatientProfile extends Component {
     editField: null,
   };
 
+  static propTypes = {
+    auth: PropTypes.object,
+  };
+
   onEdit = (field) => {
     this.setState({ editField: field });
   };
@@ -27,9 +33,15 @@ export class PatientProfile extends Component {
     });
   };
   async componentDidMount() {
-    await axios
-      .get(userAPI("PROFILE"))
-      .then((res) => this.setState({ patient: res.data }));
+    if (this.props.auth.user.role === 2) {
+      await axios
+        .get(userAPI("PROFILE"))
+        .then((res) => this.setState({ patient: res.data }));
+    } else if (this.props.auth.user.role === 0) {
+      await axios
+        .get(userAPI("MANAGE_PATIENTS", this.props.match.params.id))
+        .then((res) => this.setState({ patient: res.data }));
+    }
   }
   render() {
     return this.state.patient ? (
@@ -259,21 +271,30 @@ export class PatientProfile extends Component {
                     </label>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#changePassDialog"
-                  className="btn btn-secondary "
-                >
-                  تغییر رمز عبور
-                </button>
+                {this.props.auth.user.role !== 0 ? (
+                  <button
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#changePassDialog"
+                    className="btn btn-secondary "
+                  >
+                    تغییر رمز عبور
+                  </button>
+                ) : null}
               </div>
             </div>
           </div>
         </div>
         <div className="overlay"></div>
-        <EditDialog field={this.state.editField} />
-        <ChangePasswordDialog />
+        <EditDialog
+          field={this.state.editField}
+          api={
+            this.props.auth.user.role === 1
+              ? userAPI("PROFILE")
+              : userAPI("MANAGE_PATIENTS", this.props.match.params.id)
+          }
+        />
+        {this.props.auth.user.role !== 0 ? <ChangePasswordDialog /> : null}
       </div>
     ) : (
       <Loading />
@@ -281,4 +302,10 @@ export class PatientProfile extends Component {
   }
 }
 
-export default PatientProfile;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientProfile);

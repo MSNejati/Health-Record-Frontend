@@ -347,14 +347,16 @@ export class DotorProfile extends Component {
                     </label>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#changePassDialog"
-                  className="btn btn-secondary "
-                >
-                  تغییر رمز عبور
-                </button>
+                {this.props.auth.user.role !== 0 ? (
+                  <button
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#changePassDialog"
+                    className="btn btn-secondary "
+                  >
+                    تغییر رمز عبور
+                  </button>
+                ) : null}
               </div>
             </div>
           </div>
@@ -368,7 +370,7 @@ export class DotorProfile extends Component {
               : userAPI("MANAGE_DOCTORS", this.props.match.params.id)
           }
         />
-        <ChangePasswordDialog />
+        {this.props.auth.user.role !== 0 ? <ChangePasswordDialog /> : null}
       </div>
     ) : (
       <Loading />
