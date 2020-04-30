@@ -6,6 +6,7 @@ import Loading from "./../layout/Loading";
 import "./../../css/profile.css";
 import EditIcon from "./../../static/icons/edit_icon.svg";
 import EditDialog from "./../layout/EditDialog";
+import ChangePasswordDialog from "./../layout/ChangePasswordDialog";
 
 export class DotorProfile extends Component {
   state = {
@@ -66,6 +67,24 @@ export class DotorProfile extends Component {
                   }}
                   src={this.state.doctor.avatar}
                 ></img>
+                <button
+                  type="button"
+                  className="btn float-right p-0"
+                  data-toggle="modal"
+                  data-target="#editDialog"
+                  onClick={() => {
+                    this.onEdit("avatar");
+                  }}
+                >
+                  <img
+                    src={EditIcon}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                    }}
+                    alt="ویرایش"
+                  ></img>
+                </button>
               </div>
               <div className="card-body" style={{ whiteSpace: "nowrap" }}>
                 <div className="form-row">
@@ -316,13 +335,21 @@ export class DotorProfile extends Component {
                     </label>
                   </div>
                 </div>
-                <button className="btn btn-secondary"> تغییر رمز عبور</button>
+                <button
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#changePassDialog"
+                  className="btn btn-secondary "
+                >
+                  تغییر رمز عبور
+                </button>
               </div>
             </div>
           </div>
         </div>
         <div className="overlay"></div>
         <EditDialog field={this.state.editField} />
+        <ChangePasswordDialog />
       </div>
     ) : (
       <Loading />
