@@ -8,7 +8,7 @@ function SideBar(props) {
   return (
     <nav id="sidebar" className={props.isActive ? "active" : ""}>
       <div className="sidebar-header">
-        <h3>کارنامه سلامت</h3>
+        <h3>صفحه‌ی مدیر</h3>
       </div>
       <ul className="list-unstyled components">
         <p> بیمه ایران</p>
@@ -17,12 +17,12 @@ function SideBar(props) {
             خانه
           </Link>
         </li>
-        <li className="active">
+        <li>
           <Link to="/add-doctor" className="nav-link ">
             ثبت نام پزشک
           </Link>
         </li>
-        <li className="active">
+        <li>
           <Link to="/add-patient" className="nav-link">
             ثبت نام بیمار
           </Link>
