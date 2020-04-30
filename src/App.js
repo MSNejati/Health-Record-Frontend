@@ -41,6 +41,16 @@ class App extends Component {
               role="manager"
             />
             <PrivateRoute
+              path="/doctors/:id"
+              component={DotorProfile}
+              role="manage"
+            />
+            <PrivateRoute
+              path="/patients/:id"
+              component={PatientProfile}
+              role="manager"
+            ></PrivateRoute>
+            <PrivateRoute
               exact
               path="/doctor/profile"
               component={DotorProfile}
