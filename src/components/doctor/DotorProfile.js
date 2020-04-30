@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import SideBar from "./sideBar";
 import axios from "axios";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { userAPI } from "./../../apis/requests";
 import Loading from "./../layout/Loading";
 import "./../../css/profile.css";
@@ -16,6 +18,10 @@ export class DotorProfile extends Component {
     editField: null,
   };
 
+  static propTypes = {
+    auth: PropTypes.object,
+  };
+
   onEdit = (field) => {
     this.setState({ editField: field });
   };
@@ -27,9 +33,15 @@ export class DotorProfile extends Component {
     });
   };
   async componentDidMount() {
-    await axios
-      .get(userAPI("PROFILE"))
-      .then((res) => this.setState({ doctor: res.data }));
+    if (this.props.auth.user.role === 1) {
+      await axios
+        .get(userAPI("PROFILE"))
+        .then((res) => this.setState({ doctor: res.data }));
+    } else if (this.props.auth.user.role === 0) {
+      await axios
+        .get(userAPI("MANAGE_DOCTORS", this.props.match.params.id))
+        .then((res) => this.setState({ doctor: res.data }));
+    }
   }
   render() {
     return this.state.doctor ? (
@@ -348,7 +360,14 @@ export class DotorProfile extends Component {
           </div>
         </div>
         <div className="overlay"></div>
-        <EditDialog field={this.state.editField} />
+        <EditDialog
+          field={this.state.editField}
+          api={
+            this.props.auth.user.role === 1
+              ? userAPI("PROFILE")
+              : userAPI("MANAGE_DOCTORS", this.props.match.params.id)
+          }
+        />
         <ChangePasswordDialog />
       </div>
     ) : (
@@ -357,4 +376,10 @@ export class DotorProfile extends Component {
   }
 }
 
-export default DotorProfile;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DotorProfile);

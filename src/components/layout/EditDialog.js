@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { userAPI } from "./../../apis/requests";
 
 const dict = {
   user_name: "نام کاربری",
@@ -56,7 +55,7 @@ export class EditProfileDialog extends Component {
     if (userAttr.includes(this.props.field)) {
       axios
         .patch(
-          userAPI("PROFILE"),
+          this.props.api,
           { user: { [this.props.field]: this.state.value } },
           {}
         )
@@ -66,7 +65,7 @@ export class EditProfileDialog extends Component {
         });
     } else {
       axios
-        .patch(userAPI("PROFILE"), { [this.props.field]: this.state.value }, {})
+        .patch(this.props.api, { [this.props.field]: this.state.value }, {})
         .then((res) => window.location.reload())
         .catch((e) => {
           this.setState({ errors: e.response.data });
