@@ -16,3 +16,11 @@ export const userAPI = (type) => {
       return `${HOSTNAME}auth/manager/doctors/`;
   }
 };
+
+export const doctorAPI = (type, id = "") => {
+  id = id === "" ? id : id + "/";
+  switch (type) {
+    case "TURNS":
+      return `${HOSTNAME}appointment/doctor/turns/${id}`;
+  }
+};
