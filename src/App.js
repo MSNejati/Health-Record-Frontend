@@ -16,6 +16,7 @@ import PrivateRoute from "./components/layout/PrivateRoute";
 import CommonRoute from "./components/layout/CommonRoute";
 import DotorProfile from "./components/doctor/DotorProfile";
 import PatientProfile from "./components/patient/PatientProfile";
+import ManageTurns from "./components/doctor/ManageTurns";
 
 class App extends Component {
   componentDidMount() {
@@ -54,6 +55,12 @@ class App extends Component {
               exact
               path="/doctor/profile"
               component={DotorProfile}
+              role="doctor"
+            />
+            <PrivateRoute
+              exact
+              path="/doctor/turns"
+              component={ManageTurns}
               role="doctor"
             />
             <PrivateRoute

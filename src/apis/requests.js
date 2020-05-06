@@ -21,3 +21,11 @@ export const userAPI = (type, id = "") => {
       return `${HOSTNAME}auth/change-password/`;
   }
 };
+
+export const doctorAPI = (type, id = "") => {
+  id = id === "" ? id : id + "/";
+  switch (type) {
+    case "TURNS":
+      return `${HOSTNAME}appointment/doctor/turns/${id}`;
+  }
+};
