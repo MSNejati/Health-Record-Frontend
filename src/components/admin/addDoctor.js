@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../../css/register.css";
-import "../../css/sidebar.css";
 import { addDoctor } from "./../../actions/auth";
 import { deleteMessage } from "./../../actions/message";
 import PropTypes from "prop-types";

@@ -12,6 +12,7 @@ import DotorProfile from "./components/doctor/DotorProfile";
 import PatientProfile from "./components/patient/PatientProfile";
 import PatientsList from './components/admin/patientsList';
 import DoctorsList from './components/admin/doctorsList';
+import ManageTurns from "./components/doctor/ManageTurns";
 
 class App extends Component {
   componentDidMount() {
@@ -49,9 +50,25 @@ class App extends Component {
               role="manager"
             />
             <PrivateRoute
+              path="/doctors/:id"
+              component={DotorProfile}
+              role="manage"
+            />
+            <PrivateRoute
+              path="/patients/:id"
+              component={PatientProfile}
+              role="manager"
+            ></PrivateRoute>
+            <PrivateRoute
               exact
               path="/doctor/profile"
               component={DotorProfile}
+              role="doctor"
+            />
+            <PrivateRoute
+              exact
+              path="/doctor/turns"
+              component={ManageTurns}
               role="doctor"
             />
             <PrivateRoute
