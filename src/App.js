@@ -10,6 +10,8 @@ import PrivateRoute from "./components/layout/PrivateRoute";
 import CommonRoute from "./components/layout/CommonRoute";
 import DotorProfile from "./components/doctor/DotorProfile";
 import PatientProfile from "./components/patient/PatientProfile";
+import PatientsList from './components/admin/patientsList';
+import DoctorsList from './components/admin/doctorsList';
 
 class App extends Component {
   componentDidMount() {
@@ -22,6 +24,18 @@ class App extends Component {
           <Switch>
             <CommonRoute exact path="/login" component={Login} />
             <CommonRoute exact path="/" component={Login} />
+            <PrivateRoute
+              exact
+              path="/doctors"
+              component={DoctorsList}
+              role="manager"
+            />
+            <PrivateRoute
+              exact
+              path="/patients"
+              component={PatientsList}
+              role="manager"
+            />
             <PrivateRoute
               exact
               path="/add-doctor"

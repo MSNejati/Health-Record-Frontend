@@ -28,6 +28,16 @@ function SideBar(props) {
           </Link>
         </li>
         <li>
+          <Link to="/doctors" className="nav-link">
+            لیست پزشکان
+          </Link>
+        </li>
+        <li>
+          <Link to="/patients" className="nav-link">
+            لیست بیماران
+          </Link>
+        </li>
+        <li>
           <Link to="/" className="nav-link">
             درباره ما
           </Link>
