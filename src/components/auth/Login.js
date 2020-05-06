@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
 import "../../css/login.css";
 import Navbar from "../layout/Navbar";
-import { userAPI } from "../../apis/requests";
 
 class Login extends Component {
   state = {
@@ -15,6 +14,7 @@ class Login extends Component {
   static propTypes = {
     login: PropTypes.func.isRequired,
     auth: PropTypes.object,
+    errors: PropTypes.object,
   };
 
   handleSubmit = (e) => {
@@ -48,6 +48,7 @@ class Login extends Component {
       }
     }
   }
+
   render() {
     const { username, password } = this.state;
 
@@ -72,6 +73,7 @@ class Login extends Component {
                     placeholder="نام کاربری"
                     onChange={this.handleChange}
                     value={username}
+                    required
                   />
                 </div>
                 <div className="form-group pb-1">
@@ -85,6 +87,7 @@ class Login extends Component {
                     placeholder="رمز عبور"
                     onChange={this.handleChange}
                     value={password}
+                    required
                   />
                 </div>
                 <button
@@ -104,7 +107,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors,
+  errors: state.message.errors,
 });
 
 export default connect(mapStateToProps, { login })(Login);
