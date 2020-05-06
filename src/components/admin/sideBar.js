@@ -17,14 +17,24 @@ function SideBar(props) {
             خانه
           </Link>
         </li>
-        <li>
+        <li className={props.isAddPatient ? "" : "active"}>
           <Link to="/add-doctor" className="nav-link ">
             ثبت نام پزشک
           </Link>
         </li>
-        <li>
+        <li className={props.isAddPatient ? "active" : ""}>
           <Link to="/add-patient" className="nav-link">
             ثبت نام بیمار
+          </Link>
+        </li>
+        <li>
+          <Link to="/doctors" className="nav-link">
+            لیست پزشکان
+          </Link>
+        </li>
+        <li>
+          <Link to="/patients" className="nav-link">
+            لیست بیماران
           </Link>
         </li>
         <li>
@@ -32,17 +42,15 @@ function SideBar(props) {
             درباره ما
           </Link>
         </li>
-        <li>
-          <button
-            to="/"
-            type="link"
-            className="nav-link btn btn-danger"
-            onClick={props.logout}
-          >
-            خروج
-          </button>
-        </li>
       </ul>
+      <button
+        to="/"
+        type="link"
+        className="nav-link btn btn-danger"
+        onClick={props.logout}
+      >
+        خروج
+      </button>
     </nav>
   );
 }

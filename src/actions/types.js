@@ -8,3 +8,5 @@ export const NO_USER_FOUND = "NO_USER_FOUND";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const CREATE_MESSAGE = "CREATE_MESSAGE";
 export const GET_ERRORS = "GET_ERRORS";
+export const DELETE_ERROR = "DELETE_ERROR";
+export const DELETE_MESSAGE = "DELETE_MESSAGE";

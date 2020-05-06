@@ -1,12 +1,6 @@
 import React, { Component } from "react";
-import {
-  Switch,
-  Route,
-  Redirect,
-  BrowserRouter as Router,
-} from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import { Provider as AlertProvider } from "react-alert";
 import Login from "./components/auth/Login";
 import store from "./store";
 import { loadUser } from "./actions/auth";
@@ -16,6 +10,8 @@ import PrivateRoute from "./components/layout/PrivateRoute";
 import CommonRoute from "./components/layout/CommonRoute";
 import DotorProfile from "./components/doctor/DotorProfile";
 import PatientProfile from "./components/patient/PatientProfile";
+import PatientsList from './components/admin/patientsList';
+import DoctorsList from './components/admin/doctorsList';
 import ManageTurns from "./components/doctor/ManageTurns";
 
 class App extends Component {
@@ -29,6 +25,18 @@ class App extends Component {
           <Switch>
             <CommonRoute exact path="/login" component={Login} />
             <CommonRoute exact path="/" component={Login} />
+            <PrivateRoute
+              exact
+              path="/doctors"
+              component={DoctorsList}
+              role="manager"
+            />
+            <PrivateRoute
+              exact
+              path="/patients"
+              component={PatientsList}
+              role="manager"
+            />
             <PrivateRoute
               exact
               path="/add-doctor"

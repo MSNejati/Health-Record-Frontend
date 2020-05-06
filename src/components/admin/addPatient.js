@@ -2,9 +2,29 @@ import React, { Component } from "react";
 import "../../css/register.css";
 import "../../css/sidebar.css";
 import { addPatient } from "./../../actions/auth";
+import { deleteMessage } from "./../../actions/message";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import SideBar from "./sideBar";
+import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import DatePicker from "react-modern-calendar-datepicker";
+import Swal from "sweetalert2";
+
+const errorMsg = {
+  user_name: " نام کاربری باید ۱۰ کاراکتر و شامل اعداد انگلیسی باشد.",
+  birth_date: " تاریخ تولد باید به صورت xxxx-xx-xx باشد.",
+  first_name: " نام باید بیشتر از ۳ کاراکتر باشد.",
+  last_name: "نام خانوادگی باید بیشتر از ۳ کاراکتر باشد.",
+  address: "آدرس باید بیشتر از ۳۰ کاراکتر باشد.",
+  mobile_number:
+    " تلفن همراه باید به صورت ۰۹xxxxxxxxx و شامل حروف انگلیسی باشد.",
+  phone_number:
+    "تلفن ثابت باید به صورت xxx-xxxxxxxx  و شامل حروف انگلیسی باشد.",
+  email: " ایمیل نا معتبر است.",
+  speciality: " تخصص باید بیشتر از ۳کاراکتر باشد.",
+  bio: "بیو نامعتبر است.",
+  avatar: "فایل انتخاب شده قابل قبول نیست",
+};
 
 class AddPatient extends Component {
   state = {
@@ -15,12 +35,16 @@ class AddPatient extends Component {
     phone: "",
     address: "",
     nationalId: "",
+    email: "",
+    avatar: "",
     showingAlert: false,
     isActive: false,
+    isAddPatient: true,
   };
   static propTypes = {
     addPatient: PropTypes.func.isRequired,
     auth: PropTypes.object,
+    message: PropTypes.object,
   };
 
   handleSubmit = (event) => {
@@ -36,6 +60,8 @@ class AddPatient extends Component {
       address: this.state.address,
       gender: this.state.gender,
       birth_date: this.state.birthDate,
+      email: this.state.email,
+      // avatar: this.state.avatar,
     };
     this.props.addPatient(patient);
   };
@@ -43,6 +69,12 @@ class AddPatient extends Component {
   handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
+    });
+  };
+
+  handleDateChange = (date) => {
+    this.setState({
+      birthDate: date,
     });
   };
 
@@ -57,25 +89,28 @@ class AddPatient extends Component {
     const {
       firstName,
       lastName,
-      gender,
       birthDate,
       phone,
       address,
       nationalId,
+      email,
+      avatar,
     } = this.state;
 
     return (
       <div className="wrapper">
-        <SideBar isActive={this.state.isActive} />
+        <SideBar
+          isActive={this.state.isActive}
+          isAddPatient={this.state.isAddPatient}
+        />
         <div id="content">
           <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
               <button
                 type="button"
                 id="sidebarCollapse"
-                className="btn btn-info"
+                className="btn btn-info sidebar-button"
                 onClick={this.handleToggleSidebar}
-                style={{ backgroundColor: "#5676f6", borderColor: "#4f6bdb" }}
               >
                 <i className="fas fa-align-right"></i>
                 <span> منوی کاربر</span>
@@ -86,8 +121,8 @@ class AddPatient extends Component {
             <div
               className={
                 this.state.isActive
-                  ? "my-Register-card card text-right active"
-                  : "my-Register-card card text-right"
+                  ? "add-patient-card card text-right active"
+                  : "add-patient-card card text-right"
               }
             >
               <h5 className="card-header text-body text-center pt-3 font-weight-bold">
@@ -102,12 +137,30 @@ class AddPatient extends Component {
                       </label>
                       <input
                         type="text"
-                        className="form-control"
+                        className={
+                          this.props.message.msg
+                            ? this.props.message.msg.first_name
+                              ? "form-control is-invalid"
+                              : "form-control"
+                            : "form-control"
+                        }
                         id="firstName"
                         placeholder="نام"
                         onChange={this.handleChange}
                         value={firstName}
+                        required
                       />
+                      {this.props.message.msg ? (
+                        this.props.message.msg.first_name ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["first_name"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="lastName" className="float-right">
@@ -115,41 +168,96 @@ class AddPatient extends Component {
                       </label>
                       <input
                         type="text"
-                        className="form-control"
+                        className={
+                          this.props.message.msg
+                            ? this.props.message.msg.last_name
+                              ? "form-control is-invalid"
+                              : "form-control"
+                            : "form-control"
+                        }
                         id="lastName"
                         placeholder="نام خانوادگی"
                         onChange={this.handleChange}
                         value={lastName}
+                        required
                       />
+                      {this.props.message.msg ? (
+                        this.props.message.msg.last_name ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["last_name"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                     <div className="form-group col-md">
-                      <label htmlFor="lastName" className="float-right">
+                      <label htmlFor="nationalId" className="float-right">
                         کدملی
                       </label>
                       <input
                         dir="ltr"
                         type="text"
-                        className="form-control"
+                        className={
+                          this.props.message.msg
+                            ? this.props.message.msg.user
+                              ? "form-control is-invalid"
+                              : "form-control"
+                            : "form-control"
+                        }
                         id="nationalId"
                         placeholder="کد ملی"
                         onChange={this.handleChange}
                         value={nationalId}
+                        required
                       />
+                      {this.props.message.msg ? (
+                        this.props.message.msg.user ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["user_name"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                   </div>
                   <div className="form-row">
                     <div className="form-group col-md">
-                      <label htmlFor="birthDate" className="float-right">
-                        تاریخ تولد
+                      <label htmlFor="email" className="float-right">
+                        ایمیل
                       </label>
                       <input
-                        type="date"
-                        className="form-control"
-                        id="birthDate"
-                        placeholder="تاریخ تولد"
+                        dir="ltr"
+                        type="email"
+                        className={
+                          this.props.message.msg
+                            ? this.props.message.msg.email
+                              ? "form-control is-invalid"
+                              : "form-control"
+                            : "form-control"
+                        }
+                        id="email"
+                        placeholder="example@gmail.com"
                         onChange={this.handleChange}
-                        value={birthDate}
+                        value={email}
+                        required
                       />
+                      {this.props.message.msg ? (
+                        this.props.message.msg.email ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["email"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="phone" className="float-right">
@@ -158,45 +266,164 @@ class AddPatient extends Component {
                       <input
                         dir="ltr"
                         type="tel"
-                        className="form-control"
+                        className={
+                          this.props.message.msg
+                            ? this.props.message.msg.mobile_number
+                              ? "form-control is-invalid"
+                              : "form-control"
+                            : "form-control"
+                        }
                         id="phone"
                         placeholder="0912xxxxxxx"
                         onChange={this.handleChange}
                         value={phone}
+                        required
                       />
+                      {this.props.message.msg ? (
+                        this.props.message.msg.mobile_number ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["mobile_number"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                   </div>
                   <div className="form-row">
-                    <div className="form-group col-md">
+                    <div className="form-group col-md-3">
+                      <label htmlFor="birthDate" className="float-right">
+                        تاریخ تولد
+                      </label>
+                      <input
+                        type="date"
+                        className={
+                          this.props.message.msg
+                            ? this.props.message.msg.birth_date
+                              ? "form-control is-invalid"
+                              : "form-control"
+                            : "form-control"
+                        }
+                        id="birthDate"
+                        placeholder="تاریخ تولد"
+                        onChange={this.handleChange}
+                        value={birthDate}
+                        required
+                      />
+                      {this.props.message.msg ? (
+                        this.props.message.msg.birth_date ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["birth_date"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
+                    </div>
+                    <div className="form-group col-md-9">
                       <label htmlFor="address" className="float-right">
                         آدرس
                       </label>
                       <input
                         type="text"
-                        className="form-control"
+                        className={
+                          this.props.message.msg
+                            ? this.props.message.msg.address
+                              ? "form-control is-invalid"
+                              : "form-control"
+                            : "form-control"
+                        }
                         id="address"
                         placeholder="آدرس"
                         onChange={this.handleChange}
                         value={address}
+                        required
                       />
+                      {this.props.message.msg ? (
+                        this.props.message.msg.address ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["address"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                   </div>
-                  <div className="form-group">
-                    <label
-                      htmlFor="gender"
-                      className="float-right"
-                      value={gender}
-                    >
-                      جنسیت
-                    </label>
-                    <select
-                      id="gender"
-                      value={gender}
-                      onChange={this.handleChange}
-                    >
-                      <option value="0">مرد</option>
-                      <option value="1">زن</option>
-                    </select>
+                  <div className="form-row">
+                    <p className="float-right pr-2 pl-2">جنسیت</p>
+                    <div className="form-check">
+                      <div className="form-group col-md">
+                        <label htmlFor="gender" className="float-right">
+                          مرد
+                        </label>
+                        <input
+                          type="radio"
+                          id="gender"
+                          name="gender"
+                          value="0"
+                          checked={this.state.gender === "0"}
+                          onChange={this.handleChange}
+                          className="form-check-input my-radio-button"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="form-check">
+                      <div className="form-group col-md">
+                        <label htmlFor="gender" className="float-right">
+                          زن
+                        </label>
+                        <input
+                          type="radio"
+                          id="gender"
+                          name="gender"
+                          value="1"
+                          checked={this.state.gender === "1"}
+                          onChange={this.handleChange}
+                          className="form-check-input my-radio-button"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group col-md float-right">
+                      <div class="form-group">
+                        <label htmlfor="avatar" className="avatar-label">
+                          عکس پروفایل
+                        </label>
+                        <input
+                          type="file"
+                          className={
+                            this.props.message.msg
+                              ? this.props.message.msg.avatar
+                                ? "form-control-file is-invalid"
+                                : "form-control-file"
+                              : "form-control-file"
+                          }
+                          id="avatar"
+                          value={avatar}
+                          onChange={this.handleChange}
+                        />
+                        {this.props.message.msg ? (
+                          this.props.message.msg.avatar ? (
+                            <div className="invalid-feedback">
+                              {errorMsg["avatar"]}
+                            </div>
+                          ) : (
+                            <div className="invalid-feedback" />
+                          )
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )}
+                      </div>
+                    </div>
                   </div>
                   <button
                     type="submit"
@@ -218,6 +445,7 @@ class AddPatient extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   errors: state.errors,
+  message: state.message,
 });
 
 export default connect(mapStateToProps, { addPatient })(AddPatient);
