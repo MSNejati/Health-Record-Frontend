@@ -61,7 +61,7 @@ class AddPatient extends Component {
       gender: this.state.gender,
       birth_date: this.state.birthDate,
       email: this.state.email,
-      avatar: this.state.avatar,
+      // avatar: this.state.avatar,
     };
     this.props.addPatient(patient);
   };
@@ -138,8 +138,10 @@ class AddPatient extends Component {
                       <input
                         type="text"
                         className={
-                          this.props.message.msg.first_name
-                            ? "form-control is-invalid"
+                          this.props.message.msg
+                            ? this.props.message.msg.first_name
+                              ? "form-control is-invalid"
+                              : "form-control"
                             : "form-control"
                         }
                         id="firstName"
@@ -148,10 +150,14 @@ class AddPatient extends Component {
                         value={firstName}
                         required
                       />
-                      {this.props.message.msg.first_name ? (
-                        <div className="invalid-feedback">
-                          {errorMsg["first_name"]}
-                        </div>
+                      {this.props.message.msg ? (
+                        this.props.message.msg.first_name ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["first_name"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
                       ) : (
                         <div className="invalid-feedback" />
                       )}
@@ -163,8 +169,10 @@ class AddPatient extends Component {
                       <input
                         type="text"
                         className={
-                          this.props.message.msg.last_name
-                            ? "form-control is-invalid"
+                          this.props.message.msg
+                            ? this.props.message.msg.last_name
+                              ? "form-control is-invalid"
+                              : "form-control"
                             : "form-control"
                         }
                         id="lastName"
@@ -173,10 +181,14 @@ class AddPatient extends Component {
                         value={lastName}
                         required
                       />
-                      {this.props.message.msg.last_name ? (
-                        <div className="invalid-feedback">
-                          {errorMsg["last_name"]}
-                        </div>
+                      {this.props.message.msg ? (
+                        this.props.message.msg.last_name ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["last_name"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
                       ) : (
                         <div className="invalid-feedback" />
                       )}
@@ -189,8 +201,10 @@ class AddPatient extends Component {
                         dir="ltr"
                         type="text"
                         className={
-                          this.props.message.msg.user
-                            ? "form-control is-invalid"
+                          this.props.message.msg
+                            ? this.props.message.msg.user
+                              ? "form-control is-invalid"
+                              : "form-control"
                             : "form-control"
                         }
                         id="nationalId"
@@ -199,10 +213,14 @@ class AddPatient extends Component {
                         value={nationalId}
                         required
                       />
-                      {this.props.message.msg.user ? (
-                        <div className="invalid-feedback">
-                          {errorMsg["user_name"]}
-                        </div>
+                      {this.props.message.msg ? (
+                        this.props.message.msg.user ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["user_name"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
                       ) : (
                         <div className="invalid-feedback" />
                       )}
@@ -217,8 +235,10 @@ class AddPatient extends Component {
                         dir="ltr"
                         type="email"
                         className={
-                          this.props.message.msg.email
-                            ? "form-control is-invalid"
+                          this.props.message.msg
+                            ? this.props.message.msg.email
+                              ? "form-control is-invalid"
+                              : "form-control"
                             : "form-control"
                         }
                         id="email"
@@ -227,10 +247,14 @@ class AddPatient extends Component {
                         value={email}
                         required
                       />
-                      {this.props.message.msg.email ? (
-                        <div className="invalid-feedback">
-                          {errorMsg["email"]}
-                        </div>
+                      {this.props.message.msg ? (
+                        this.props.message.msg.email ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["email"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
                       ) : (
                         <div className="invalid-feedback" />
                       )}
@@ -243,8 +267,10 @@ class AddPatient extends Component {
                         dir="ltr"
                         type="tel"
                         className={
-                          this.props.message.msg.mobile_number
-                            ? "form-control is-invalid"
+                          this.props.message.msg
+                            ? this.props.message.msg.mobile_number
+                              ? "form-control is-invalid"
+                              : "form-control"
                             : "form-control"
                         }
                         id="phone"
@@ -253,10 +279,14 @@ class AddPatient extends Component {
                         value={phone}
                         required
                       />
-                      {this.props.message.msg.mobile_number ? (
-                        <div className="invalid-feedback">
-                          {errorMsg["mobile_number"]}
-                        </div>
+                      {this.props.message.msg ? (
+                        this.props.message.msg.mobile_number ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["mobile_number"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
                       ) : (
                         <div className="invalid-feedback" />
                       )}
@@ -270,8 +300,10 @@ class AddPatient extends Component {
                       <input
                         type="date"
                         className={
-                          this.props.message.msg.birth_date
-                            ? "form-control is-invalid"
+                          this.props.message.msg
+                            ? this.props.message.msg.birth_date
+                              ? "form-control is-invalid"
+                              : "form-control"
                             : "form-control"
                         }
                         id="birthDate"
@@ -280,10 +312,14 @@ class AddPatient extends Component {
                         value={birthDate}
                         required
                       />
-                      {this.props.message.msg.bio ? (
-                        <div className="invalid-feedback">
-                          {errorMsg["birth_date"]}
-                        </div>
+                      {this.props.message.msg ? (
+                        this.props.message.msg.birth_date ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["birth_date"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
                       ) : (
                         <div className="invalid-feedback" />
                       )}
@@ -295,8 +331,10 @@ class AddPatient extends Component {
                       <input
                         type="text"
                         className={
-                          this.props.message.msg.address
-                            ? "form-control is-invalid"
+                          this.props.message.msg
+                            ? this.props.message.msg.address
+                              ? "form-control is-invalid"
+                              : "form-control"
                             : "form-control"
                         }
                         id="address"
@@ -305,10 +343,14 @@ class AddPatient extends Component {
                         value={address}
                         required
                       />
-                      {this.props.message.msg.address ? (
-                        <div className="invalid-feedback">
-                          {errorMsg["address"]}
-                        </div>
+                      {this.props.message.msg ? (
+                        this.props.message.msg.address ? (
+                          <div className="invalid-feedback">
+                            {errorMsg["address"]}
+                          </div>
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )
                       ) : (
                         <div className="invalid-feedback" />
                       )}
@@ -359,18 +401,24 @@ class AddPatient extends Component {
                         <input
                           type="file"
                           className={
-                            this.props.message.msg.avatar
-                              ? "form-control-file is-invalid"
+                            this.props.message.msg
+                              ? this.props.message.msg.avatar
+                                ? "form-control-file is-invalid"
+                                : "form-control-file"
                               : "form-control-file"
                           }
                           id="avatar"
                           value={avatar}
                           onChange={this.handleChange}
                         />
-                        {this.props.message.msg.avatar ? (
-                          <div className="invalid-feedback">
-                            {errorMsg["avatar"]}
-                          </div>
+                        {this.props.message.msg ? (
+                          this.props.message.msg.avatar ? (
+                            <div className="invalid-feedback">
+                              {errorMsg["avatar"]}
+                            </div>
+                          ) : (
+                            <div className="invalid-feedback" />
+                          )
                         ) : (
                           <div className="invalid-feedback" />
                         )}
