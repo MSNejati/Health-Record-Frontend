@@ -27,6 +27,7 @@ class App extends Component {
         <Router>
           <Switch>
             <CommonRoute exact path="/login" component={Login} />
+            <CommonRoute exact path="/" component={Login} />
             <PrivateRoute
               exact
               path="/add-doctor"
@@ -39,6 +40,16 @@ class App extends Component {
               component={AddPatient}
               role="manager"
             />
+            <PrivateRoute
+              path="/doctors/:id"
+              component={DotorProfile}
+              role="manage"
+            />
+            <PrivateRoute
+              path="/patients/:id"
+              component={PatientProfile}
+              role="manager"
+            ></PrivateRoute>
             <PrivateRoute
               exact
               path="/doctor/profile"

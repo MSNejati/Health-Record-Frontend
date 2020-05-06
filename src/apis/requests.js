@@ -1,6 +1,7 @@
 const HOSTNAME = "http://localhost:8000/";
 
-export const userAPI = (type) => {
+export const userAPI = (type, id = "") => {
+  id = id === "" ? id : id + "/";
   switch (type) {
     case "LOGIN":
       return `${HOSTNAME}auth/login/`;
@@ -11,8 +12,12 @@ export const userAPI = (type) => {
     case "REFRESH":
       return `${HOSTNAME}auth/refresh/`;
     case "MANAGE_PATIENTS":
-      return `${HOSTNAME}auth/manager/patients/`;
+      return `${HOSTNAME}auth/manager/patients/${id}`;
     case "MANAGE_DOCTORS":
-      return `${HOSTNAME}auth/manager/doctors/`;
+      return `${HOSTNAME}auth/manager/doctors/${id}`;
+    case "PROFILE":
+      return `${HOSTNAME}auth/profile/`;
+    case "CHANGE_PASSWORD":
+      return `${HOSTNAME}auth/change-password/`;
   }
 };

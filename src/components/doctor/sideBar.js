@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { logout } from "./../../actions/auth";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import "../../css/sidebar.css";
 
 function SideBar(props) {
   return (
     <nav id="sidebar" className={props.isActive ? "active" : ""}>
       <div className="sidebar-header">
-        <h3>صفحه‌ی مدیر</h3>
+        <h3>دکتر</h3>
       </div>
       <ul className="list-unstyled components">
         <p> بیمه ایران</p>
@@ -18,13 +19,23 @@ function SideBar(props) {
           </Link>
         </li>
         <li>
-          <Link to="/add-doctor" className="nav-link ">
-            ثبت نام پزشک
+          <Link to="/doctor/profile" className="nav-link ">
+            پروفایل شخصی
           </Link>
         </li>
         <li>
-          <Link to="/add-patient" className="nav-link">
-            ثبت نام بیمار
+          <Link to="/" className="nav-link">
+            مدیریت نوبت ها
+          </Link>
+        </li>
+        <li>
+          <Link to="/" className="nav-link">
+            قرارهای ملاقات
+          </Link>
+        </li>
+        <li>
+          <Link to="/" className="nav-link">
+            موارد دیگر
           </Link>
         </li>
         <li>
