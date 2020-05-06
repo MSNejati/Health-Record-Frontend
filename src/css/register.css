@@ -26,7 +26,7 @@
   margin: 4vw;
   margin-top: 4em;
   min-width: 60vw;
-  background-color: rgba(226, 242, 253, 0.5);
+  background-color: rgba(226, 242, 253, 0.85);
   border: rgb(139, 208, 255) 1px solid;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: all 0.3s;
