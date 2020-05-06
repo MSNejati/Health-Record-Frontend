@@ -47,6 +47,11 @@ a[aria-expanded="true"] {
   background: #4f6bdb;
 }
 
+#sidebar button {
+  margin-right: 10px;
+  width: 80px;
+}
+
 @media (max-width: 1000px) {
   #sidebar {
     margin-right: -300px;

@@ -17,12 +17,12 @@ function SideBar(props) {
             خانه
           </Link>
         </li>
-        <li className="active">
+        <li className={props.isAddPatient ? "" : "active"}>
           <Link to="/add-doctor" className="nav-link ">
             ثبت نام پزشک
           </Link>
         </li>
-        <li className="active">
+        <li className={props.isAddPatient ? "active" : ""}>
           <Link to="/add-patient" className="nav-link">
             ثبت نام بیمار
           </Link>
@@ -32,17 +32,15 @@ function SideBar(props) {
             درباره ما
           </Link>
         </li>
-        <li>
-          <button
-            to="/"
-            type="link"
-            className="nav-link btn btn-danger"
-            onClick={props.logout}
-          >
-            خروج
-          </button>
-        </li>
       </ul>
+      <button
+        to="/"
+        type="link"
+        className="nav-link btn btn-danger"
+        onClick={props.logout}
+      >
+        خروج
+      </button>
     </nav>
   );
 }
