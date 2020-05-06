@@ -1,12 +1,6 @@
 import React, { Component } from "react";
-import {
-  Switch,
-  Route,
-  Redirect,
-  BrowserRouter as Router,
-} from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import { Provider as AlertProvider } from "react-alert";
 import Login from "./components/auth/Login";
 import store from "./store";
 import { loadUser } from "./actions/auth";
@@ -27,6 +21,7 @@ class App extends Component {
         <Router>
           <Switch>
             <CommonRoute exact path="/login" component={Login} />
+            <CommonRoute exact path="/" component={Login} />
             <PrivateRoute
               exact
               path="/add-doctor"

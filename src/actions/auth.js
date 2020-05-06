@@ -1,5 +1,5 @@
 import axios from "axios";
-import { sendErrors, sendMessage } from "./message";
+import { sendErrors } from "./message";
 import { userAPI } from "../apis/requests";
 import {
   USER_LOADING,

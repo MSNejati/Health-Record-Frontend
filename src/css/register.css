@@ -21,42 +21,75 @@
   padding-top: 5em;
 }
 
-.my-Register-card {
+.add-patient-card,
+.add-doctor-card {
   margin: 4vw;
   margin-top: 4em;
-  width: 100%;
   min-width: 60vw;
-  /* max-width: 80vw; */
   background-color: rgba(226, 242, 253, 0.5);
   border: rgb(139, 208, 255) 1px solid;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: all 0.3s;
 }
 
-.my-Register-card.active {
+.add-patient-card {
+  width: 102%;
+}
+
+.add-doctor-card {
+  width: 95%;
+}
+
+.add-patient-card.active,
+.add-doctor-card.active {
   margin: 8vw;
   margin-top: 4em;
 }
 
-.my-Register-card h5 {
+.add-patient-card h5,
+.add-doctor-card h5 {
   font-size: 1.75em;
 }
 
-.my-Register-card form label,
-.my-Register-card form input,
-.my-Register-card form button,
-.my-Register-card form select {
+.add-patient-card form label,
+.add-patient-card form input,
+.add-patient-card form button,
+.add-patient-card form select,
+.add-patient-card form p,
+.add-doctor-card form label,
+.add-doctor-card form input,
+.add-doctor-card form button,
+.add-doctor-card form select,
+.add-doctor-card form p {
   font-size: 1.5em;
 }
 
+.my-radio-button {
+  width: 1em;
+  height: 1em;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.sidebar-button {
+  background-color: #5676f6;
+  border-color: #4f6bdb;
+}
+
+.avatar-label {
+  text-align: center;
+}
+
 @media only screen and (max-width: 1700px) {
-  .my-Register-card {
+  .add-patient-card,
+  .add-doctor-card {
     width: 90%;
   }
 }
 
 @media only screen and (max-width: 1600px) {
-  .my-Register-card {
+  .add-patient-card,
+  .add-doctor-card {
     margin: auto;
     margin-top: 4em;
     width: 95%;
@@ -65,7 +98,8 @@
     border: rgb(139, 208, 255) 1px solid;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-  .my-Register-card.active {
+  .add-patient-card.active,
+  .add-doctor-card.active {
     margin: auto;
     margin-top: 4em;
     width: 95%;
