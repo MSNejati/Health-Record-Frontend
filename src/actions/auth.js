@@ -112,13 +112,19 @@ export const logout = () => (dispatch) => {
 };
 
 export const addPatient = (patient) => (dispatch) => {
-  axios.post(userAPI("MANAGE_PATIENTS"), patient).catch((err) => {
-    dispatch(sendErrors(err.response.data, err.response.status));
-  });
+  axios
+    .post(userAPI("MANAGE_PATIENTS"), patient)
+    .then((res) => window.location.reload())
+    .catch((err) => {
+      dispatch(sendErrors(err.response.data, err.response.status));
+    });
 };
 
 export const addDoctor = (doctor) => (dispatch) => {
-  axios.post(userAPI("MANAGE_DOCTORS"), doctor).catch((err) => {
-    dispatch(sendErrors(err.response.data, err.response.status));
-  });
+  axios
+    .post(userAPI("MANAGE_DOCTORS"), doctor)
+    .then((res) => window.location.reload())
+    .catch((err) => {
+      dispatch(sendErrors(err.response.data, err.response.status));
+    });
 };

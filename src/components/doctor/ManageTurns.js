@@ -7,7 +7,7 @@ import AddTurnForm from "./AddTurnForm";
 import Loading from "./../layout/Loading";
 
 export class ManageTurns extends Component {
-  state = { isActive: true, turns: null, data: null, next: null, prev: null };
+  state = { isActive: false, turns: null, data: null, next: null, prev: null };
   handleToggleSidebar = (event) => {
     event.preventDefault();
     this.setState({
@@ -41,7 +41,7 @@ export class ManageTurns extends Component {
   };
   render() {
     return this.state.turns ? (
-      <div className="d-flex" style={{ backgroundColor: "Azure" }}>
+      <div className="d-flex" style={{ backgroundColor: "#03fcca" }}>
         <SideBar isActive={this.state.isActive} />
         <div id="content" style={{ width: "100%" }}>
           <nav className="navbar navbar-expand-lg" id="page-content-wrapper">
