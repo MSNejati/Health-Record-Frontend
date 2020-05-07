@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { Switch, BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import Login from "./components/auth/Login";
 import store from "./store";

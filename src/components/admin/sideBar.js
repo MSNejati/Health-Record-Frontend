@@ -12,27 +12,28 @@ function SideBar(props) {
       </div>
       <ul className="list-unstyled components">
         <p> بیمه ایران</p>
+
         <li>
           <Link to="/" className="nav-link">
             خانه
           </Link>
         </li>
-        <li className={props.isAddPatient ? "" : "active"}>
+        <li className={props.isList ? "" : props.aboutDoctor ? "active" : ""}>
           <Link to="/add-doctor" className="nav-link ">
             ثبت نام پزشک
           </Link>
         </li>
-        <li className={props.isAddPatient ? "active" : ""}>
+        <li className={props.isList ? "" : props.aboutDoctor ? "" : "active"}>
           <Link to="/add-patient" className="nav-link">
             ثبت نام بیمار
           </Link>
         </li>
-        <li>
+        <li className={props.isList ? (props.aboutDoctor ? "active" : "") : ""}>
           <Link to="/doctors" className="nav-link">
             لیست پزشکان
           </Link>
         </li>
-        <li>
+        <li className={props.isList ? (props.aboutDoctor ? "" : "active") : ""}>
           <Link to="/patients" className="nav-link">
             لیست بیماران
           </Link>
@@ -46,7 +47,7 @@ function SideBar(props) {
       <button
         to="/"
         type="link"
-        className="nav-link btn btn-danger"
+        className="nav-link btn exit-button"
         onClick={props.logout}
       >
         خروج

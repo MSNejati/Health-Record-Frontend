@@ -75,9 +75,10 @@ export class PatientProfile extends Component {
                   style={{
                     width: "100px",
                     height: "100px",
-                    borderRadius: "20%",
+                    borderRadius: "50%",
                   }}
                   src={this.state.patient.avatar}
+                  alt="تصویر پروفایل"
                 ></img>
                 <button
                   type="button"

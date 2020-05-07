@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import SideBar from "./sideBar";
-import "./../../css/manageTurn.css";
 import axios from "axios";
 import { doctorAPI } from "./../../apis/requests";
 import AddTurnForm from "./AddTurnForm";
@@ -113,8 +111,8 @@ export class ManageTurns extends Component {
                     <button
                       className="page-link"
                       onClick={() => {
-                        this.state.current = this.state.next;
-                        // this.setState({ current: this.state.next });
+                        // this.state.current = this.state.next;
+                        this.setState({ current: this.state.next });
 
                         this.getPage();
                       }}
@@ -130,8 +128,8 @@ export class ManageTurns extends Component {
                     <button
                       className="page-link"
                       onClick={() => {
-                        this.state.current = this.state.prev;
-                        // this.setState({ current: this.state.prev });
+                        // this.state.current = this.state.prev;
+                        this.setState({ current: this.state.prev });
                         this.getPage();
                       }}
                     >

@@ -12,6 +12,18 @@
   min-height: 100vh;
   height: 100%;
 }
+.add-button {
+  background-color: #bf28d3f6;
+  color: #ffffff;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.24), 0 15px 40px 0 rgba(0, 0, 0, 0.19);
+}
+
+.add-button:hover {
+  background-color: #ae24c0f6;
+  color: #f1f1f1;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.24),
+    0 5px 15px 0 rgba(0, 0, 0, 0.19);
+}
 
 .wrapper button span {
   font-size: 1.5em;
@@ -27,8 +39,8 @@
   margin-top: 4em;
   min-width: 60vw;
   background-color: rgba(226, 242, 253, 0.85);
-  border: rgb(139, 208, 255) 1px solid;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: #2cbdb1f6 1px solid;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: all 0.3s;
 }
 
@@ -72,18 +84,59 @@
 }
 
 .sidebar-button {
-  background-color: #5676f6;
-  border-color: #4f6bdb;
+  background-color: #2cbdb1f6;
+  border-color: #28aca1f6;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .avatar-label {
   text-align: center;
 }
 
+.my-card {
+  margin: 1.5vw;
+  background-color: rgba(226, 242, 253, 0.9);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  min-width: 80vw;
+  border: #2cbdb1f6 1px solid;
+  font-size: 1.5em;
+  padding-left: 30px;
+  transition: all 0.3s;
+}
+
+.my-card .card-body img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  margin-top: 1.5em;
+}
+
+.profile-button {
+  background-color: #bf28d3f6;
+  color: #ffffff;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2),
+    0 4px 15px 0 rgba(0, 0, 0, 0.19);
+  font-size: 1em;
+}
+
+.profile-button:hover {
+  background-color: #ae24c0f6;
+  color: #f1f1f1;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.24),
+    0 5px 15px 0 rgba(0, 0, 0, 0.19);
+}
+
 @media only screen and (max-width: 1700px) {
   .add-patient-card,
   .add-doctor-card {
     width: 90%;
+  }
+
+  .my-card {
+    margin: 2vw;
+    min-width: 75vw;
   }
 }
 
@@ -93,9 +146,9 @@
     margin: auto;
     margin-top: 4em;
     width: 95%;
-    background-color: rgba(226, 242, 253, 0.5);
+    background-color: rgba(226, 242, 253, 0.85);
     margin-bottom: 4em;
-    border: rgb(139, 208, 255) 1px solid;
+    border: #2cbdb1f6 1px solid;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   .add-patient-card.active,
@@ -103,5 +156,19 @@
     margin: auto;
     margin-top: 4em;
     width: 95%;
+  }
+}
+
+@media only screen and (max-width: 1360px) {
+  .my-card {
+    margin: 2.5vw;
+    min-width: 65vw;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .my-card {
+    margin: 4vw;
+    min-width: 90vw;
   }
 }

@@ -1,41 +1,84 @@
 import React, { Component } from "react";
-import "../../css/listOfUsers.css";
 import axios from "axios";
+import "../../css/register.css";
 import { userAPI } from "../../apis/requests";
 import Loading from "../layout/Loading";
-import "../../css/sidebar.css";
 import SideBar from "./sideBar";
 import { Link } from "react-router-dom";
 
 class listOfPatients extends Component {
   state = {
     doctors: null,
+    isActive: false,
+    aboutDoctor: true,
+    isList: true,
   };
 
   componentDidMount() {
-    axios.get(userAPI("DOCTORS")).then((res) => {
+    axios.get(userAPI("MANAGE_DOCTORS")).then((res) => {
       this.setState({ doctors: res.data.results });
     });
   }
+
+  handleToggleSidebar = (event) => {
+    event.preventDefault();
+    this.setState({
+      isActive: !this.state.isActive,
+    });
+  };
+
   render() {
     const { doctors } = this.state;
     const doctorsList = doctors ? (
       doctors.map((doctor) => {
         return (
-          <div className="card" key={doctor.id}>
+          <div className="my-card" key={doctor.id}>
             <div className="card-body">
-              <span className="card-title">
-                {doctor.first_name} {doctor.last_name}
-              </span>
-              <p className="card-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Perspiciatis accusantium neque reiciendis aperiam exercitationem
-                ut adipisci saepe vel eaque quidem? Modi cupiditate eum in.
-                Blanditiis iusto dolorem explicabo necessitatibus doloremque?
-              </p>
-              <Link to="#" class="btn btn-primary">
-                Profile
-              </Link>
+              <div className="form-row">
+                <div className="form-group col-md-2">
+                  <img src={doctor.avatar} alt="تصویر پروفایل"></img>
+                </div>
+                <div className="form-group col-md-10">
+                  <div className="form-row">
+                    <div className="form-group col-md">
+                      <p>
+                        <strong>نام: </strong> {doctor.first_name}
+                      </p>
+                    </div>
+                    <div className="form-group col-md">
+                      <p>
+                        <strong>نام خانوادگی: </strong> {doctor.last_name}
+                      </p>
+                    </div>
+                    <div className="form-group col-md">
+                      <p>
+                        <strong>کد ملی: </strong> {doctor.user.username}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group col-md">
+                      <p>
+                        <strong>تخصص: </strong> {doctor.speciality}
+                      </p>
+                    </div>
+                    <div className="form-group col-md">
+                      <p>
+                        <strong>شماره موبایل: </strong> {doctor.mobile_number}
+                      </p>
+                    </div>
+                    <div className="form-group col-md">
+                      <Link
+                        to={"/doctors/" + doctor.id}
+                        className="btn profile-button"
+                        style={{ float: "left" }}
+                      >
+                        پروفایل
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         );
@@ -47,7 +90,8 @@ class listOfPatients extends Component {
       <div className="wrapper">
         <SideBar
           isActive={this.state.isActive}
-          isAddPatient={this.state.isAddPatient}
+          isList={this.state.isList}
+          aboutDoctor={this.state.aboutDoctor}
         />
 
         <div id="content">
@@ -67,9 +111,7 @@ class listOfPatients extends Component {
           <div className="my-Register-page">
             <div
               className={
-                this.state.isActive
-                  ? "card text-right active"
-                  : "card text-right"
+                this.state.isActive ? "text-right active" : "text-right"
               }
             >
               {doctorsList}
@@ -77,35 +119,6 @@ class listOfPatients extends Component {
           </div>
         </div>
       </div>
-      //   <div class="card-columns">
-      //     <div className="card testimonial-card mt-2 mb-3">
-      //       {/* <!-- Background color --> */}
-      //       <div className="card-up aqua-gradient"></div>
-
-      //       {/* <!-- Avatar --> */}
-      //       <div className="avatar mx-auto white">
-      //         <img
-      //           src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2831%29.jpg"
-      //           className="rounded-circle img-responsive"
-      //           alt="woman avatar"
-      //         />
-      //       </div>
-
-      //       {/* <!-- Content --> */}
-      //       <div className="card-body">
-      //         {/* <!-- Name --> */}
-      //         <h4 className="card-title font-weight-bold">Martha Smith</h4>
-      //         <hr />
-      //         {/* <!-- Quotation --> */}
-      //         <p>
-      //           Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
-      //           aperiam neque similique non porro blanditiis minus nostrum soluta,
-      //           aliquam culpa ut dicta deleniti voluptate, explicabo repellat iste
-      //           sit voluptatum fugit?
-      //         </p>
-      //       </div>
-      //     </div>
-      //   </div>
     );
   }
 }

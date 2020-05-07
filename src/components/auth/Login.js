@@ -92,7 +92,7 @@ class Login extends Component {
                 </div>
                 <button
                   type="submit"
-                  className="btn btn-primary z-depth-0 btn-block mb-2"
+                  className="btn z-depth-0 btn-block mb-2 my-button"
                 >
                   ورود به سامانه
                 </button>

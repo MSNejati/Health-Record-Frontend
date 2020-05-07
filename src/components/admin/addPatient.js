@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import "../../css/register.css";
-import "../../css/sidebar.css";
 import { addPatient } from "./../../actions/auth";
-import { deleteMessage } from "./../../actions/message";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import SideBar from "./sideBar";
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import DatePicker from "react-modern-calendar-datepicker";
-import Swal from "sweetalert2";
 
 const errorMsg = {
   user_name: " نام کاربری باید ۱۰ کاراکتر و شامل اعداد انگلیسی باشد.",
@@ -39,7 +34,8 @@ class AddPatient extends Component {
     avatar: "",
     showingAlert: false,
     isActive: false,
-    isAddPatient: true,
+    aboutDoctor: false,
+    isList: false,
   };
   static propTypes = {
     addPatient: PropTypes.func.isRequired,
@@ -101,7 +97,8 @@ class AddPatient extends Component {
       <div className="wrapper">
         <SideBar
           isActive={this.state.isActive}
-          isAddPatient={this.state.isAddPatient}
+          isList={this.state.isList}
+          aboutDoctor={this.state.aboutDoctor}
         />
         <div id="content">
           <nav className="navbar navbar-expand-lg">
@@ -427,7 +424,7 @@ class AddPatient extends Component {
                   </div>
                   <button
                     type="submit"
-                    className="btn btn-primary z-depth-0 btn-block mb-2"
+                    className="btn add-button z-depth-0 btn-block mb-2"
                   >
                     افزودن بیمار
                   </button>

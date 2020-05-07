@@ -19,6 +19,8 @@ export const userAPI = (type, id = "") => {
       return `${HOSTNAME}auth/profile/`;
     case "CHANGE_PASSWORD":
       return `${HOSTNAME}auth/change-password/`;
+    default:
+      return;
   }
 };
 
@@ -27,5 +29,7 @@ export const doctorAPI = (type, id = "") => {
   switch (type) {
     case "TURNS":
       return `${HOSTNAME}appointment/doctor/turns/${id}`;
+    default:
+      return;
   }
 };
