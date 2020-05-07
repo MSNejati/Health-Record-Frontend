@@ -3,9 +3,6 @@ import axios from "axios";
 import { userAPI } from "./../../apis/requests";
 
 export class ChangePassword extends Component {
-  static propTypes = {
-    // prop: PropTypes
-  };
   constructor(props) {
     super(props);
     this.state = {

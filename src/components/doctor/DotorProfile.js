@@ -53,9 +53,8 @@ export class DotorProfile extends Component {
               <button
                 type="button"
                 id="sidebarCollapse"
-                className="btn btn-info"
+                className="btn btn-info sidebar-button"
                 onClick={this.handleToggleSidebar}
-                style={{ backgroundColor: "#5676f6", borderColor: "#4f6bdb" }}
               >
                 <i className="fas fa-align-right"></i>
                 <span> منوی کاربر</span>
@@ -75,9 +74,10 @@ export class DotorProfile extends Component {
                   style={{
                     width: "100px",
                     height: "100px",
-                    borderRadius: "20%",
+                    borderRadius: "50%",
                   }}
                   src={this.state.doctor.avatar}
+                  alt="تصویر پروفایل"
                 ></img>
                 <button
                   type="button"
@@ -352,7 +352,8 @@ export class DotorProfile extends Component {
                     type="button"
                     data-toggle="modal"
                     data-target="#changePassDialog"
-                    className="btn btn-secondary "
+                    className="btn change-button"
+                    style={{ float: "left" }}
                   >
                     تغییر رمز عبور
                   </button>

@@ -5,7 +5,7 @@
   align-items: stretch;
   background-attachment: fixed;
   background-position: center;
-  background-image: url(../static/img/addDoctor-background.jpg);
+  background-image: url(../static/img/doctor-profile.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   position: static;
@@ -13,13 +13,33 @@
   height: 100%;
 }
 
+.wrapper button span {
+  font-size: 1.5em;
+}
+
+.my-Register-page {
+  padding-top: 5em;
+}
+
+.change-button {
+  background-color: #bf28d3f6;
+  color: #ffffff;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.24), 0 15px 40px 0 rgba(0, 0, 0, 0.19);
+}
+
+.change-button:hover {
+  background-color: #ae24c0f6;
+  color: #f1f1f1;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.24),
+    0 5px 15px 0 rgba(0, 0, 0, 0.19);
+}
+
 .my-Register-card {
-  margin: 4vw;
+  margin: 5.5vw;
   margin-top: 4em;
-  width: 100%;
-  min-width: 60vw;
-  background-color: rgba(226, 242, 253, 0.5);
-  border: rgb(139, 208, 255) 1px solid;
+  min-width: 70vw;
+  background-color: rgba(226, 242, 253, 0.85);
+  border: #2cbdb1f6 1px solid;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: all 0.3s;
 }
@@ -29,29 +49,10 @@
   margin-top: 4em;
 }
 
-.my-Register-card h5 {
-  font-size: 1.75em;
-  @media only screen and (max-width: 1700px) {
-    .my-Register-card {
-      width: 80%;
-    }
-  }
-
-  @media only screen and (max-width: 1600px) {
-    .my-Register-card {
-      margin-top: 4em;
-      width: 95%;
-      background-color: rgba(226, 242, 253, 0.5);
-      margin-bottom: 1em;
-      border: rgb(139, 208, 255) 1px solid;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-    .my-Register-card.active {
-      margin-top: 4em;
-      width: 95%;
-    }
-  }
+.sidebar-button {
+  background-color: #2cbdb1f6;
+  border-color: #28aca1f6;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .my-Register-card label,
@@ -59,25 +60,33 @@
 .my-Register-card input,
 .my-Register-card button,
 .my-Register-card select {
-  font-size: 12pt;
-}
-@media only screen and (max-width: 1700px) {
-  .my-Register-card {
-    width: 80%;
-  }
+  font-size: 1.2em;
 }
 
 @media only screen and (max-width: 1600px) {
   .my-Register-card {
+    margin-right: 3vw;
     margin-top: 4em;
-    width: 95%;
-    background-color: rgba(226, 242, 253, 0.5);
+    width: 70%;
+    background-color: rgba(226, 242, 253, 0.85);
     margin-bottom: 1em;
-    border: rgb(139, 208, 255) 1px solid;
+    border: #2cbdb1f6 1px solid;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   .my-Register-card.active {
     margin-top: 4em;
     width: 95%;
+  }
+}
+
+@media only screen and (max-width: 1380px) {
+  .my-Register-card {
+    margin: auto;
+    margin-right: 10px;
+    width: 80%;
+  }
+  .my-Register-card.active {
+    margin-top: 4em;
+    width: 90%;
   }
 }

@@ -9,10 +9,9 @@ function SideBar(props) {
   return (
     <nav id="sidebar" className={props.isActive ? "active" : ""}>
       <div className="sidebar-header">
-        <h3>دکتر</h3>
+        <h3>صفحه پزشک</h3>
       </div>
       <ul className="list-unstyled components">
-        <p> بیمه ایران</p>
         <li>
           <Link to="/" className="nav-link">
             خانه
@@ -24,7 +23,7 @@ function SideBar(props) {
           </Link>
         </li>
         <li>
-          <Link to="/" className="nav-link">
+          <Link to="/doctor/turns" className="nav-link">
             مدیریت نوبت ها
           </Link>
         </li>
@@ -43,17 +42,15 @@ function SideBar(props) {
             درباره ما
           </Link>
         </li>
-        <li>
-          <button
-            to="/"
-            type="link"
-            className="nav-link btn btn-danger"
-            onClick={props.logout}
-          >
-            خروج
-          </button>
-        </li>
       </ul>
+      <button
+        to="/"
+        type="link"
+        className="nav-link btn exit-button"
+        onClick={props.logout}
+      >
+        خروج
+      </button>
     </nav>
   );
 }

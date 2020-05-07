@@ -5,8 +5,6 @@ import { deleteMessage } from "./../../actions/message";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import SideBar from "./sideBar";
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import DatePicker from "react-modern-calendar-datepicker";
 import Swal from "sweetalert2";
 
 const errorMsg = {
@@ -41,7 +39,8 @@ class AddDoctor extends Component {
     avatar: "",
     showingAlert: false,
     isActive: false,
-    isAddPatient: false,
+    aboutDoctor: true,
+    isList: false,
   };
 
   static propTypes = {
@@ -124,7 +123,8 @@ class AddDoctor extends Component {
       <div className="wrapper">
         <SideBar
           isActive={this.state.isActive}
-          isAddPatient={this.state.isAddPatient}
+          isList={this.state.isList}
+          aboutDoctor={this.state.aboutDoctor}
         />
         <div id="content">
           <nav className="navbar navbar-expand-lg">
@@ -546,7 +546,7 @@ class AddDoctor extends Component {
                   </div>
                   <button
                     type="submit"
-                    className="btn btn-primary z-depth-0 btn-block mb-2"
+                    className="btn add-button z-depth-0 btn-block mb-2"
                   >
                     افزودن پزشک
                   </button>
