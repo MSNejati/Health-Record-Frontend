@@ -1,5 +1,4 @@
 import {
-  GET_ERRORS,
   CREATE_MESSAGE,
   LOGOUT_SUCCESS,
   DELETE_ERROR,
@@ -13,12 +12,6 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_ERRORS:
-      return {
-        msg: action.payload.msg,
-        status: action.payload.status,
-      };
-
     case DELETE_ERROR:
       return {
         msg: {},

@@ -10,8 +10,8 @@ import PrivateRoute from "./components/layout/PrivateRoute";
 import CommonRoute from "./components/layout/CommonRoute";
 import DotorProfile from "./components/doctor/DotorProfile";
 import PatientProfile from "./components/patient/PatientProfile";
-import PatientsList from './components/admin/patientsList';
-import DoctorsList from './components/admin/doctorsList';
+import PatientsList from "./components/admin/patientsList";
+import DoctorsList from "./components/admin/doctorsList";
 import ManageTurns from "./components/doctor/ManageTurns";
 
 class App extends Component {
