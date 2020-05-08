@@ -3,8 +3,9 @@ import axios from "axios";
 import "../../css/register.css";
 import { userAPI } from "../../apis/requests";
 import Loading from "../layout/Loading";
-import SideBar from "./sideBar";
 import { Link } from "react-router-dom";
+import SideBar from "./../layout/SideBar";
+import SideBarToggler from "./../layout/SideBarToggler";
 
 class listOfPatients extends Component {
   state = {
@@ -88,26 +89,9 @@ class listOfPatients extends Component {
     );
     return (
       <div className="wrapper">
-        <SideBar
-          isActive={this.state.isActive}
-          isList={this.state.isList}
-          aboutDoctor={this.state.aboutDoctor}
-        />
-
+        <SideBar />
         <div id="content">
-          <nav className="navbar navbar-expand-lg">
-            <div className="container-fluid">
-              <button
-                type="button"
-                id="sidebarCollapse"
-                className="btn btn-info sidebar-button"
-                onClick={this.handleToggleSidebar}
-              >
-                <i className="fas fa-align-right"></i>
-                <span> منوی کاربر</span>
-              </button>
-            </div>
-          </nav>
+          <SideBarToggler />
           <div className="my-Register-page">
             <div
               className={

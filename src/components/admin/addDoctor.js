@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import "../../css/register.css";
-import { addDoctor } from "./../../actions/auth";
 import { deleteMessage } from "./../../actions/message";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import SideBar from "./sideBar";
 import Swal from "sweetalert2";
+import { userAPI } from "./../../apis/requests";
+import axios from "axios";
+import SideBarToggler from "./../layout/SideBarToggler";
+import SideBar from "./../layout/SideBar";
 
 const errorMsg = {
   user_name: " نام کاربری باید ۱۰ کاراکتر و شامل اعداد انگلیسی باشد.",
@@ -25,6 +27,7 @@ const errorMsg = {
 
 class AddDoctor extends Component {
   state = {
+    errors: null,
     firstName: "",
     lastName: "",
     gender: "0",
@@ -44,7 +47,6 @@ class AddDoctor extends Component {
   };
 
   static propTypes = {
-    addDoctor: PropTypes.func.isRequired,
     auth: PropTypes.object,
     deleteMessage: PropTypes.func,
     message: PropTypes.object,
@@ -82,7 +84,12 @@ class AddDoctor extends Component {
       email: this.state.email,
       // avatar: this.state.avatar,
     };
-    this.props.addDoctor(doctor);
+    axios
+      .post(userAPI("MANAGE_DOCTORS"), doctor)
+      .then((res) => window.location.reload())
+      .catch((err) => {
+        this.setState({ errors: err.response.data });
+      });
   };
 
   handleChange = (event) => {
@@ -121,25 +128,9 @@ class AddDoctor extends Component {
 
     return (
       <div className="wrapper">
-        <SideBar
-          isActive={this.state.isActive}
-          isList={this.state.isList}
-          aboutDoctor={this.state.aboutDoctor}
-        />
+        <SideBar />
         <div id="content">
-          <nav className="navbar navbar-expand-lg">
-            <div className="container-fluid">
-              <button
-                type="button"
-                id="sidebarCollapse"
-                className="btn btn-info sidebar-button"
-                onClick={this.handleToggleSidebar}
-              >
-                <i className="fas fa-align-right"></i>
-                <span> منوی کاربر</span>
-              </button>
-            </div>
-          </nav>
+          <SideBarToggler />
           <div className="my-Register-page">
             <div
               className={
@@ -161,8 +152,8 @@ class AddDoctor extends Component {
                       <input
                         type="text"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.first_name
+                          this.state.errors
+                            ? this.state.errors.first_name
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -173,8 +164,8 @@ class AddDoctor extends Component {
                         value={firstName}
                         required
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.first_name ? (
+                      {this.state.errors ? (
+                        this.state.errors.first_name ? (
                           <div className="invalid-feedback">
                             {errorMsg["first_name"]}
                           </div>
@@ -192,8 +183,8 @@ class AddDoctor extends Component {
                       <input
                         type="text"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.last_name
+                          this.state.errors
+                            ? this.state.errors.last_name
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -204,8 +195,8 @@ class AddDoctor extends Component {
                         value={lastName}
                         required
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.last_name ? (
+                      {this.state.errors ? (
+                        this.state.errors.last_name ? (
                           <div className="invalid-feedback">
                             {errorMsg["last_name"]}
                           </div>
@@ -224,8 +215,8 @@ class AddDoctor extends Component {
                         dir="ltr"
                         type="text"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.user
+                          this.state.errors
+                            ? this.state.errors.user
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -236,8 +227,8 @@ class AddDoctor extends Component {
                         value={nationalId}
                         required
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.user ? (
+                      {this.state.errors ? (
+                        this.state.errors.user ? (
                           <div className="invalid-feedback">
                             {errorMsg["user_name"]}
                           </div>
@@ -258,8 +249,8 @@ class AddDoctor extends Component {
                         dir="ltr"
                         type="email"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.email
+                          this.state.errors
+                            ? this.state.errors.email
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -270,8 +261,8 @@ class AddDoctor extends Component {
                         value={email}
                         required
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.email ? (
+                      {this.state.errors ? (
+                        this.state.errors.email ? (
                           <div className="invalid-feedback">
                             {errorMsg["email"]}
                           </div>
@@ -290,8 +281,8 @@ class AddDoctor extends Component {
                         dir="ltr"
                         type="tel"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.mobile_number
+                          this.state.errors
+                            ? this.state.errors.mobile_number
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -302,8 +293,8 @@ class AddDoctor extends Component {
                         value={mobilePhone}
                         required
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.mobile_number ? (
+                      {this.state.errors ? (
+                        this.state.errors.mobile_number ? (
                           <div className="invalid-feedback">
                             {errorMsg["mobile_number"]}
                           </div>
@@ -322,8 +313,8 @@ class AddDoctor extends Component {
                         dir="ltr"
                         type="tel"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.phone_number
+                          this.state.errors
+                            ? this.state.errors.phone_number
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -334,8 +325,8 @@ class AddDoctor extends Component {
                         value={phone}
                         required
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.phone_number ? (
+                      {this.state.errors ? (
+                        this.state.errors.phone_number ? (
                           <div className="invalid-feedback">
                             {errorMsg["phone_number"]}
                           </div>
@@ -355,8 +346,8 @@ class AddDoctor extends Component {
                       <input
                         type="text"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.address
+                          this.state.errors
+                            ? this.state.errors.address
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -367,8 +358,8 @@ class AddDoctor extends Component {
                         value={address}
                         required
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.address ? (
+                      {this.state.errors ? (
+                        this.state.errors.address ? (
                           <div className="invalid-feedback">
                             {errorMsg["address"]}
                           </div>
@@ -386,8 +377,8 @@ class AddDoctor extends Component {
                       <input
                         type="text"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.speciality
+                          this.state.errors
+                            ? this.state.errors.speciality
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -398,8 +389,8 @@ class AddDoctor extends Component {
                         value={speciality}
                         required
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.speciality ? (
+                      {this.state.errors ? (
+                        this.state.errors.speciality ? (
                           <div className="invalid-feedback">
                             {errorMsg["speciality"]}
                           </div>
@@ -419,8 +410,8 @@ class AddDoctor extends Component {
                       <input
                         type="date"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.birth_date
+                          this.state.errors
+                            ? this.state.errors.birth_date
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -431,8 +422,8 @@ class AddDoctor extends Component {
                         value={birthDate}
                         required
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.birth_date ? (
+                      {this.state.errors ? (
+                        this.state.errors.birth_date ? (
                           <div className="invalid-feedback">
                             {errorMsg["birth_date"]}
                           </div>
@@ -450,8 +441,8 @@ class AddDoctor extends Component {
                       <input
                         type="text"
                         className={
-                          this.props.message.msg
-                            ? this.props.message.msg.bio
+                          this.state.errors
+                            ? this.state.errors.bio
                               ? "form-control is-invalid"
                               : "form-control"
                             : "form-control"
@@ -461,8 +452,8 @@ class AddDoctor extends Component {
                         onChange={this.handleChange}
                         value={bio}
                       />
-                      {this.props.message.msg ? (
-                        this.props.message.msg.bio ? (
+                      {this.state.errors ? (
+                        this.state.errors.bio ? (
                           <div className="invalid-feedback">
                             {errorMsg["bio"]}
                           </div>
@@ -520,8 +511,8 @@ class AddDoctor extends Component {
                         <input
                           type="file"
                           className={
-                            this.props.message.msg
-                              ? this.props.message.msg.avatar
+                            this.state.errors
+                              ? this.state.errors.avatar
                                 ? "form-control-file is-invalid"
                                 : "form-control-file"
                               : "form-control-file"
@@ -530,8 +521,8 @@ class AddDoctor extends Component {
                           value={avatar}
                           onChange={this.handleChange}
                         />
-                        {this.props.message.msg ? (
-                          this.props.message.msg.avatar ? (
+                        {this.state.errors ? (
+                          this.state.errors.avatar ? (
                             <div className="invalid-feedback">
                               {errorMsg["avatar"]}
                             </div>
@@ -567,6 +558,4 @@ const mapStateToProps = (state) => ({
   message: state.message,
 });
 
-export default connect(mapStateToProps, { addDoctor, deleteMessage })(
-  AddDoctor
-);
+export default connect(mapStateToProps, { deleteMessage })(AddDoctor);
