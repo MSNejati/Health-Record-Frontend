@@ -10,3 +10,5 @@ export const CREATE_MESSAGE = "CREATE_MESSAGE";
 export const GET_ERRORS = "GET_ERRORS";
 export const DELETE_ERROR = "DELETE_ERROR";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
+
+export const SIDEBAR_TOGGLE = "SIDEBAR_TOGGLE";
