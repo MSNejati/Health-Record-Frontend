@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SideBar from "./sideBar";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -9,6 +8,8 @@ import "./../../css/profile.css";
 import EditIcon from "./../../static/icons/edit_icon.svg";
 import EditDialog from "./../layout/EditDialog";
 import ChangePasswordDialog from "./../layout/ChangePasswordDialog";
+import SideBar from "./../layout/SideBar";
+import SideBarToggler from "./../layout/SideBarToggler";
 
 export class DotorProfile extends Component {
   state = {
@@ -46,21 +47,9 @@ export class DotorProfile extends Component {
   render() {
     return this.state.doctor ? (
       <div className="wrapper">
-        <SideBar isActive={this.state.isActive} />
+        <SideBar />
         <div id="content">
-          <nav className="navbar navbar-expand-lg">
-            <div className="container-fluid">
-              <button
-                type="button"
-                id="sidebarCollapse"
-                className="btn btn-info sidebar-button"
-                onClick={this.handleToggleSidebar}
-              >
-                <i className="fas fa-align-right"></i>
-                <span> منوی کاربر</span>
-              </button>
-            </div>
-          </nav>
+          <SideBarToggler />
           <div className="my-Register-page">
             <div
               className={

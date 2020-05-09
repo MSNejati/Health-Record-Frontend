@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import SideBar from "./sideBar";
 import axios from "axios";
 import { doctorAPI } from "./../../apis/requests";
 import AddTurnForm from "./AddTurnForm";
 import Loading from "./../layout/Loading";
+import SideBar from "./../layout/SideBar";
+import SideBarToggler from "./../layout/SideBarToggler";
 
 export class ManageTurns extends Component {
   state = { isActive: false, turns: null, data: null, next: null, prev: null };
@@ -42,22 +43,9 @@ export class ManageTurns extends Component {
   render() {
     return this.state.turns ? (
       <div className="d-flex" style={{ backgroundColor: "#03fcca" }}>
-        <SideBar isActive={this.state.isActive} />
+        <SideBar />
         <div id="content" style={{ width: "100%" }}>
-          <nav className="navbar navbar-expand-lg" id="page-content-wrapper">
-            <div className="container-fluid">
-              <button
-                type="button"
-                id="sidebarCollapse"
-                className="btn btn-info"
-                onClick={this.handleToggleSidebar}
-                style={{ backgroundColor: "#5676f6", borderColor: "#4f6bdb" }}
-              >
-                <i className="fas fa-align-right"></i>
-                <span> منوی کاربر</span>
-              </button>
-            </div>
-          </nav>
+          <SideBarToggler />
           <div style={{ margin: "2em" }}>
             <div className="card" style={{ minHeight: "690px" }}>
               <table className="table table-striped">

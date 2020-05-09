@@ -68,7 +68,11 @@ class Login extends Component {
                   </label>
                   <input
                     type="text"
-                    className="form-control"
+                    className={
+                      this.props.errors.msg
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     id="username"
                     placeholder="نام کاربری"
                     onChange={this.handleChange}
@@ -82,13 +86,25 @@ class Login extends Component {
                   </label>
                   <input
                     type="password"
-                    className="form-control"
+                    className={
+                      this.props.errors.msg
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     id="password"
                     placeholder="رمز عبور"
                     onChange={this.handleChange}
                     value={password}
                     required
                   />
+                </div>
+                <hr />
+                <div className="m-2 text-danger">
+                  {this.props.errors.msg ? (
+                    "نام کاربری یا رمز عبور شما اشتباه است."
+                  ) : (
+                    <br />
+                  )}
                 </div>
                 <button
                   type="submit"
@@ -107,7 +123,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.message.errors,
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { login })(Login);
