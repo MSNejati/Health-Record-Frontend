@@ -48,22 +48,21 @@ class AddPatient extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const patient = {
-      user: {
-        username: this.state.nationalId,
-        password: this.state.nationalId,
-      },
-      first_name: this.state.firstName,
-      last_name: this.state.lastName,
-      mobile_number: this.state.phone,
-      address: this.state.address,
-      gender: this.state.gender,
-      birth_date: this.state.birthDate,
-      email: this.state.email,
-      // avatar: this.state.avatar,
-    };
+
+    let formData = new FormData();
+    formData.append("user.username", this.state.nationalId);
+    formData.append("user.password", this.state.nationalId);
+    formData.append("user.email", this.state.email);
+    formData.append("first_name", this.state.firstName);
+    formData.append("last_name", this.state.lastName);
+    formData.append("mobile_number", this.state.phone);
+    formData.append("address", this.state.address);
+    formData.append("gender", this.state.gender);
+    formData.append("birth_date", this.state.birthDate);
+    formData.append("avatar", this.state.avatar, this.state.avatar.name);
+
     axios
-      .post(userAPI("MANAGE_PATIENTS"), patient)
+      .post(userAPI("MANAGE_PATIENTS"), formData)
       .then((res) => window.location.reload())
       .catch((err) => {
         this.setState({ errors: err.response.data });
@@ -76,9 +75,9 @@ class AddPatient extends Component {
     });
   };
 
-  handleDateChange = (date) => {
+  handelImageChange = (event) => {
     this.setState({
-      birthDate: date,
+      [event.target.id]: event.target.files[0],
     });
   };
 
@@ -397,8 +396,7 @@ class AddPatient extends Component {
                               : "form-control-file"
                           }
                           id="avatar"
-                          value={avatar}
-                          onChange={this.handleChange}
+                          onChange={this.handelImageChange}
                         />
                         {this.state.errors ? (
                           this.state.errors.avatar ? (

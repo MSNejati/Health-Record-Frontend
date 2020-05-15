@@ -67,25 +67,24 @@ class AddDoctor extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const doctor = {
-      user: {
-        username: this.state.nationalId,
-        password: this.state.nationalId,
-      },
-      first_name: this.state.firstName,
-      last_name: this.state.lastName,
-      mobile_number: this.state.mobilePhone,
-      phone_number: this.state.phone,
-      address: this.state.address,
-      birth_date: this.state.birthDate,
-      speciality: this.state.speciality,
-      bio: this.state.bio,
-      gender: this.state.gender,
-      email: this.state.email,
-      // avatar: this.state.avatar,
-    };
+
+    let formData = new FormData();
+    formData.append("user.username", this.state.nationalId)
+    formData.append("user.password", this.state.nationalId)
+    formData.append("user.email", this.state.email)
+    formData.append("first_name", this.state.firstName)
+    formData.append("last_name", this.state.lastName)
+    formData.append("mobile_number", this.state.mobilePhone)
+    formData.append("phone_number", this.state.phone)
+    formData.append("address", this.state.address)
+    formData.append("birth_date", this.state.birthDate)
+    formData.append("speciality", this.state.speciality)
+    formData.append("bio", this.state.bio)
+    formData.append("gender", this.state.gender)
+    formData.append("avatar", this.state.avatar, this.state.avatar.name)
+
     axios
-      .post(userAPI("MANAGE_DOCTORS"), doctor)
+      .post(userAPI("MANAGE_DOCTORS"), formData)
       .then((res) => window.location.reload())
       .catch((err) => {
         this.setState({ errors: err.response.data });
@@ -98,9 +97,11 @@ class AddDoctor extends Component {
     });
   };
 
-  handleDateChange = (date) => {
+
+
+  handelImageChange = (event) => {
     this.setState({
-      birthDate: date,
+      [event.target.id]: event.target.files[0]
     });
   };
 
@@ -123,7 +124,6 @@ class AddDoctor extends Component {
       bio,
       nationalId,
       email,
-      avatar,
     } = this.state;
 
     return (
@@ -170,11 +170,11 @@ class AddDoctor extends Component {
                             {errorMsg["first_name"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="lastName" className="float-right">
@@ -201,11 +201,11 @@ class AddDoctor extends Component {
                             {errorMsg["last_name"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="nationalId" className="float-right">
@@ -233,11 +233,11 @@ class AddDoctor extends Component {
                             {errorMsg["user_name"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                   </div>
                   <div className="form-row">
@@ -267,11 +267,11 @@ class AddDoctor extends Component {
                             {errorMsg["email"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="mobilePhone" className="float-right">
@@ -299,11 +299,11 @@ class AddDoctor extends Component {
                             {errorMsg["mobile_number"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="phone" className="float-right">
@@ -331,11 +331,11 @@ class AddDoctor extends Component {
                             {errorMsg["phone_number"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                   </div>
                   <div className="form-row">
@@ -364,11 +364,11 @@ class AddDoctor extends Component {
                             {errorMsg["address"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="speciality" className="float-right">
@@ -395,11 +395,11 @@ class AddDoctor extends Component {
                             {errorMsg["speciality"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                   </div>
                   <div className="form-row">
@@ -428,11 +428,11 @@ class AddDoctor extends Component {
                             {errorMsg["birth_date"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                     <div className="form-group col-md-9">
                       <label htmlFor="bio" className="float-right">
@@ -458,11 +458,11 @@ class AddDoctor extends Component {
                             {errorMsg["bio"]}
                           </div>
                         ) : (
-                          <div className="invalid-feedback" />
-                        )
+                            <div className="invalid-feedback" />
+                          )
                       ) : (
-                        <div className="invalid-feedback" />
-                      )}
+                          <div className="invalid-feedback" />
+                        )}
                     </div>
                   </div>
 
@@ -518,8 +518,7 @@ class AddDoctor extends Component {
                               : "form-control-file"
                           }
                           id="avatar"
-                          value={avatar}
-                          onChange={this.handleChange}
+                          onChange={this.handelImageChange}
                         />
                         {this.state.errors ? (
                           this.state.errors.avatar ? (
@@ -527,11 +526,11 @@ class AddDoctor extends Component {
                               {errorMsg["avatar"]}
                             </div>
                           ) : (
-                            <div className="invalid-feedback" />
-                          )
+                              <div className="invalid-feedback" />
+                            )
                         ) : (
-                          <div className="invalid-feedback" />
-                        )}
+                            <div className="invalid-feedback" />
+                          )}
                       </div>
                     </div>
                   </div>
