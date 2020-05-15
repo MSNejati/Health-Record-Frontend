@@ -269,7 +269,7 @@ export class DotorProfile extends Component {
                         data-toggle="modal"
                         data-target="#editDialog"
                         onClick={() => {
-                          this.onEdit("email");
+                          this.onEdit("user.email");
                         }}
                       >
                         <img

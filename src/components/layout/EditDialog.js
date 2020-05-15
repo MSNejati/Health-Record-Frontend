@@ -25,7 +25,7 @@ const errorMsg = {
     " تلفن همراه باید به صورت ۰۹xxxxxxxxx و شامل حروف انگلیسی باشد.",
   phone_number:
     "تلفن ثابت باید به صورت xxx-xxxxxxxx  و شامل حروف انگلیسی باشد.",
-  email: " ایمیل نا معتبر است.",
+  "user.email": " ایمیل نا معتبر است.",
   speciality: " تخصص باید بیشتر از ۳کاراکتر باشد.",
   bio: "بیو نامعتبر است.",
 };
@@ -52,27 +52,26 @@ export class EditProfileDialog extends Component {
   }
   onSubmit = (e) => {
     e.preventDefault();
-    if (userAttr.includes(this.props.field)) {
-      axios
-        .patch(
-          this.props.api,
-          { user: { [this.props.field]: this.state.value } },
-          {}
-        )
-        .then((res) => window.location.reload())
-        .catch((e) => {
-          this.setState({ errors: e.response.data });
-        });
+
+    var fd = new FormData();
+    if (this.props.field === "avatar") {
+      fd.append(this.props.field, this.state.value, this.state.value.name);
     } else {
-      axios
-        .patch(this.props.api, { [this.props.field]: this.state.value }, {})
-        .then((res) => window.location.reload())
-        .catch((e) => {
-          this.setState({ errors: e.response.data });
-        });
+      fd.append(this.props.field, this.state.value);
     }
+
+    axios
+      .patch(this.props.api, fd)
+      .then((res) => window.location.reload())
+      .catch((e) => {
+        this.setState({ errors: e.response.data });
+      });
   };
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) =>
+    this.setState({
+      [e.target.name]:
+        this.props.field === "avatar" ? e.target.files[0] : e.target.value,
+    });
   render() {
     return (
       <div>
@@ -109,7 +108,11 @@ export class EditProfileDialog extends Component {
                     </label>
                     <div className="col-sm-9">
                       <input
-                        value={this.state.value}
+                        value={
+                          this.props.field === "avatar"
+                            ? null
+                            : this.state.value
+                        }
                         type={this.state.type}
                         className={
                           this.state.errors
