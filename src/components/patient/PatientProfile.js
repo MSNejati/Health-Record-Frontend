@@ -219,7 +219,7 @@ export class PatientProfile extends Component {
                         data-toggle="modal"
                         data-target="#editDialog"
                         onClick={() => {
-                          this.onEdit("email");
+                          this.onEdit("user.email");
                         }}
                       >
                         <img
@@ -278,7 +278,7 @@ export class PatientProfile extends Component {
         <EditDialog
           field={this.state.editField}
           api={
-            this.props.auth.user.role === 1
+            this.props.auth.user.role === 2
               ? userAPI("PROFILE")
               : userAPI("MANAGE_PATIENTS", this.props.match.params.id)
           }
