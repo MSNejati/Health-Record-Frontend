@@ -35,26 +35,25 @@
 
 .add-patient-card,
 .add-doctor-card {
-  margin: 4vw;
+  margin-right: 3vw;
   margin-top: 4em;
-  min-width: 60vw;
   background-color: rgba(226, 242, 253, 0.85);
   border: #2cbdb1f6 1px solid;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: all 0.3s;
 }
 
-.add-patient-card {
-  width: 102%;
+.add-doctor-card {
+  width: 105%;
 }
 
-.add-doctor-card {
-  width: 95%;
+.add-patient-card {
+  width: 112%;
 }
 
 .add-patient-card.active,
 .add-doctor-card.active {
-  margin: 8vw;
+  margin-right: 8.5vw;
   margin-top: 4em;
 }
 
@@ -94,15 +93,20 @@
 }
 
 .my-card {
-  margin: 1.5vw;
+  margin-right: 2vw;
   background-color: rgba(226, 242, 253, 0.9);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
-  min-width: 80vw;
+  width: 210%;
   border: #2cbdb1f6 1px solid;
   font-size: 1.5em;
   padding-left: 30px;
   transition: all 0.3s;
+}
+
+.my-card.active {
+  margin-right: 6vw;
+  width: 210%;
 }
 
 .my-card .card-body img {
@@ -131,21 +135,22 @@
 @media only screen and (max-width: 1700px) {
   .add-patient-card,
   .add-doctor-card {
-    width: 90%;
+    width: 93%;
   }
 
   .my-card {
-    margin: 2vw;
-    min-width: 75vw;
+    width: 190%;
+  }
+
+  .my-card.active {
+    width: 195%;
   }
 }
 
 @media only screen and (max-width: 1600px) {
   .add-patient-card,
   .add-doctor-card {
-    margin: auto;
-    margin-top: 4em;
-    width: 95%;
+    width: 92%;
     background-color: rgba(226, 242, 253, 0.85);
     margin-bottom: 4em;
     border: #2cbdb1f6 1px solid;
@@ -153,22 +158,30 @@
   }
   .add-patient-card.active,
   .add-doctor-card.active {
-    margin: auto;
-    margin-top: 4em;
-    width: 95%;
+    width: 85%;
+  }
+
+  .my-card {
+    width: 160%;
+  }
+
+  .my-card.active {
+    width: 175%;
   }
 }
 
 @media only screen and (max-width: 1360px) {
   .my-card {
-    margin: 2.5vw;
-    min-width: 65vw;
+    width: 130%;
+  }
+
+  .my-card.active {
+    width: 150%;
   }
 }
 
 @media only screen and (max-width: 1000px) {
   .my-card {
-    margin: 4vw;
-    min-width: 90vw;
+    width: 90%
   }
 }
