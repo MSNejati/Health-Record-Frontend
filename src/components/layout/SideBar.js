@@ -16,8 +16,12 @@ const items = {
   1: [
     { content: "پروفایل شخصی", path: "/doctor/profile" },
     { content: "مدیریت نوبت ها", path: "/doctor/turns" },
+    { content: "قرارهای ملاقات", path: "/doctor/app" },
   ],
-  2: [{ content: "پروفایل شخصی", path: "/patient/profile" }],
+  2: [
+    { content: "پروفایل شخصی", path: "/patient/profile" },
+    { content: "گرفتن نوبت", path: "/patient/turns" },
+  ],
 };
 
 export const SideBar = (props) => {
