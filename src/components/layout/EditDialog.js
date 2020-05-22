@@ -30,7 +30,6 @@ const errorMsg = {
   bio: "بیو نامعتبر است.",
 };
 
-const userAttr = ["user_name", "email"];
 export class EditProfileDialog extends Component {
   constructor(props) {
     super(props);
@@ -52,7 +51,6 @@ export class EditProfileDialog extends Component {
   }
   onSubmit = (e) => {
     e.preventDefault();
-
     var fd = new FormData();
     if (this.props.field === "avatar") {
       fd.append(this.props.field, this.state.value, this.state.value.name);
@@ -62,7 +60,7 @@ export class EditProfileDialog extends Component {
 
     axios
       .patch(this.props.api, fd)
-      .then((res) => window.location.reload())
+      .then((res) => this.props.set(res.data))
       .catch((e) => {
         this.setState({ errors: e.response.data });
       });

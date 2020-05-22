@@ -44,6 +44,9 @@ export class PatientProfile extends Component {
         .then((res) => this.setState({ patient: res.data }));
     }
   }
+  setPatient = (data) => {
+    this.setState({ patient: data });
+  };
   render() {
     return this.state.patient ? (
       <div className="wrapper">
@@ -277,6 +280,7 @@ export class PatientProfile extends Component {
         <div className="overlay"></div>
         <EditDialog
           field={this.state.editField}
+          set={this.setPatient}
           api={
             this.props.auth.user.role === 2
               ? userAPI("PROFILE")
