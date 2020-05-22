@@ -10,9 +10,13 @@ import PrivateRoute from "./components/layout/PrivateRoute";
 import CommonRoute from "./components/layout/CommonRoute";
 import DotorProfile from "./components/doctor/DotorProfile";
 import PatientProfile from "./components/patient/PatientProfile";
+import Turns from "./components/patient/Turns";
+import Reserve from "./components/patient/Reserve";
 import PatientsList from "./components/admin/patientsList";
 import DoctorsList from "./components/admin/doctorsList";
 import ManageTurns from "./components/doctor/ManageTurns";
+import Appointments from "./components/doctor/Appointments";
+import AppointmentManage from "./components/doctor/AppointmentManage";
 
 class App extends Component {
   componentDidMount() {
@@ -73,8 +77,32 @@ class App extends Component {
             />
             <PrivateRoute
               exact
+              path="/doctor/app"
+              component={Appointments}
+              role="doctor"
+            />
+            <PrivateRoute
+              exact
+              path="/doctor/app/:id"
+              component={AppointmentManage}
+              role="doctor"
+            />
+            <PrivateRoute
+              exact
               path="/patient/profile"
               component={PatientProfile}
+              role="patient"
+            />
+            <PrivateRoute
+              exact
+              path="/patient/turns"
+              component={Turns}
+              role="patient"
+            />
+            <PrivateRoute
+              exact
+              path="/patient/turns/:id"
+              component={Reserve}
               role="patient"
             />
           </Switch>
