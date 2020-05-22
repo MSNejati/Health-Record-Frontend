@@ -20,7 +20,7 @@ export class ManageTurns extends Component {
   componentDidMount() {
     axios
       .get(
-        doctorAPI("CALENDAR"),
+        doctorAPI("CALENDARS"),
         {
           params: {
             ordering: "day,start_time",
@@ -33,7 +33,7 @@ export class ManageTurns extends Component {
           turns: res.data.results,
           next: res.data.next,
           prev: res.data.previous,
-          current: doctorAPI("CALENDAR"),
+          current: doctorAPI("CALENDARS"),
         });
       });
   }
@@ -47,10 +47,10 @@ export class ManageTurns extends Component {
   nextPage = () => {
     axios.get(this.state.next, {}, {}).then((res) => {
       this.setState({
+        current: this.state.next,
         turns: res.data.results,
         next: res.data.next,
         prev: res.data.previous,
-        current: doctorAPI("CALENDAR"),
       });
     });
   };
@@ -58,10 +58,10 @@ export class ManageTurns extends Component {
   prevPage = () => {
     axios.get(this.state.prev, {}, {}).then((res) => {
       this.setState({
+        current: this.state.prev,
         turns: res.data.results,
         next: res.data.next,
         prev: res.data.previous,
-        current: doctorAPI("CALENDAR"),
       });
     });
   };
@@ -72,7 +72,6 @@ export class ManageTurns extends Component {
         turns: res.data.results,
         next: res.data.next,
         prev: res.data.previous,
-        current: doctorAPI("CALENDAR"),
       });
       Swal.fire({
         icon: "success",
@@ -145,11 +144,7 @@ export class ManageTurns extends Component {
                           className="btn btn-danger btn-sm"
                           onClick={() => {
                             axios
-                              .delete(
-                                doctorAPI("DELETECALENDER", turn.id),
-                                {},
-                                {}
-                              )
+                              .delete(doctorAPI("CALENDARS", turn.id), {}, {})
                               .then((res) => {
                                 Swal.fire({
                                   icon: "success",

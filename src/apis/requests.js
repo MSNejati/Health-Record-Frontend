@@ -49,9 +49,7 @@ export const patientAPI = (type, id = "") => {
   switch (type) {
     case "TURNS":
       return `${HOSTNAME}appointment/patient/turns/${id}?limit=6&ordering=day,start_time`;
-    case "CALENDAR":
-      return `${HOSTNAME}appointment/doctor/calendar/`;
-    case "DELETECALENDER":
+    case "CALENDARS":
       return `${HOSTNAME}appointment/doctor/calendar/${id}`;
     default:
       return;

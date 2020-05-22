@@ -27,7 +27,7 @@ export class AddTurnForm extends Component {
       total: this.state.total,
     };
     axios
-      .post(doctorAPI("CALENDAR"), body, {})
+      .post(doctorAPI("CALENDARS"), body, {})
       .then((res) => {
         this.props.onSubmit();
         this.refs.startTime.value = "";
