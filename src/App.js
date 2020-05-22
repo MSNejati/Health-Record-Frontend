@@ -67,7 +67,7 @@ class App extends Component {
             />
             <PrivateRoute
               exact
-              path="/doctor/turns"
+              path="/doctor/calendar"
               component={ManageTurns}
               role="doctor"
             />

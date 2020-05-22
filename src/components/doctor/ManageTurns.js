@@ -6,57 +6,125 @@ import AddTurnForm from "./AddTurnForm";
 import Loading from "./../layout/Loading";
 import SideBar from "./../layout/SideBar";
 import SideBarToggler from "./../layout/SideBarToggler";
+import "../../css/register.css";
+import Swal from "sweetalert2";
 
 export class ManageTurns extends Component {
-  state = { isActive: false, turns: null, data: null, next: null, prev: null };
-  handleToggleSidebar = (event) => {
-    event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
-    });
+  state = {
+    turns: null,
+    next: null,
+    prev: null,
+    current: null,
   };
+
   componentDidMount() {
-    axios.get(doctorAPI("TURNS"), {}, {}).then((res) => {
-      this.setState({
-        turns: res.data.results,
-        next: res.data.next,
-        prev: res.data.previous,
-        current: doctorAPI("TURNS"),
+    axios
+      .get(
+        doctorAPI("CALENDAR"),
+        {
+          params: {
+            ordering: "day,start_time",
+          },
+        },
+        {}
+      )
+      .then((res) => {
+        this.setState({
+          turns: res.data.results,
+          next: res.data.next,
+          prev: res.data.previous,
+          current: doctorAPI("CALENDAR"),
+        });
       });
-    });
   }
+
   parser = (time) => {
     time = time.replace("T", ", ");
     time = time.replace("Z", "");
     return time;
   };
+
+  nextPage = () => {
+    axios.get(this.state.next, {}, {}).then((res) => {
+      this.setState({
+        turns: res.data.results,
+        next: res.data.next,
+        prev: res.data.previous,
+        current: doctorAPI("CALENDAR"),
+      });
+    });
+  };
+
+  prevPage = () => {
+    axios.get(this.state.prev, {}, {}).then((res) => {
+      this.setState({
+        turns: res.data.results,
+        next: res.data.next,
+        prev: res.data.previous,
+        current: doctorAPI("CALENDAR"),
+      });
+    });
+  };
+
   getPage = () => {
     axios.get(this.state.current, {}, {}).then((res) => {
       this.setState({
         turns: res.data.results,
         next: res.data.next,
         prev: res.data.previous,
-        current: doctorAPI("TURNS"),
+        current: doctorAPI("CALENDAR"),
+      });
+      Swal.fire({
+        icon: "success",
+        title: "نوبت با موفقیت افزوده شد",
+        showConfirmButton: false,
+        timer: 2000,
       });
     });
   };
+
   render() {
     return this.state.turns ? (
-      <div className="d-flex" style={{ backgroundColor: "#03fcca" }}>
+      <div className="wrapper">
         <SideBar />
-        <div id="content" style={{ width: "100%" }}>
+        <div id="content">
           <SideBarToggler />
-          <div style={{ margin: "2em" }}>
-            <div className="card" style={{ minHeight: "690px" }}>
-              <table className="table table-striped">
+          <div className="my-Register-page">
+            <div
+              className={
+                this.props.isActive
+                  ? "add-turns-card card text-right active"
+                  : "add-turns-card card text-right"
+              }
+            >
+              <h5 className="card-header text-body text-center pt-3 font-weight-bold">
+                افزودن نوبت
+              </h5>
+              <div className="card-body">
+                <AddTurnForm onSubmit={this.getPage} />
+              </div>
+            </div>
+            <div
+              className={
+                this.props.isActive
+                  ? "add-turns-card card text-right active"
+                  : "add-turns-card card text-right"
+              }
+            >
+              <h5 className="card-header text-body text-center pt-3 font-weight-bold">
+                لیست نوبت های ثبت شده
+              </h5>
+              <table
+                className="table table-striped"
+                style={{ textAlign: "center" }}
+              >
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">زمان آغاز</th>
-                    <th scope="col">زمان پایان</th>
-                    <th scope="col">مریض</th>
-                    <th scope="col">قبول شده</th>
-                    <th scope="col">ملاقات شده</th>
+                    <th scope="col">روز</th>
+                    <th scope="col">ساعت شروع</th>
+                    <th scope="col">تعداد نوبت تعریف شده</th>
+                    <th scope="col">تعداد نوبت باقیمانده</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -65,21 +133,34 @@ export class ManageTurns extends Component {
                     <tr key={turn.id}>
                       <td>{turn.id}</td>
                       <td style={{ direction: "ltr" }}>
-                        {this.parser(turn.start_time)}
+                        {this.parser(turn.day)}
                       </td>
                       <td style={{ direction: "ltr" }}>
-                        {this.parser(turn.end_time)}
+                        {this.parser(turn.start_time)}
                       </td>
-                      <td>{turn.patient ? turn.patient : "ندارد"}</td>
-                      <td>{turn.accepted ? "بله" : "خیر"}</td>
-                      <td>{turn.visited ? "بله" : "خیر"}</td>
+                      <td style={{ direction: "ltr" }}>{turn.total}</td>
+                      <td style={{ direction: "ltr" }}>{turn.remained}</td>
                       <td>
                         <button
                           className="btn btn-danger btn-sm"
                           onClick={() => {
                             axios
-                              .delete(doctorAPI("TURNS", turn.id), {}, {})
-                              .then((res) => window.location.reload());
+                              .delete(
+                                doctorAPI("DELETECALENDER", turn.id),
+                                {},
+                                {}
+                              )
+                              .then((res) => {
+                                Swal.fire({
+                                  icon: "success",
+                                  title: "نوبت با موفقیت حذف شد",
+                                  showConfirmButton: false,
+                                  timer: 2000,
+                                });
+                                setTimeout(() => {
+                                  window.location.reload();
+                                }, 2000);
+                              });
                           }}
                         >
                           حذف
@@ -96,15 +177,7 @@ export class ManageTurns extends Component {
                       this.state.next ? "page-item" : "page-item disabled"
                     }
                   >
-                    <button
-                      className="page-link"
-                      onClick={() => {
-                        // this.state.current = this.state.next;
-                        this.setState({ current: this.state.next });
-
-                        this.getPage();
-                      }}
-                    >
+                    <button className="page-link" onClick={this.nextPage}>
                       &lt; بعدی
                     </button>
                   </li>
@@ -113,21 +186,13 @@ export class ManageTurns extends Component {
                       this.state.prev ? "page-item" : "page-item disabled"
                     }
                   >
-                    <button
-                      className="page-link"
-                      onClick={() => {
-                        // this.state.current = this.state.prev;
-                        this.setState({ current: this.state.prev });
-                        this.getPage();
-                      }}
-                    >
+                    <button className="page-link" onClick={this.prevPage}>
                       قبلی &gt;
                     </button>
                   </li>
                 </ul>
               </nav>
             </div>
-            <AddTurnForm onSubmit={this.getPage} />
           </div>
         </div>
       </div>
@@ -137,7 +202,9 @@ export class ManageTurns extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  isActive: state.sidebar.active,
+});
 
 const mapDispatchToProps = {};
 

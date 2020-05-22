@@ -27,8 +27,10 @@ export const userAPI = (type, id = "") => {
 export const doctorAPI = (type, id = "") => {
   id = id === "" ? id : id + "/";
   switch (type) {
-    case "TURNS":
-      return `${HOSTNAME}appointment/doctor/turns/${id}`;
+    case "CALENDAR":
+      return `${HOSTNAME}appointment/doctor/calendar/`;
+    case "DELETECALENDER":
+      return `${HOSTNAME}appointment/doctor/calendar/${id}`;
     default:
       return;
   }
