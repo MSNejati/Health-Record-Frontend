@@ -7,6 +7,7 @@ import { userAPI } from "./../../apis/requests";
 import axios from "axios";
 import SideBar from "./../layout/SideBar";
 import SideBarToggler from "./../layout/SideBarToggler";
+import Swal from "sweetalert2";
 
 const errorMsg = {
   user_name: " نام کاربری باید ۱۰ کاراکتر و شامل اعداد انگلیسی باشد.",
@@ -37,7 +38,6 @@ class AddPatient extends Component {
     email: "",
     avatar: "",
     showingAlert: false,
-    isActive: false,
     aboutDoctor: false,
     isList: false,
   };
@@ -63,9 +63,25 @@ class AddPatient extends Component {
 
     axios
       .post(userAPI("MANAGE_PATIENTS"), formData)
-      .then((res) => window.location.reload())
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          title: "بیمار باموفقیت افزوده شد",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
       .catch((err) => {
         this.setState({ errors: err.response.data });
+        Swal.fire({
+          icon: "error",
+          title: "عملیات افزودن ناموفق بود",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       });
   };
 
@@ -78,13 +94,6 @@ class AddPatient extends Component {
   handelImageChange = (event) => {
     this.setState({
       [event.target.id]: event.target.files[0],
-    });
-  };
-
-  handleToggleSidebar = (event) => {
-    event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
     });
   };
 
@@ -108,7 +117,7 @@ class AddPatient extends Component {
           <div className="my-Register-page">
             <div
               className={
-                this.state.isActive
+                this.props.isActive
                   ? "add-patient-card card text-right active"
                   : "add-patient-card card text-right"
               }
@@ -433,6 +442,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   errors: state.errors,
   message: state.message,
+  isActive: state.sidebar.active,
 });
 
 export default connect(mapStateToProps, { addPatient })(AddPatient);

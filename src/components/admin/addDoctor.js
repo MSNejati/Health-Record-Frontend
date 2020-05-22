@@ -3,11 +3,11 @@ import "../../css/register.css";
 import { deleteMessage } from "./../../actions/message";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Swal from "sweetalert2";
 import { userAPI } from "./../../apis/requests";
 import axios from "axios";
 import SideBarToggler from "./../layout/SideBarToggler";
 import SideBar from "./../layout/SideBar";
+import Swal from "sweetalert2";
 
 const errorMsg = {
   user_name: " نام کاربری باید ۱۰ کاراکتر و شامل اعداد انگلیسی باشد.",
@@ -41,7 +41,6 @@ class AddDoctor extends Component {
     email: "",
     avatar: "",
     showingAlert: false,
-    isActive: false,
     aboutDoctor: true,
     isList: false,
   };
@@ -52,42 +51,45 @@ class AddDoctor extends Component {
     message: PropTypes.object,
   };
 
-  componentDidMount() {
-    if (this.props.message.status != null) {
-      Swal.fire({
-        position: "center",
-        icon: this.props.message.status,
-        text: this.props.message.msg,
-        showConfirmButton: false,
-        timer: 3000,
-      });
-      this.props.deleteMessage();
-    }
-  }
-
   handleSubmit = (event) => {
     event.preventDefault();
 
     let formData = new FormData();
-    formData.append("user.username", this.state.nationalId)
-    formData.append("user.password", this.state.nationalId)
-    formData.append("user.email", this.state.email)
-    formData.append("first_name", this.state.firstName)
-    formData.append("last_name", this.state.lastName)
-    formData.append("mobile_number", this.state.mobilePhone)
-    formData.append("phone_number", this.state.phone)
-    formData.append("address", this.state.address)
-    formData.append("birth_date", this.state.birthDate)
-    formData.append("speciality", this.state.speciality)
-    formData.append("bio", this.state.bio)
-    formData.append("gender", this.state.gender)
-    formData.append("avatar", this.state.avatar, this.state.avatar.name)
+    formData.append("user.username", this.state.nationalId);
+    formData.append("user.password", this.state.nationalId);
+    formData.append("user.email", this.state.email);
+    formData.append("first_name", this.state.firstName);
+    formData.append("last_name", this.state.lastName);
+    formData.append("mobile_number", this.state.mobilePhone);
+    formData.append("phone_number", this.state.phone);
+    formData.append("address", this.state.address);
+    formData.append("birth_date", this.state.birthDate);
+    formData.append("speciality", this.state.speciality);
+    formData.append("bio", this.state.bio);
+    formData.append("gender", this.state.gender);
+    formData.append("avatar", this.state.avatar, this.state.avatar.name);
 
     axios
       .post(userAPI("MANAGE_DOCTORS"), formData)
-      .then((res) => window.location.reload())
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          title: "پزشک باموفقیت افزوده شد",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
       .catch((err) => {
         this.setState({ errors: err.response.data });
+        Swal.fire({
+          icon: "error",
+          title: "عملیات افزودن ناموفق بود",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       });
   };
 
@@ -97,18 +99,9 @@ class AddDoctor extends Component {
     });
   };
 
-
-
   handelImageChange = (event) => {
     this.setState({
-      [event.target.id]: event.target.files[0]
-    });
-  };
-
-  handleToggleSidebar = (event) => {
-    event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
+      [event.target.id]: event.target.files[0],
     });
   };
 
@@ -134,7 +127,7 @@ class AddDoctor extends Component {
           <div className="my-Register-page">
             <div
               className={
-                this.state.isActive
+                this.props.isActive
                   ? "add-doctor-card card text-right active"
                   : "add-doctor-card card text-right"
               }
@@ -170,11 +163,11 @@ class AddDoctor extends Component {
                             {errorMsg["first_name"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="lastName" className="float-right">
@@ -201,11 +194,11 @@ class AddDoctor extends Component {
                             {errorMsg["last_name"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="nationalId" className="float-right">
@@ -233,11 +226,11 @@ class AddDoctor extends Component {
                             {errorMsg["user_name"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                   </div>
                   <div className="form-row">
@@ -267,11 +260,11 @@ class AddDoctor extends Component {
                             {errorMsg["email"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="mobilePhone" className="float-right">
@@ -299,11 +292,11 @@ class AddDoctor extends Component {
                             {errorMsg["mobile_number"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="phone" className="float-right">
@@ -331,11 +324,11 @@ class AddDoctor extends Component {
                             {errorMsg["phone_number"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                   </div>
                   <div className="form-row">
@@ -364,11 +357,11 @@ class AddDoctor extends Component {
                             {errorMsg["address"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                     <div className="form-group col-md">
                       <label htmlFor="speciality" className="float-right">
@@ -395,11 +388,11 @@ class AddDoctor extends Component {
                             {errorMsg["speciality"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                   </div>
                   <div className="form-row">
@@ -428,11 +421,11 @@ class AddDoctor extends Component {
                             {errorMsg["birth_date"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                     <div className="form-group col-md-9">
                       <label htmlFor="bio" className="float-right">
@@ -458,11 +451,11 @@ class AddDoctor extends Component {
                             {errorMsg["bio"]}
                           </div>
                         ) : (
-                            <div className="invalid-feedback" />
-                          )
-                      ) : (
                           <div className="invalid-feedback" />
-                        )}
+                        )
+                      ) : (
+                        <div className="invalid-feedback" />
+                      )}
                     </div>
                   </div>
 
@@ -526,11 +519,11 @@ class AddDoctor extends Component {
                               {errorMsg["avatar"]}
                             </div>
                           ) : (
-                              <div className="invalid-feedback" />
-                            )
-                        ) : (
                             <div className="invalid-feedback" />
-                          )}
+                          )
+                        ) : (
+                          <div className="invalid-feedback" />
+                        )}
                       </div>
                     </div>
                   </div>
@@ -555,6 +548,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   errors: state.errors,
   message: state.message,
+  isActive: state.sidebar.active,
 });
 
 export default connect(mapStateToProps, { deleteMessage })(AddDoctor);

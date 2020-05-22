@@ -21,6 +21,7 @@ const items = {
   2: [
     { content: "پروفایل شخصی", path: "/patient/profile" },
     { content: "گرفتن نوبت", path: "/patient/turns" },
+    { content: "مدیریت نوبت ها", path: "/doctor/calendar" },
   ],
 };
 

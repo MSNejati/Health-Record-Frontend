@@ -2,19 +2,19 @@ import React, { Component } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { userAPI } from "./../../apis/requests";
-import Loading from "./../layout/Loading";
+import { userAPI } from "../../apis/requests";
+import Loading from "../layout/Loading";
 import "./../../css/profile.css";
 import EditIcon from "./../../static/icons/edit_icon.svg";
-import EditDialog from "./../layout/EditDialog";
-import ChangePasswordDialog from "./../layout/ChangePasswordDialog";
-import SideBar from "./../layout/SideBar";
-import SideBarToggler from "./../layout/SideBarToggler";
+import EditDialog from "../layout/EditDialog";
+import ChangePasswordDialog from "../layout/ChangePasswordDialog";
+import SideBar from "../layout/SideBar";
+import SideBarToggler from "../layout/SideBarToggler";
+import Swal from "sweetalert2";
 
 export class DotorProfile extends Component {
   state = {
     showingAlert: false,
-    isActive: false,
     doctor: null,
     editField: null,
   };
@@ -27,12 +27,38 @@ export class DotorProfile extends Component {
     this.setState({ editField: field });
   };
 
-  handleToggleSidebar = (event) => {
+  handleDelete = (event) => {
     event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
+    const { id } = this.props.match.params;
+    Swal.fire({
+      title: "آيا مطمئن هستید؟",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2cbdb1f6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "بله",
+      cancelButtonText: "خیر",
+    }).then((result) => {
+      if (result.value) {
+        axios
+          .delete(userAPI("MANAGE_DOCTORS", id))
+          .then((res) => {
+            this.props.history.push("/doctors");
+            Swal.fire({
+              title: "حذف با موفقیت انجام شد",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              title: "حذف ناموفق بود",
+              icon: "error",
+            });
+          });
+      }
     });
   };
+
   async componentDidMount() {
     if (this.props.auth.user.role === 1) {
       await axios
@@ -56,7 +82,7 @@ export class DotorProfile extends Component {
           <div className="my-Register-page">
             <div
               className={
-                this.state.isActive
+                this.props.isActive
                   ? "my-Register-card card text-right active"
                   : "my-Register-card card text-right"
               }
@@ -94,7 +120,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="firstName" className="float-right">
-                      نام:
+                      <strong> نام: </strong>
                       {this.state.doctor.first_name}
                       <button
                         type="button"
@@ -118,7 +144,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="lastName" className="float-right">
-                      نام خانوادگی:
+                      <strong> نام خانوادگی: </strong>
                       {this.state.doctor.last_name}
                       <button
                         type="button"
@@ -142,7 +168,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="lastName" className="float-right">
-                      کدملی:
+                      <strong> کدملی: </strong>
                       {this.state.doctor.user.username}
                     </label>
                   </div>
@@ -150,7 +176,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="address" className="float-right">
-                      تلفن ثابت:
+                      <strong> تلفن ثابت: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.doctor.phone_number}
                       </label>
@@ -176,7 +202,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="phone" className="float-right">
-                      شماره موبایل:
+                      <strong> شماره موبایل: </strong>
                       {this.state.doctor.mobile_number}
                       <button
                         type="button"
@@ -200,7 +226,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="speciality" className="float-right">
-                      تخصص:
+                      <strong> تخصص: </strong>
                       {this.state.doctor.speciality}
                       <button
                         type="button"
@@ -226,7 +252,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="birthDate" className="float-right">
-                      تاریخ تولد:
+                      <strong> تاریخ تولد: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.doctor.birth_date}
                       </label>
@@ -252,7 +278,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="gender" className="float-right">
-                      جنسیت:
+                      <strong> جنسیت: </strong>
                       {this.state.doctor.gender ? (
                         <label>زن</label>
                       ) : (
@@ -262,7 +288,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="email" className="float-right p-0">
-                      ایمیل:
+                      <strong> ایمیل: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.doctor.user.email}
                       </label>
@@ -290,7 +316,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="address" className="float-right">
-                      آدرس:
+                      <strong> آدرس: </strong>
                       {this.state.doctor.address}
                       <button
                         type="button"
@@ -316,7 +342,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="bio" className="float-right">
-                      درباره شما:
+                      <strong> درباره شما: </strong>
                       {this.state.doctor.bio}
                       <button
                         type="button"
@@ -350,6 +376,16 @@ export class DotorProfile extends Component {
                     تغییر رمز عبور
                   </button>
                 ) : null}
+                {this.props.auth.user.role === 0 ? (
+                  <button
+                    type="button"
+                    onClick={this.handleDelete}
+                    className="btn delete-button"
+                    style={{ float: "left" }}
+                  >
+                    حذف
+                  </button>
+                ) : null}
               </div>
             </div>
           </div>
@@ -374,6 +410,7 @@ export class DotorProfile extends Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  isActive: state.sidebar.active,
 });
 
 const mapDispatchToProps = {};

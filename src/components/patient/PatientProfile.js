@@ -10,11 +10,11 @@ import EditDialog from "./../layout/EditDialog";
 import ChangePasswordDialog from "./../layout/ChangePasswordDialog";
 import SideBar from "./../layout/SideBar";
 import SideBarToggler from "./../layout/SideBarToggler";
+import Swal from "sweetalert2";
 
 export class PatientProfile extends Component {
   state = {
     showingAlert: false,
-    isActive: false,
     patient: null,
     editField: null,
   };
@@ -27,12 +27,38 @@ export class PatientProfile extends Component {
     this.setState({ editField: field });
   };
 
-  handleToggleSidebar = (event) => {
+  handleDelete = (event) => {
     event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
+    const { id } = this.props.match.params;
+    Swal.fire({
+      title: "آيا مطمئن هستید؟",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2cbdb1f6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "بله",
+      cancelButtonText: "خیر",
+    }).then((result) => {
+      if (result.value) {
+        axios
+          .delete(userAPI("MANAGE_PATIENTS", id))
+          .then((res) => {
+            this.props.history.push("/patients");
+            Swal.fire({
+              title: "حذف با موفقیت انجام شد",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              title: "حذف ناموفق بود",
+              icon: "error",
+            });
+          });
+      }
     });
   };
+
   async componentDidMount() {
     if (this.props.auth.user.role === 2) {
       await axios
@@ -56,7 +82,7 @@ export class PatientProfile extends Component {
           <div className="my-Register-page">
             <div
               className={
-                this.state.isActive
+                this.props.isActive
                   ? "my-Register-card card text-right active"
                   : "my-Register-card card text-right"
               }
@@ -94,7 +120,7 @@ export class PatientProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="firstName" className="float-right ml-2">
-                      نام:
+                      <strong> نام: </strong>
                       {this.state.patient.first_name}
                       <button
                         type="button"
@@ -118,7 +144,7 @@ export class PatientProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="lastName" className="float-right ml-2">
-                      نام خانوادگی:
+                      <strong> نام خانوادگی: </strong>
                       {this.state.patient.last_name}
                       <button
                         type="button"
@@ -142,7 +168,7 @@ export class PatientProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="lastName" className="float-right ml-2">
-                      کدملی:
+                      <strong> کدملی: </strong>
                       {this.state.patient.user.username}
                     </label>
                   </div>
@@ -150,7 +176,7 @@ export class PatientProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="birthDate" className="float-right ml-2">
-                      تاریخ تولد:
+                      <strong> تاریخ تولد: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.patient.birth_date}
                       </label>
@@ -176,7 +202,7 @@ export class PatientProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="phone" className="float-right ml-2">
-                      شماره موبایل:
+                      <strong> شماره موبایل: </strong>
                       {this.state.patient.mobile_number}
                       <button
                         type="button"
@@ -200,7 +226,7 @@ export class PatientProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="phone" className="float-right ml-2">
-                      جنسیت:
+                      <strong> جنسیت: </strong>
                       {this.state.patient.gender ? (
                         <label>زن</label>
                       ) : (
@@ -212,7 +238,7 @@ export class PatientProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="address" className="float-right ml-2">
-                      ایمیل:
+                      <strong> ایمیل: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.patient.user.email}
                       </label>
@@ -240,7 +266,7 @@ export class PatientProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="address" className="float-right ml-2">
-                      آدرس:
+                      <strong> آدرس: </strong>
                       {this.state.patient.address}
                       <button
                         type="button"
@@ -273,6 +299,16 @@ export class PatientProfile extends Component {
                     تغییر رمز عبور
                   </button>
                 ) : null}
+                {this.props.auth.user.role === 0 ? (
+                  <button
+                    type="button"
+                    onClick={this.handleDelete}
+                    className="btn delete-button"
+                    style={{ float: "left" }}
+                  >
+                    حذف
+                  </button>
+                ) : null}
               </div>
             </div>
           </div>
@@ -297,6 +333,7 @@ export class PatientProfile extends Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  isActive: state.sidebar.active,
 });
 
 const mapDispatchToProps = {};
