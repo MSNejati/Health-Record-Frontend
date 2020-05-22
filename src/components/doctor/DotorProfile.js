@@ -70,6 +70,9 @@ export class DotorProfile extends Component {
         .then((res) => this.setState({ doctor: res.data }));
     }
   }
+  setDoctor = (data) => {
+    this.setState({ doctor: data });
+  };
   render() {
     return this.state.doctor ? (
       <div className="wrapper">
@@ -390,6 +393,7 @@ export class DotorProfile extends Component {
         <div className="overlay"></div>
         <EditDialog
           field={this.state.editField}
+          set={this.setDoctor}
           api={
             this.props.auth.user.role === 1
               ? userAPI("PROFILE")
