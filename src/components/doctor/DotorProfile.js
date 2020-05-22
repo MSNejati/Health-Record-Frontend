@@ -27,13 +27,6 @@ export class DotorProfile extends Component {
     this.setState({ editField: field });
   };
 
-  handleToggleSidebar = (event) => {
-    event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
-    });
-  };
-
   handleDelete = (event) => {
     event.preventDefault();
     const { id } = this.props.match.params;
@@ -124,7 +117,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="firstName" className="float-right">
-                      نام:
+                      <strong> نام: </strong>
                       {this.state.doctor.first_name}
                       <button
                         type="button"
@@ -148,7 +141,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="lastName" className="float-right">
-                      نام خانوادگی:
+                      <strong> نام خانوادگی: </strong>
                       {this.state.doctor.last_name}
                       <button
                         type="button"
@@ -172,7 +165,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="lastName" className="float-right">
-                      کدملی:
+                      <strong> کدملی: </strong>
                       {this.state.doctor.user.username}
                     </label>
                   </div>
@@ -180,7 +173,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="address" className="float-right">
-                      تلفن ثابت:
+                      <strong> تلفن ثابت: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.doctor.phone_number}
                       </label>
@@ -206,7 +199,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="phone" className="float-right">
-                      شماره موبایل:
+                      <strong> شماره موبایل: </strong>
                       {this.state.doctor.mobile_number}
                       <button
                         type="button"
@@ -230,7 +223,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="speciality" className="float-right">
-                      تخصص:
+                      <strong> تخصص: </strong>
                       {this.state.doctor.speciality}
                       <button
                         type="button"
@@ -256,7 +249,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="birthDate" className="float-right">
-                      تاریخ تولد:
+                      <strong> تاریخ تولد: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.doctor.birth_date}
                       </label>
@@ -282,7 +275,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="gender" className="float-right">
-                      جنسیت:
+                      <strong> جنسیت: </strong>
                       {this.state.doctor.gender ? (
                         <label>زن</label>
                       ) : (
@@ -292,7 +285,7 @@ export class DotorProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="email" className="float-right p-0">
-                      ایمیل:
+                      <strong> ایمیل: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.doctor.user.email}
                       </label>
@@ -320,7 +313,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="address" className="float-right">
-                      آدرس:
+                      <strong> آدرس: </strong>
                       {this.state.doctor.address}
                       <button
                         type="button"
@@ -346,7 +339,7 @@ export class DotorProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="bio" className="float-right">
-                      درباره شما:
+                      <strong> درباره شما: </strong>
                       {this.state.doctor.bio}
                       <button
                         type="button"

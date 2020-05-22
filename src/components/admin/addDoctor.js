@@ -78,6 +78,9 @@ class AddDoctor extends Component {
           showConfirmButton: false,
           timer: 2000,
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       })
       .catch((err) => {
         this.setState({ errors: err.response.data });
@@ -99,13 +102,6 @@ class AddDoctor extends Component {
   handelImageChange = (event) => {
     this.setState({
       [event.target.id]: event.target.files[0],
-    });
-  };
-
-  handleToggleSidebar = (event) => {
-    event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
     });
   };
 

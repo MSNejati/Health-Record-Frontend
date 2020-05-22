@@ -35,9 +35,10 @@
 }
 
 .my-Register-card {
-  margin-right: 6vw;
+  margin-right: 4vw;
   margin-top: 4em;
-  width: 180%;
+  width: 210%;
+  max-width: 75vw;
   background-color: rgba(226, 242, 253, 0.85);
   border: #2cbdb1f6 1px solid;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -45,8 +46,10 @@
 }
 
 .my-Register-card.active {
-  margin-right: 11vw;
+  margin-right: 9vw;
   margin-top: 4em;
+  width: 210%;
+  max-width: 82vw;
 }
 
 .sidebar-button {
@@ -78,28 +81,36 @@
 
 @media only screen and (max-width: 1700px) {
   .my-Register-card {
-    width: 170%;
+    width: 190%;
+  }
+  .my-Register-card.active {
+    width: 190%;
+    max-width: 82vw;
   }
 }
 
 @media only screen and (max-width: 1600px) {
   .my-Register-card {
-    width: 145%;
+    width: 160%;
+    max-width: 70vw;
     background-color: rgba(226, 242, 253, 0.85);
     margin-bottom: 1em;
     border: #2cbdb1f6 1px solid;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   .my-Register-card.active {
-    width: 155%;
+    width: 165%;
+    max-width: 82vw;
   }
 }
 
 @media only screen and (max-width: 1380px) {
   .my-Register-card {
-    width: 115%;
+    max-width: 65vw;
+    width: 130%;
   }
   .my-Register-card.active {
-    width: 130%;
+    width: 150%;
+    max-width: 80vw;
   }
 }

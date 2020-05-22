@@ -34,31 +34,39 @@
 }
 
 .add-patient-card,
-.add-doctor-card {
+.add-doctor-card,
+.add-turns-card {
   margin-right: 3vw;
-  margin-top: 4em;
   background-color: rgba(226, 242, 253, 0.85);
   border: #2cbdb1f6 1px solid;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: all 0.3s;
 }
 
+.add-turns-card {
+  width: 125%;
+  margin-bottom: 1em;
+}
 .add-doctor-card {
   width: 105%;
+  margin-top: 4em;
 }
 
 .add-patient-card {
   width: 112%;
+  margin-top: 4em;
 }
 
 .add-patient-card.active,
-.add-doctor-card.active {
+.add-doctor-card.active,
+.add-turns-card.active {
   margin-right: 8.5vw;
   margin-top: 4em;
 }
 
 .add-patient-card h5,
-.add-doctor-card h5 {
+.add-doctor-card h5,
+.add-turns-card h5 {
   font-size: 1.75em;
 }
 
@@ -71,7 +79,12 @@
 .add-doctor-card form input,
 .add-doctor-card form button,
 .add-doctor-card form select,
-.add-doctor-card form p {
+.add-doctor-card form p,
+.add-turns-card form label,
+.add-turns-card form input,
+.add-turns-card form button,
+.add-turns-card form select,
+.add-turns-card form p {
   font-size: 1.5em;
 }
 
@@ -93,11 +106,13 @@
 }
 
 .my-card {
+  margin-bottom: 0.5vw;
   margin-right: 2vw;
   background-color: rgba(226, 242, 253, 0.9);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
   width: 210%;
+  max-width: 78vw;
   border: #2cbdb1f6 1px solid;
   font-size: 1.5em;
   padding-left: 30px;
@@ -107,6 +122,7 @@
 .my-card.active {
   margin-right: 6vw;
   width: 210%;
+  max-width: 90vw;
 }
 
 .my-card .card-body img {
@@ -123,6 +139,7 @@
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2),
     0 4px 15px 0 rgba(0, 0, 0, 0.19);
   font-size: 1em;
+  float: left;
 }
 
 .profile-button:hover {
@@ -138,8 +155,13 @@
     width: 93%;
   }
 
+  .add-turns-card {
+    width: 110%;
+  }
+
   .my-card {
     width: 190%;
+    max-width: 77vw;
   }
 
   .my-card.active {
@@ -151,18 +173,32 @@
   .add-patient-card,
   .add-doctor-card {
     width: 92%;
-    background-color: rgba(226, 242, 253, 0.85);
+  }
+
+  .add-patient-card {
     margin-bottom: 4em;
-    border: #2cbdb1f6 1px solid;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .add-doctor-card {
+    margin-bottom: 4em;
+  }
+
+  .add-turns-card {
+    margin-bottom: 1em;
+    width: 95%;
   }
   .add-patient-card.active,
   .add-doctor-card.active {
     width: 85%;
   }
 
+  .add-turns-card.active {
+    width: 105%;
+  }
+
   .my-card {
     width: 160%;
+    max-width: 75vw;
   }
 
   .my-card.active {
@@ -173,6 +209,7 @@
 @media only screen and (max-width: 1360px) {
   .my-card {
     width: 130%;
+    max-width: 70vw;
   }
 
   .my-card.active {
@@ -182,6 +219,7 @@
 
 @media only screen and (max-width: 1000px) {
   .my-card {
-    width: 90%
+    width: 95%;
+    max-width: 100vw;
   }
 }

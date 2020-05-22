@@ -97,13 +97,6 @@ class AddPatient extends Component {
     });
   };
 
-  handleToggleSidebar = (event) => {
-    event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
-    });
-  };
-
   render() {
     const {
       firstName,
