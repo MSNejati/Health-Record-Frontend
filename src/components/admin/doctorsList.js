@@ -6,11 +6,11 @@ import Loading from "../layout/Loading";
 import { Link } from "react-router-dom";
 import SideBar from "./../layout/SideBar";
 import SideBarToggler from "./../layout/SideBarToggler";
+import { connect } from "react-redux";
 
 class listOfPatients extends Component {
   state = {
     doctors: null,
-    isActive: false,
     aboutDoctor: true,
     isList: true,
   };
@@ -33,7 +33,10 @@ class listOfPatients extends Component {
     const doctorsList = doctors ? (
       doctors.map((doctor) => {
         return (
-          <div className="my-card" key={doctor.id}>
+          <div
+            className={this.props.isActive ? "my-card active" : "my-card"}
+            key={doctor.id}
+          >
             <div className="card-body">
               <div className="form-row">
                 <div className="form-group col-md-2">
@@ -107,4 +110,8 @@ class listOfPatients extends Component {
   }
 }
 
-export default listOfPatients;
+const mapStateToProps = (state) => ({
+  isActive: state.sidebar.active,
+});
+
+export default connect(mapStateToProps)(listOfPatients);
