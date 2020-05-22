@@ -22,13 +22,6 @@ class listOfPatients extends Component {
     });
   }
 
-  handleToggleSidebar = (event) => {
-    event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
-    });
-  };
-
   render() {
     const { patients } = this.state;
     const patientsList = patients ? (
@@ -76,7 +69,6 @@ class listOfPatients extends Component {
                       <Link
                         to={"/patients/" + patient.id}
                         className="btn profile-button"
-                        style={{ float: "left" }}
                       >
                         پروفایل
                       </Link>

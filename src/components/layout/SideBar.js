@@ -15,7 +15,7 @@ const items = {
   ],
   1: [
     { content: "پروفایل شخصی", path: "/doctor/profile" },
-    { content: "مدیریت نوبت ها", path: "/doctor/turns" },
+    { content: "مدیریت نوبت ها", path: "/doctor/calendar" },
   ],
   2: [{ content: "پروفایل شخصی", path: "/patient/profile" }],
 };

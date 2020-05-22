@@ -59,12 +59,6 @@ export class PatientProfile extends Component {
     });
   };
 
-  handleToggleSidebar = (event) => {
-    event.preventDefault();
-    this.setState({
-      isActive: !this.state.isActive,
-    });
-  };
   async componentDidMount() {
     if (this.props.auth.user.role === 2) {
       await axios
@@ -123,7 +117,7 @@ export class PatientProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="firstName" className="float-right ml-2">
-                      نام:
+                      <strong> نام: </strong>
                       {this.state.patient.first_name}
                       <button
                         type="button"
@@ -147,7 +141,7 @@ export class PatientProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="lastName" className="float-right ml-2">
-                      نام خانوادگی:
+                      <strong> نام خانوادگی: </strong>
                       {this.state.patient.last_name}
                       <button
                         type="button"
@@ -171,7 +165,7 @@ export class PatientProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="lastName" className="float-right ml-2">
-                      کدملی:
+                      <strong> کدملی: </strong>
                       {this.state.patient.user.username}
                     </label>
                   </div>
@@ -179,7 +173,7 @@ export class PatientProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="birthDate" className="float-right ml-2">
-                      تاریخ تولد:
+                      <strong> تاریخ تولد: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.patient.birth_date}
                       </label>
@@ -205,7 +199,7 @@ export class PatientProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="phone" className="float-right ml-2">
-                      شماره موبایل:
+                      <strong> شماره موبایل: </strong>
                       {this.state.patient.mobile_number}
                       <button
                         type="button"
@@ -229,7 +223,7 @@ export class PatientProfile extends Component {
                   </div>
                   <div className="form-group col-md">
                     <label htmlFor="phone" className="float-right ml-2">
-                      جنسیت:
+                      <strong> جنسیت: </strong>
                       {this.state.patient.gender ? (
                         <label>زن</label>
                       ) : (
@@ -241,7 +235,7 @@ export class PatientProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="address" className="float-right ml-2">
-                      ایمیل:
+                      <strong> ایمیل: </strong>
                       <label style={{ direction: "ltr" }}>
                         {this.state.patient.user.email}
                       </label>
@@ -269,7 +263,7 @@ export class PatientProfile extends Component {
                 <div className="form-row">
                   <div className="form-group col-md">
                     <label htmlFor="address" className="float-right ml-2">
-                      آدرس:
+                      <strong> آدرس: </strong>
                       {this.state.patient.address}
                       <button
                         type="button"
