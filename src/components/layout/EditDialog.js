@@ -108,7 +108,7 @@ export class EditProfileDialog extends Component {
                       <input
                         value={
                           this.props.field === "avatar"
-                            ? null
+                            ? undefined
                             : this.state.value
                         }
                         type={this.state.type}
