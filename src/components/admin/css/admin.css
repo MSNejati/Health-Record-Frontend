@@ -1,0 +1,33 @@
+.admin-bg {
+  background-image: url(../../../static/img/admin-background.jpg);
+}
+
+#sidebar {
+  background-color: #12bae8;
+}
+
+#sidebar .sidebar-header h3 {
+  background-color: #12bae8;
+}
+
+#sidebar ul.components {
+  border-bottom: 2px solid #12bae8;
+}
+
+#sidebar ul.components p {
+  border-bottom: 2px solid #12bae8;
+}
+
+#sidebar ul li a:hover {
+  background-color: #0fa9d3;
+}
+
+#sidebar ul li.active > a,
+a[aria-expanded="true"] {
+  background-color: #0e9fc7;
+}
+
+#sidebar button {
+  margin-right: 10px;
+  width: 80px;
+}

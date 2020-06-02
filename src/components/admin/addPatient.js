@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../css/register.css";
+import "./css/admin.css";
 import { addPatient } from "./../../actions/auth";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -110,16 +111,20 @@ class AddPatient extends Component {
     } = this.state;
 
     return (
-      <div className="wrapper">
+      <div
+        className={
+          this.props.isActive ? "wrapper admin-bg active" : "wrapper admin-bg"
+        }
+      >
         <SideBar />
         <div id="content">
           <SideBarToggler />
-          <div className="my-Register-page">
+          <div className="page-content ">
             <div
               className={
                 this.props.isActive
-                  ? "add-patient-card card text-right active"
-                  : "add-patient-card card text-right"
+                  ? "add-card card text-right active"
+                  : "add-card card text-right"
               }
             >
               <h5 className="card-header text-body text-center pt-3 font-weight-bold">
@@ -128,7 +133,7 @@ class AddPatient extends Component {
               <div className="card-body">
                 <form onSubmit={this.handleSubmit}>
                   <div className="form-row">
-                    <div className="form-group col-md">
+                    <div className="form-group col-md-4">
                       <label htmlFor="firstName" className="float-right">
                         نام
                       </label>
@@ -159,7 +164,7 @@ class AddPatient extends Component {
                         <div className="invalid-feedback" />
                       )}
                     </div>
-                    <div className="form-group col-md">
+                    <div className="form-group col-md-4">
                       <label htmlFor="lastName" className="float-right">
                         نام خانوادگی
                       </label>
@@ -190,7 +195,7 @@ class AddPatient extends Component {
                         <div className="invalid-feedback" />
                       )}
                     </div>
-                    <div className="form-group col-md">
+                    <div className="form-group col-md-4">
                       <label htmlFor="nationalId" className="float-right">
                         کدملی
                       </label>
@@ -224,7 +229,7 @@ class AddPatient extends Component {
                     </div>
                   </div>
                   <div className="form-row">
-                    <div className="form-group col-md">
+                    <div className="form-group col-md-6">
                       <label htmlFor="email" className="float-right">
                         ایمیل
                       </label>
@@ -256,7 +261,7 @@ class AddPatient extends Component {
                         <div className="invalid-feedback" />
                       )}
                     </div>
-                    <div className="form-group col-md">
+                    <div className="form-group col-md-6">
                       <label htmlFor="phone" className="float-right">
                         شماره موبایل
                       </label>
@@ -423,7 +428,7 @@ class AddPatient extends Component {
                   </div>
                   <button
                     type="submit"
-                    className="btn add-button z-depth-0 btn-block mb-2"
+                    className="btn purple-button z-depth-0 btn-block mb-2"
                   >
                     افزودن بیمار
                   </button>
