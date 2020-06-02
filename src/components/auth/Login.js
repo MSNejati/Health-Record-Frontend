@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
+import { deleteErrors } from "../../actions/message";
 import "../../css/login.css";
 import Navbar from "../layout/Navbar";
 
@@ -33,6 +34,7 @@ class Login extends Component {
   };
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
+      this.props.deleteErrors();
       switch (this.props.auth.user.role) {
         case 0:
           this.props.history.push("/add-doctor");
@@ -126,4 +128,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, deleteErrors })(Login);
