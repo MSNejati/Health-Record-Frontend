@@ -1,16 +1,13 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import SideBar from "../layout/SideBar";
 import SideBarToggler from "../layout/SideBarToggler";
 import Loading from "./../layout/Loading";
 import { doctorAPI } from "./../../apis/requests";
 import axios from "axios";
+import "../../css/index.css";
 
 export class Appointments extends Component {
-  static propTypes = {
-    // prop: PropTypes
-  };
   state = {
     appointments: null,
     next: null,
@@ -66,142 +63,173 @@ export class Appointments extends Component {
       });
     });
   };
+
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+
   render() {
     return this.state.appointments ? (
-      <div className="d-flex">
+      <div
+        className={
+          this.props.isActive ? "wrapper doctor-bg active" : "wrapper doctor-bg"
+        }
+      >
         <SideBar />
-        <div id="content" style={{ width: "100%" }}>
-          <div className="">
-            <SideBarToggler />
-            <div className="d-flex justify-content-center pb-3">
-              <form
-                onSubmit={this.handelSerach}
-                className="border p-4 bg-light"
-                style={{ borderRadius: "0.3em" }}
-              >
-                <div className="form-row">
-                  <div className="form-group col-md">
-                    <label className="float-right" htmlFor="inputQ">
-                      نام بیمار
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="inputQ"
-                      name="search"
-                      onChange={this.onChange}
-                    />
+        <div id="content">
+          <SideBarToggler />
+          <div className="page-content">
+            <div
+              className={
+                this.props.isActive
+                  ? "my-card card text-right active"
+                  : "my-card card text-right"
+              }
+            >
+              <div className="card-body">
+                <form onSubmit={this.handelSerach}>
+                  <div className="form-row">
+                    <div className="form-group col-md-4 text-right">
+                      <label className="float-right" htmlFor="inputQ">
+                        نام بیمار
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="inputQ"
+                        name="search"
+                        onChange={this.onChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-4 text-right">
+                      <label className="float-right" htmlFor="inputStart">
+                        از تاریخ:
+                      </label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        id="inputStart"
+                        name="start"
+                        onChange={this.onChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-4 text-right">
+                      <label className="float-right" htmlFor="inputEnd">
+                        تا تاریخ:
+                      </label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        id="inputEnd"
+                        name="end"
+                        onChange={this.onChange}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-group col-md">
-                    <label className="float-right" htmlFor="inputStart">
-                      نزدیک ترین زمان:
-                    </label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      id="inputStart"
-                      name="start"
-                      onChange={this.onChange}
-                    />
-                  </div>
-                  <div className="form-group col-md">
-                    <label className="float-right" htmlFor="inputEnd">
-                      دورترین زمان:
-                    </label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      id="inputEnd"
-                      name="end"
-                      onChange={this.onChange}
-                    />
-                  </div>
-                </div>
-                <button type="submit" className="btn btn-primary btn-md">
-                  جست و جو
-                </button>
-              </form>
+                  <button
+                    type="submit"
+                    className="btn purple-btn z-depth-0 mb-2 float-left"
+                  >
+                    جست و جو
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-          <div style={{ margin: "4%", marginTop: "0" }}>
-            <div className="" style={{ minHeight: "400px" }}>
-              <table className="table table-hover text-center">
-                <thead className="bg-warning">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">روز</th>
-                    <th scope="col">ساعت</th>
-                    <th scope="col">نام بیمار</th>
-                    <th scope="col">نوبت</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.appointments.length == 0 ? (
-                    <p className="text-center">نوبتی یافت نشد.</p>
-                  ) : null}
-                  {this.state.appointments.map((app, index) => (
-                    <tr key={app.id} className="border-bottom">
-                      <td>{index + 1}</td>
-                      <td style={{ direction: "ltr" }}>{app.calendar.day}</td>
-                      <td style={{ direction: "ltr" }}>
-                        {app.calendar.start_time}
-                      </td>
-                      <td>
-                        {app.patient.first_name + " " + app.patient.last_name}
-                      </td>
-                      <td>{app.turn}</td>
-                      <td>{app.done ? "انجام شده" : "انجام نشده"}</td>
-                      <td>
+            <div
+              className={
+                this.props.isActive
+                  ? "my-card card text-right active"
+                  : "my-card card text-right"
+              }
+            >
+              <h5 className="card-header text-body text-center pt-3 font-weight-bold">
+                لیست نوبت های یافت شده
+              </h5>
+              <div className="card-body scrollable">
+                <div className="form-row col-md">
+                  <table className="table table-striped text-center">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">روز</th>
+                        <th scope="col">ساعت</th>
+                        <th scope="col">نام بیمار</th>
+                        <th scope="col">نوبت</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.appointments.map((app, index) => (
+                        <tr key={app.id} className="border-bottom">
+                          <td>{index + 1}</td>
+                          <td style={{ direction: "ltr" }}>
+                            {app.calendar.day}
+                          </td>
+                          <td style={{ direction: "ltr" }}>
+                            {app.calendar.start_time}
+                          </td>
+                          <td>
+                            {app.patient.first_name +
+                              " " +
+                              app.patient.last_name}
+                          </td>
+                          <td>{app.turn}</td>
+                          <td>{app.done ? "انجام شده" : "انجام نشده"}</td>
+                          <td>
+                            <button
+                              className="btn purple-btn z-depth-0"
+                              onClick={() => {
+                                this.props.history.push("app/" + app.id);
+                              }}
+                            >
+                              {app.done ? "ویرایش" : "انجام"}
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div className="w-100 d-flex justify-content-center mb-4">
+                    {this.state.appointments.length === 0 ? (
+                      <strong>نوبتی یافت نشد.</strong>
+                    ) : null}
+                  </div>
+                  <nav aria-label="Page navigation" className="w-100">
+                    <ul
+                      className="pagination justify-content-center"
+                      style={{ marginRight: "-40px" }}
+                    >
+                      <li
+                        className={
+                          this.state.next ? "page-item" : "page-item disabled"
+                        }
+                      >
                         <button
-                          className="btn btn-info btn-sm"
+                          className="page-link"
                           onClick={() => {
-                            this.props.history.push("app/" + app.id);
+                            this.nextPage();
                           }}
                         >
-                          {app.done ? "ویرایش" : "انجام"}
+                          &lt; بعدی
                         </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <nav aria-label="Page navigation">
-                <ul className="pagination justify-content-center">
-                  <li
-                    className={
-                      this.state.next ? "page-item" : "page-item disabled"
-                    }
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => {
-                        this.nextPage();
-                      }}
-                    >
-                      &lt; بعدی
-                    </button>
-                  </li>
-                  <li
-                    className={
-                      this.state.prev ? "page-item" : "page-item disabled"
-                    }
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => {
-                        this.prevPage();
-                      }}
-                    >
-                      قبلی &gt;
-                    </button>
-                  </li>
-                </ul>
-              </nav>
+                      </li>
+                      <li
+                        className={
+                          this.state.prev ? "page-item" : "page-item disabled"
+                        }
+                      >
+                        <button
+                          className="page-link"
+                          onClick={() => {
+                            this.prevPage();
+                          }}
+                        >
+                          قبلی &gt;
+                        </button>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -212,7 +240,9 @@ export class Appointments extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  isActive: state.sidebar.active,
+});
 
 const mapDispatchToProps = {};
 

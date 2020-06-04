@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { userAPI } from "../../apis/requests";
-import "../../css/register.css";
+import "../../css/index.css";
 import Loading from "../layout/Loading";
 import { Link } from "react-router-dom";
 import SideBar from "./../layout/SideBar";
@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 class listOfPatients extends Component {
   state = {
     patients: null,
-    isActive: false,
     aboutDoctor: false,
     isList: true,
   };
@@ -28,47 +27,51 @@ class listOfPatients extends Component {
       patients.map((patient) => {
         return (
           <div
-            className={this.props.isActive ? "my-card active" : "my-card"}
+            className={
+              this.props.isActive
+                ? "my-card card text-right active"
+                : "my-card card text-right"
+            }
             key={patient.id}
           >
             <div className="card-body">
               <div className="form-row">
-                <div className="form-group col-md-2">
+                <div className="col-md-2">
                   <img src={patient.avatar} alt="تصویر پروفایل"></img>
                 </div>
-                <div className="form-group col-md-10">
+                <div className="col-md-10">
                   <div className="form-row">
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <p>
                         <strong>نام: </strong> {patient.first_name}
                       </p>
                     </div>
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <p>
                         <strong>نام خانوادگی: </strong> {patient.last_name}
                       </p>
                     </div>
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <p>
                         <strong>کد ملی: </strong> {patient.user.username}
                       </p>
                     </div>
                   </div>
                   <div className="form-row">
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <p>
                         <strong>شماره موبایل: </strong> {patient.mobile_number}
                       </p>
                     </div>
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <p>
                         <strong>تاریخ تولد: </strong> {patient.birth_date}
                       </p>
                     </div>
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <Link
                         to={"/patients/" + patient.id}
-                        className="btn profile-button"
+                        className="btn purple-btn float-left"
                       >
                         پروفایل
                       </Link>
@@ -84,14 +87,18 @@ class listOfPatients extends Component {
       <Loading />
     );
     return (
-      <div className="wrapper">
+      <div
+        className={
+          this.props.isActive ? "wrapper admin-bg active" : "wrapper admin-bg"
+        }
+      >
         <SideBar />
         <div id="content">
           <SideBarToggler />
-          <div className="my-Register-page">
+          <div className="page-content">
             <div
               className={
-                this.state.isActive ? "text-right active" : "text-right"
+                this.props.isActive ? "text-right active" : "text-right"
               }
             >
               {patientsList}

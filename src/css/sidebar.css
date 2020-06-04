@@ -1,12 +1,14 @@
+/* default */
 #sidebar {
   min-width: 300px;
   max-width: 300px;
   min-height: 100vh;
-  background-color: #35d3c6ef;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: #fff;
   text-align: right;
   transition: all 0.3s;
+  position: sticky;
+  top: 0;
 }
 
 #sidebar.active {
@@ -15,7 +17,6 @@
 
 #sidebar .sidebar-header h3 {
   padding: 20px;
-  background-color: #2cbdb1f6;
   font-size: 2.2em;
   color: #000000;
   font-weight: 550;
@@ -23,11 +24,9 @@
 
 #sidebar ul.components {
   padding: 20px 0;
-  border-bottom: 2px solid #35d3c6f6;
 }
 
 #sidebar ul.components p {
-  border-bottom: 2px solid #41f0e1f6;
   padding: 0 10px 10px 5px;
 }
 
@@ -46,13 +45,11 @@
 
 #sidebar ul li a:hover {
   color: #fff;
-  background-color: #1c9c92f6;
 }
 
 #sidebar ul li.active > a,
 a[aria-expanded="true"] {
   color: #fff;
-  background-color: #26b4a8f6;
 }
 
 #sidebar button {
@@ -72,6 +69,7 @@ a[aria-expanded="true"] {
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.24),
     0 5px 15px 0 rgba(0, 0, 0, 0.19);
 }
+
 @media (max-width: 1000px) {
   #sidebar {
     margin-right: -300px;
@@ -80,3 +78,121 @@ a[aria-expanded="true"] {
     margin-right: 0;
   }
 }
+/* default */
+
+/* admin */
+.blue-sb,
+.blue-sb .sidebar-header h3 {
+  background-color: #12bae8;
+}
+
+.blue-sb ul.components,
+.blue-sb ul.components p {
+  border-bottom: 2px solid #12bae8;
+}
+
+.blue-sb ul li a:hover {
+  background-color: #0fa9d3;
+}
+
+.blue-sb ul li.active > a,
+a[aria-expanded="true"] {
+  background-color: #0e9fc7;
+}
+
+.blue-sb-btn {
+  background-color: #12bae8;
+  border-color: #12bae8;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.blue-sb-btn:hover {
+  background-color: #12b1dd;
+  border-color: #12b1dd;
+  color: #ffffff;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.24),
+    0 5px 15px 0 rgba(0, 0, 0, 0.19);
+}
+/* admin */
+
+/* patient */
+.yellow-sb {
+  background-color: #fdc200;
+}
+
+.yellow-sb .sidebar-header h3 {
+  background-color: #fdc200;
+}
+
+.yellow-sb ul.components {
+  border-bottom: 2px solid #fdc200;
+}
+
+.yellow-sb ul.components p {
+  border-bottom: 2px solid #fdc200;
+}
+
+.yellow-sb ul li a:hover {
+  background-color: #e4af00;
+}
+
+.yellow-sb ul li.active > a,
+a[aria-expanded="true"] {
+  background-color: #ca9b00;
+}
+
+.yellow-sb-btn {
+  background-color: #fdc200;
+  border-color: #fdc200;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.yellow-sb-btn:hover {
+  background-color: #ecb500;
+  border-color: #ecb500;
+  color: #ffffff;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.24),
+    0 5px 15px 0 rgba(0, 0, 0, 0.19);
+}
+/* patient */
+
+/* doctor */
+.green-sb {
+  background-color: #5ecfbd;
+}
+
+.green-sb .sidebar-header h3 {
+  background-color: #5ecfbd;
+}
+
+.green-sb ul.components {
+  border-bottom: 2px solid #5ecfbd;
+}
+
+.green-sb ul.components p {
+  border-bottom: 2px solid #5ecfbd;
+}
+
+.green-sb ul li a:hover {
+  background-color: #56bead;
+}
+
+.green-sb ul li.active > a,
+a[aria-expanded="true"] {
+  background-color: #3f9e8e;
+}
+
+.green-sb-btn {
+  background-color: #5ecfbd;
+  border-color: #5ecfbd;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.green-sb-btn:hover {
+  background-color: #56bead;
+  border-color: #56bead;
+  color: #ffffff;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.24),
+    0 5px 15px 0 rgba(0, 0, 0, 0.19);
+}
+/* doctor */

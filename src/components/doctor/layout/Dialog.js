@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
 
 const translate = {
@@ -8,7 +7,6 @@ const translate = {
   description: "توضیحات",
   duration: "مدت",
   value: "مقدار",
-  advices: "توصیه",
   symptoms: "علامت",
   medicines: "دارو",
   diseases: "بیماری",

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import SideBar from "../layout/SideBar";
 import SideBarToggler from "../layout/SideBarToggler";
@@ -10,9 +9,6 @@ import Table from "./layout/Table";
 import Item from "./layout/Item";
 
 export class AppointmentManage extends Component {
-  // static propTypes = {
-  //     prop: PropTypes
-  // }
   state = {
     advices: [],
     diseases: [],
@@ -72,225 +68,140 @@ export class AppointmentManage extends Component {
     return this.state.load ? (
       <div className="d-flex">
         <SideBar />
-        <div id="content" style={{ width: "100%" }}>
-          <div className="">
-            <SideBarToggler />
-            <div className="d-flex text-right">
-              <div
-                className="d-flex"
-                style={{
-                  marginRight: "7%",
-                  marginLeft: "7%",
-                  width: "100%",
-                }}
-              >
-                {/* <h3>بیمار:</h3> */}
+        <div id="content" className="w-100">
+          <SideBarToggler />
+          <div className="text-right mx-5 my-5">
+            <div>
+              <div className="d-flex flex-row m-2">
                 <div>
                   <img
-                    className="rounded"
+                    className="profile-img"
                     alt="User Pic"
                     src={this.state.patient.avatar}
-                    style={{
-                      width: "90px",
-                      height: "100px",
-                    }}
                   />
                 </div>
-                <div className="m-4 " style={{ width: "100%" }}>
+                <div className="m-4 w-75">
                   <div className="form-row">
                     <div className="form-group col-md">
-                      نام بیمار:
-                      {" " +
-                        this.state.patient.first_name +
+                      <strong> نام بیمار: </strong>
+                      {this.state.patient.first_name +
                         " " +
                         this.state.patient.last_name}
                     </div>
                     <div className="form-group col-md">
-                      نوبت:
+                      <strong> نوبت: </strong>
                       {this.state.turn}
                     </div>
                   </div>
                   <div className="form-row">
                     <div className="form-group col-md">
-                      زمان:
+                      <strong> زمان: </strong>
                       {this.state.calendar.start_time +
                         "  " +
                         this.state.calendar.day}
                     </div>
                     <div className="form-group col-md">
-                      آدرس:
+                      <strong> آدرس: </strong>
                       {this.state.patient.address}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            {/* ******************************** */}
-            <div
-              className="mt-4 text-right"
-              style={{
-                marginRight: "7%",
-                marginLeft: "7%",
-              }}
-            >
-              <h3>توصیه ها</h3>
-              <div className="d-flex">
-                <div
-                  className="border ml-2 shadow-sm"
-                  style={{
-                    height: "250px",
-                    width: "100%",
-                  }}
-                >
-                  <Table url="ADVICES" add={this.addItem} name="advices" />
-                </div>
-                <div
-                  className="border mr-2 p-2 shadow-sm"
-                  style={{
-                    height: "250px",
-                    width: "100%",
-                  }}
-                >
-                  {this.state.advices.map((item, index) => (
-                    <Item
-                      item={item}
-                      key={index}
-                      onDelete={() => this.deleteItem(item.id, "advices")}
-                    />
-                  ))}
+
+            <div>
+              <div className="mt-5 text-right">
+                <h3>توصیه ها</h3>
+                <div className="d-flex">
+                  <div className="border-green ml-2 box-shadow w-100 appointment-card my-scrollable">
+                    <Table url="ADVICES" add={this.addItem} name="advices" />
+                  </div>
+                  <div className="border-green mr-2 p-2 box-shadow w-100 appointment-card">
+                    {this.state.advices.map((item, index) => (
+                      <Item
+                        item={item}
+                        key={index}
+                        onDelete={() => this.deleteItem(item.id, "advices")}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-            {/* ******************************** */}
-            <div
-              className="mt-4 text-right"
-              style={{
-                marginRight: "7%",
-                marginLeft: "7%",
-              }}
-            >
-              <h3>بیماری ها</h3>
-              <div className="d-flex">
-                <div
-                  className="border ml-2 shadow-sm"
-                  style={{
-                    height: "250px",
-                    width: "100%",
-                  }}
-                >
-                  <Table url="DISEASES" add={this.addItem} name="diseases" />
-                </div>
-                <div
-                  className="border mr-2 p-2 shadow-sm"
-                  style={{
-                    height: "250px",
-                    width: "100%",
-                  }}
-                >
-                  {this.state.diseases.map((item, index) => (
-                    <Item
-                      item={item}
-                      key={index}
-                      onDelete={() => this.deleteItem(item.id, "diseases")}
-                    />
-                  ))}
+
+            <div>
+              <div className="mt-4 text-right">
+                <h3>بیماری ها</h3>
+                <div className="d-flex">
+                  <div className="border-green ml-2 box-shadow w-100 appointment-card my-scrollable">
+                    <Table url="DISEASES" add={this.addItem} name="diseases" />
+                  </div>
+                  <div className="border-green mr-2 p-2 box-shadow w-100 appointment-card">
+                    {this.state.diseases.map((item, index) => (
+                      <Item
+                        item={item}
+                        key={index}
+                        onDelete={() => this.deleteItem(item.id, "diseases")}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-            {/* ************************************ */}
-            <div
-              className="mt-4 text-right"
-              style={{
-                marginRight: "7%",
-                marginLeft: "7%",
-              }}
-            >
-              <h3>علامت ها</h3>
-              <div className="d-flex">
-                <div
-                  className="border ml-2 shadow-sm"
-                  style={{
-                    height: "250px",
-                    width: "100%",
-                  }}
-                >
-                  <Table url="SYMPTOMS" add={this.addItem} name="symptoms" />
-                </div>
-                <div
-                  className="border mr-2 p-2 shadow-sm"
-                  style={{
-                    height: "250px",
-                    width: "100%",
-                  }}
-                >
-                  {this.state.symptoms.map((item, index) => (
-                    <Item
-                      item={item}
-                      key={index}
-                      onDelete={() => this.deleteItem(item.id, "symptoms")}
-                    />
-                  ))}
+
+            <div>
+              <div className="mt-4 text-right">
+                <h3>علامت ها</h3>
+                <div className="d-flex">
+                  <div className="border-green ml-2 box-shadow w-100 appointment-card my-scrollable">
+                    <Table url="SYMPTOMS" add={this.addItem} name="symptoms" />
+                  </div>
+                  <div className="border-green mr-2 p-2 box-shadow w-100 appointment-card">
+                    {this.state.symptoms.map((item, index) => (
+                      <Item
+                        item={item}
+                        key={index}
+                        onDelete={() => this.deleteItem(item.id, "symptoms")}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-            {/* ******************************** */}
-            <div
-              className="mt-4 text-right"
-              style={{
-                marginRight: "7%",
-                marginLeft: "7%",
-              }}
-            >
-              <h3>داروها</h3>
-              <div className="d-flex">
-                <div
-                  className="border ml-2 shadow-sm"
-                  style={{
-                    height: "250px",
-                    width: "100%",
-                  }}
-                >
-                  <Table url="MEDICINES" add={this.addItem} name="medicines" />
-                </div>
-                <div
-                  className="border mr-2 p-2 shadow-sm"
-                  style={{
-                    height: "250px",
-                    width: "100%",
-                  }}
-                >
-                  {this.state.medicines.map((item, index) => (
-                    <Item
-                      item={item}
-                      key={index}
-                      onDelete={() => this.deleteItem(item.id, "medicines")}
+
+            <div>
+              <div className="mt-4 text-right">
+                <h3>داروها</h3>
+                <div className="d-flex">
+                  <div className="border-green ml-2 box-shadow w-100 appointment-card my-scrollable">
+                    <Table
+                      url="MEDICINES"
+                      add={this.addItem}
+                      name="medicines"
                     />
-                  ))}
+                  </div>
+                  <div className="border-green mr-2 p-2 box-shadow w-100 appointment-card">
+                    {this.state.medicines.map((item, index) => (
+                      <Item
+                        item={item}
+                        key={index}
+                        onDelete={() => this.deleteItem(item.id, "medicines")}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-            {/* ******************************** */}
-            <div
-              className="mt-4 text-right"
-              style={{
-                marginRight: "7%",
-                marginLeft: "7%",
-              }}
-            >
-              <div
-                className="text-left"
-                style={{
-                  width: "100%",
-                }}
+
+            <div className="mt-4 text-right">
+              <button
+                className="btn purple-btn z-depth-0 float-left btn-lg mb-2"
+                onClick={this.onSubmit}
               >
-                <button
-                  className="btn btn-primary btn-lg"
-                  onClick={this.onSubmit}
-                >
-                  ذخیره تغییرات
-                </button>
-              </div>
+                ذخیره تغییرات
+              </button>
             </div>
+            <br />
             <br />
             <br />
           </div>
@@ -302,7 +213,9 @@ export class AppointmentManage extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  isActive: state.sidebar.active,
+});
 
 const mapDispatchToProps = {};
 

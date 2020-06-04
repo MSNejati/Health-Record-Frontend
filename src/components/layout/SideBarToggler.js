@@ -1,4 +1,5 @@
 import React from "react";
+import "../../css/sidebar.css";
 import { Toggle } from "./../../actions/action";
 import { connect } from "react-redux";
 
@@ -9,7 +10,13 @@ export const SideBarToggler = (props) => {
         <button
           type="button"
           id="sidebarCollapse"
-          className="btn btn-info sidebar-button"
+          className={
+            props.user.role === 0
+              ? "btn blue-sb-btn"
+              : props.user.role === 1
+              ? "btn green-sb-btn"
+              : "btn yellow-sb-btn"
+          }
           onClick={() => props.Toggle()}
         >
           <i className="fas fa-align-right"></i>
@@ -20,7 +27,9 @@ export const SideBarToggler = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+});
 
 const mapDispatchToProps = {
   Toggle,

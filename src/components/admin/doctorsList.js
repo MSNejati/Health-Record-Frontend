@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "../../css/register.css";
+import "../../css/index.css";
 import { userAPI } from "../../apis/requests";
 import Loading from "../layout/Loading";
 import { Link } from "react-router-dom";
@@ -20,54 +20,58 @@ class listOfPatients extends Component {
       this.setState({ doctors: res.data.results });
     });
   }
-  
+
   render() {
     const { doctors } = this.state;
     const doctorsList = doctors ? (
       doctors.map((doctor) => {
         return (
           <div
-            className={this.props.isActive ? "my-card active" : "my-card"}
+            className={
+              this.props.isActive
+                ? "my-card card text-right active"
+                : "my-card card text-right"
+            }
             key={doctor.id}
           >
             <div className="card-body">
               <div className="form-row">
-                <div className="form-group col-md-2">
+                <div className="col-md-2">
                   <img src={doctor.avatar} alt="تصویر پروفایل"></img>
                 </div>
-                <div className="form-group col-md-10">
+                <div className="col-md-10">
                   <div className="form-row">
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <p>
                         <strong>نام: </strong> {doctor.first_name}
                       </p>
                     </div>
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <p>
                         <strong>نام خانوادگی: </strong> {doctor.last_name}
                       </p>
                     </div>
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <p>
                         <strong>کد ملی: </strong> {doctor.user.username}
                       </p>
                     </div>
                   </div>
                   <div className="form-row">
-                    <div className="form-group col-md">
-                      <p>
-                        <strong>تخصص: </strong> {doctor.speciality}
-                      </p>
-                    </div>
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
                       <p>
                         <strong>شماره موبایل: </strong> {doctor.mobile_number}
                       </p>
                     </div>
-                    <div className="form-group col-md">
+                    <div className="col-md-4">
+                      <p>
+                        <strong>تخصص: </strong> {doctor.speciality}
+                      </p>
+                    </div>
+                    <div className="col-md-4">
                       <Link
                         to={"/doctors/" + doctor.id}
-                        className="btn profile-button"
+                        className="btn purple-btn float-left"
                       >
                         پروفایل
                       </Link>
@@ -83,14 +87,18 @@ class listOfPatients extends Component {
       <Loading />
     );
     return (
-      <div className="wrapper">
+      <div
+        className={
+          this.props.isActive ? "wrapper admin-bg active" : "wrapper admin-bg"
+        }
+      >
         <SideBar />
         <div id="content">
           <SideBarToggler />
-          <div className="my-Register-page">
+          <div className="page-content">
             <div
               className={
-                this.state.isActive ? "text-right active" : "text-right"
+                this.props.isActive ? "text-right active" : "text-right"
               }
             >
               {doctorsList}
