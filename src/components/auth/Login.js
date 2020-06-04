@@ -33,8 +33,8 @@ class Login extends Component {
     });
   };
   componentDidMount() {
+    this.props.deleteErrors();
     if (this.props.auth.isAuthenticated) {
-      this.props.deleteErrors();
       switch (this.props.auth.user.role) {
         case 0:
           this.props.history.push("/add-doctor");

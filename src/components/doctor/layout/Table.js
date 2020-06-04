@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { doctorAPI } from "./../../../apis/requests";
 import Dialog from "./Dialog";
+import "../../../css/sidebar.css";
 
 const fields = {
   advices: [
@@ -134,7 +135,7 @@ export default class Table extends Component {
           cellSpacing="0"
           width="100%"
         >
-          <thead className="bg-dark text-light">
+          <thead className="green-sb text-light">
             <tr>
               <th scope="col" className="th-sm">
                 #
@@ -158,7 +159,7 @@ export default class Table extends Component {
                 ))}
                 <td>
                   <button
-                    className="btn btn-sm btn-info"
+                    className="btn purple-btn-sm z-depth-0 btn-sm"
                     onClick={() => this.props.add(row, this.props.name)}
                   >
                     +

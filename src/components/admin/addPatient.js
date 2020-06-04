@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import "../../css/register.css";
-import "./css/admin.css";
+import "../../css/index.css";
 import { addPatient } from "./../../actions/auth";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -107,7 +106,6 @@ class AddPatient extends Component {
       address,
       nationalId,
       email,
-      avatar,
     } = this.state;
 
     return (
@@ -123,8 +121,8 @@ class AddPatient extends Component {
             <div
               className={
                 this.props.isActive
-                  ? "add-card card text-right active"
-                  : "add-card card text-right"
+                  ? "my-card card text-right active"
+                  : "my-card card text-right"
               }
             >
               <h5 className="card-header text-body text-center pt-3 font-weight-bold">
@@ -428,7 +426,7 @@ class AddPatient extends Component {
                   </div>
                   <button
                     type="submit"
-                    className="btn purple-button z-depth-0 btn-block mb-2"
+                    className="btn purple-btn z-depth-0 btn-block mb-2"
                   >
                     افزودن بیمار
                   </button>
