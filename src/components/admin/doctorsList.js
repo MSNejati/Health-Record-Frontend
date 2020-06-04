@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "../../css/register.css";
-import "./css/admin.css";
+import "../../css/index.css";
 import { userAPI } from "../../apis/requests";
 import Loading from "../layout/Loading";
 import { Link } from "react-router-dom";
@@ -30,8 +29,8 @@ class listOfPatients extends Component {
           <div
             className={
               this.props.isActive
-                ? "list-item-card card text-right active"
-                : "list-item-card card text-right"
+                ? "my-card card text-right active"
+                : "my-card card text-right"
             }
             key={doctor.id}
           >
@@ -61,18 +60,18 @@ class listOfPatients extends Component {
                   <div className="form-row">
                     <div className="col-md-4">
                       <p>
-                        <strong>تخصص: </strong> {doctor.speciality}
+                        <strong>شماره موبایل: </strong> {doctor.mobile_number}
                       </p>
                     </div>
                     <div className="col-md-4">
                       <p>
-                        <strong>شماره موبایل: </strong> {doctor.mobile_number}
+                        <strong>تخصص: </strong> {doctor.speciality}
                       </p>
                     </div>
                     <div className="col-md-4">
                       <Link
                         to={"/doctors/" + doctor.id}
-                        className="btn purple-button float-left"
+                        className="btn purple-btn float-left"
                       >
                         پروفایل
                       </Link>
@@ -97,7 +96,13 @@ class listOfPatients extends Component {
         <div id="content">
           <SideBarToggler />
           <div className="page-content">
-            <div> {doctorsList} </div>
+            <div
+              className={
+                this.props.isActive ? "text-right active" : "text-right"
+              }
+            >
+              {doctorsList}
+            </div>
           </div>
         </div>
       </div>

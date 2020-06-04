@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { userAPI } from "../../apis/requests";
-import "../../css/register.css";
-import "./css/admin.css";
+import "../../css/index.css";
 import Loading from "../layout/Loading";
 import { Link } from "react-router-dom";
 import SideBar from "./../layout/SideBar";
@@ -12,7 +11,6 @@ import { connect } from "react-redux";
 class listOfPatients extends Component {
   state = {
     patients: null,
-    isActive: false,
     aboutDoctor: false,
     isList: true,
   };
@@ -30,7 +28,9 @@ class listOfPatients extends Component {
         return (
           <div
             className={
-              this.props.isActive ? "list-item-card active" : "list-item-card"
+              this.props.isActive
+                ? "my-card card text-right active"
+                : "my-card card text-right"
             }
             key={patient.id}
           >
@@ -71,7 +71,7 @@ class listOfPatients extends Component {
                     <div className="col-md-4">
                       <Link
                         to={"/patients/" + patient.id}
-                        className="btn purple-button float-left"
+                        className="btn purple-btn float-left"
                       >
                         پروفایل
                       </Link>
@@ -98,7 +98,7 @@ class listOfPatients extends Component {
           <div className="page-content">
             <div
               className={
-                this.state.isActive ? "text-right active" : "text-right"
+                this.props.isActive ? "text-right active" : "text-right"
               }
             >
               {patientsList}

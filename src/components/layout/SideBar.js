@@ -27,41 +27,51 @@ const items = {
 export const SideBar = (props) => {
   return (
     <div className="d-flex">
-      <nav id="sidebar" className={props.active ? "active" : ""}>
-        <div className="sidebar-header">
-          <h3>
-            {props.user.role === 0
-              ? "مدیر"
-              : props.user.role === 1
-              ? "دکتر"
-              : props.user.role === 2
-              ? "بیمار"
-              : null}
-          </h3>
-        </div>
-        <ul className="list-unstyled components">
-          {items[props.user.role].map((item, index) => (
-            <li
-              key={index}
-              className={
-                props.history.location.pathname === item.path ? "active" : ""
-              }
-            >
-              <Link to={item.path} className="nav-link">
-                {item.content}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <button
-          to="/"
-          type="link"
-          className="nav-link btn exit-button"
-          onClick={props.logout}
-        >
-          خروج
-        </button>
-      </nav>
+      <div
+        className={
+          props.user.role === 0
+            ? "blue-sb"
+            : props.user.role === 1
+            ? "green-sb"
+            : "yellow-sb"
+        }
+      >
+        <nav id="sidebar" className={props.active ? "active" : ""}>
+          <div className="sidebar-header">
+            <h3>
+              {props.user.role === 0
+                ? "مدیر"
+                : props.user.role === 1
+                ? "دکتر"
+                : props.user.role === 2
+                ? "بیمار"
+                : null}
+            </h3>
+          </div>
+          <ul className="list-unstyled components">
+            {items[props.user.role].map((item, index) => (
+              <li
+                key={index}
+                className={
+                  props.history.location.pathname === item.path ? "active" : ""
+                }
+              >
+                <Link to={item.path} className="nav-link">
+                  {item.content}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <button
+            to="/"
+            type="link"
+            className="nav-link btn exit-button"
+            onClick={props.logout}
+          >
+            خروج
+          </button>
+        </nav>
+      </div>
     </div>
   );
 };
