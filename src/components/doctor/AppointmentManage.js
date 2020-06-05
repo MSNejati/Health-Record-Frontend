@@ -7,6 +7,49 @@ import { doctorAPI } from "./../../apis/requests";
 import axios from "axios";
 import Table from "./layout/Table";
 import Item from "./layout/Item";
+import Swal from "sweetalert2";
+
+function Row(props) {
+  return (
+    <div
+      className="mt-4 text-right"
+      style={{
+        marginRight: "7%",
+        marginLeft: "7%",
+      }}
+    >
+      <h3>{props.header}</h3>
+      <div className="d-flex">
+        <div
+          className="border ml-2 shadow-sm"
+          style={{
+            height: "270px",
+            width: "50%",
+            overflowX: "auto",
+            overflowY: "auto",
+          }}
+        >
+          <Table url={props.url} add={props.addItem} name={props.name} />
+        </div>
+        <div
+          className="border mr-2 p-2 shadow-sm"
+          style={{
+            height: "270px",
+            width: "50%",
+          }}
+        >
+          {props.items.map((item, index) => (
+            <Item
+              item={item}
+              key={index}
+              onDelete={() => props.deleteItem(item.id, props.name)}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export class AppointmentManage extends Component {
   state = {
@@ -62,11 +105,19 @@ export class AppointmentManage extends Component {
     this.state.medicines.forEach((x) => body["medicines"].push(x.id));
     axios
       .patch(doctorAPI("APPOINTMENTS", this.props.match.params.id), body, {})
-      .then((res) => console.log("00"));
+      .then((res) =>
+        Swal.fire({
+          icon: "success",
+          title: "تغییرات با موفقیت ذخیره شد.",
+          showConfirmButton: false,
+          timer: 2000,
+        })
+      );
   };
+
   render() {
     return this.state.load ? (
-      <div className="d-flex">
+      <div className="d-flex bg-light">
         <SideBar />
         <div id="content" className="w-100">
           <SideBarToggler />
@@ -108,102 +159,51 @@ export class AppointmentManage extends Component {
                 </div>
               </div>
             </div>
-
-            <div>
-              <div className="mt-5 text-right">
-                <h3>توصیه ها</h3>
-                <div className="d-flex">
-                  <div className="border-green ml-2 box-shadow w-100 appointment-card my-scrollable">
-                    <Table url="ADVICES" add={this.addItem} name="advices" />
-                  </div>
-                  <div className="border-green mr-2 p-2 box-shadow w-100 appointment-card">
-                    {this.state.advices.map((item, index) => (
-                      <Item
-                        item={item}
-                        key={index}
-                        onDelete={() => this.deleteItem(item.id, "advices")}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="mt-4 text-right">
-                <h3>بیماری ها</h3>
-                <div className="d-flex">
-                  <div className="border-green ml-2 box-shadow w-100 appointment-card my-scrollable">
-                    <Table url="DISEASES" add={this.addItem} name="diseases" />
-                  </div>
-                  <div className="border-green mr-2 p-2 box-shadow w-100 appointment-card">
-                    {this.state.diseases.map((item, index) => (
-                      <Item
-                        item={item}
-                        key={index}
-                        onDelete={() => this.deleteItem(item.id, "diseases")}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="mt-4 text-right">
-                <h3>علامت ها</h3>
-                <div className="d-flex">
-                  <div className="border-green ml-2 box-shadow w-100 appointment-card my-scrollable">
-                    <Table url="SYMPTOMS" add={this.addItem} name="symptoms" />
-                  </div>
-                  <div className="border-green mr-2 p-2 box-shadow w-100 appointment-card">
-                    {this.state.symptoms.map((item, index) => (
-                      <Item
-                        item={item}
-                        key={index}
-                        onDelete={() => this.deleteItem(item.id, "symptoms")}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="mt-4 text-right">
-                <h3>داروها</h3>
-                <div className="d-flex">
-                  <div className="border-green ml-2 box-shadow w-100 appointment-card my-scrollable">
-                    <Table
-                      url="MEDICINES"
-                      add={this.addItem}
-                      name="medicines"
-                    />
-                  </div>
-                  <div className="border-green mr-2 p-2 box-shadow w-100 appointment-card">
-                    {this.state.medicines.map((item, index) => (
-                      <Item
-                        item={item}
-                        key={index}
-                        onDelete={() => this.deleteItem(item.id, "medicines")}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 text-right">
+            {/* ******************************** */}
+            <Row
+              header="توصیه ها"
+              name="advices"
+              url="ADVICES"
+              items={this.state.advices}
+              deleteItem={this.deleteItem}
+              addItem={this.addItem}
+            />
+            {/* ******************************** */}
+            <Row
+              header="بیماری ها"
+              name="diseases"
+              url="DISEASES"
+              items={this.state.diseases}
+              deleteItem={this.deleteItem}
+              addItem={this.addItem}
+            />
+            {/* ************************************ */}
+            <Row
+              header="علامت ها"
+              name="symptoms"
+              url="SYMPTOMS"
+              items={this.state.symptoms}
+              deleteItem={this.deleteItem}
+              addItem={this.addItem}
+            />
+            {/* ******************************** */}
+            <Row
+              header="دارو ها"
+              name="medicines"
+              url="MEDICINES"
+              items={this.state.medicines}
+              deleteItem={this.deleteItem}
+              addItem={this.addItem}
+            />
+            {/* ******************************** */}
+            <div className="text-center">
               <button
-                className="btn purple-btn z-depth-0 float-left btn-lg mb-2"
+                className="btn btn-lg btn-primary m-4"
                 onClick={this.onSubmit}
               >
-                ذخیره تغییرات
+                ثبت تغییرات
               </button>
             </div>
-            <br />
-            <br />
-            <br />
           </div>
         </div>
       </div>

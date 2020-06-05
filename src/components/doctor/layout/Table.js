@@ -17,7 +17,7 @@ const fields = {
   ],
   medicines: [
     { name: "name", type: "text" },
-    { name: "duration", type: "time" },
+    { name: "duration", type: "text" },
   ],
 };
 
@@ -43,6 +43,7 @@ export default class Table extends Component {
     prev: null,
     curr: null,
     search: "",
+    editId: null,
   };
   componentDidMount() {
     axios.get(doctorAPI(this.props.url), {}, {}).then((res) => {
@@ -74,6 +75,16 @@ export default class Table extends Component {
     });
   };
 
+  load = () => {
+    axios.get(doctorAPI(this.props.url), {}, {}).then((res) => {
+      this.setState({
+        data: res.data.results,
+        next: res.data.next,
+        prev: res.data.previous,
+      });
+    });
+  };
+
   handelSerach = (e) => {
     e.preventDefault();
     let url = doctorAPI(this.props.url);
@@ -87,6 +98,11 @@ export default class Table extends Component {
       });
     });
   };
+
+  onEdit = (id) => {
+    this.setState({ editId: id });
+  };
+
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   render() {
     return this.state.data ? (
@@ -120,13 +136,18 @@ export default class Table extends Component {
               data-target={"#" + this.props.name}
               aria-expanded="false"
               aria-controls="collapseExample"
+              onClick={() => {
+                this.onEdit(null);
+              }}
             >
               +
             </button>
             <Dialog
               id={this.props.name}
               fields={fields[this.props.name]}
-              url={doctorAPI(this.props.url)}
+              url={this.props.url}
+              load={this.load}
+              editId={this.state.editId}
             />
           </div>
         </div>
@@ -153,16 +174,45 @@ export default class Table extends Component {
               <tr key={row.id} className="border-bottom">
                 <td>{index + 1}</td>
                 {fields[this.props.name].map((f, index) => (
-                  <td scope="col" className="th-sm" key={index}>
+                  <td
+                    scope="col"
+                    className="th-sm"
+                    key={index}
+                    style={f.name === "duration" ? { direction: "ltr" } : null}
+                  >
                     {row[f.name]}
                   </td>
                 ))}
                 <td>
                   <button
-                    className="btn purple-btn-sm z-depth-0 btn-sm"
+                    className="btn btn-sm btn-outline-info border-0 p-1"
+                    data-toggle="modal"
+                    data-target={"#" + this.props.name}
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                    onClick={() => {
+                      this.onEdit(row.id);
+                    }}
+                  >
+                    ویرایش
+                  </button>
+                  <button
+                    className="btn btn-sm btn-outline-danger border-0 p-1"
+                    onClick={() => {
+                      axios
+                        .delete(doctorAPI(this.props.url, row.id))
+                        .then((res) => {
+                          this.load();
+                        });
+                    }}
+                  >
+                    حذف
+                  </button>
+                  <button
+                    className="btn btn-sm btn-outline-primary border-0 p-1"
                     onClick={() => this.props.add(row, this.props.name)}
                   >
-                    +
+                    &#10095;
                   </button>
                 </td>
               </tr>
