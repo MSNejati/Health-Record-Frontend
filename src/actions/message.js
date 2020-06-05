@@ -19,7 +19,7 @@ export const sendErrors = (msg, status) => {
   };
 };
 
-export const deleteError = () => (dispatch) => {
+export const deleteErrors = () => (dispatch) => {
   dispatch({
     type: DELETE_ERROR,
   });

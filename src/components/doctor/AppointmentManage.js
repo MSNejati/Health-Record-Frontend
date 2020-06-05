@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import SideBar from "../layout/SideBar";
 import SideBarToggler from "../layout/SideBarToggler";
@@ -53,9 +52,6 @@ function Row(props) {
 }
 
 export class AppointmentManage extends Component {
-  // static propTypes = {
-  //     prop: PropTypes
-  // }
   state = {
     advices: [],
     diseases: [],
@@ -123,53 +119,40 @@ export class AppointmentManage extends Component {
     return this.state.load ? (
       <div className="d-flex bg-light">
         <SideBar />
-        <div id="content" style={{ width: "100%" }}>
-          <div className="">
-            <SideBarToggler />
-            <div className="d-flex text-right">
-              <div
-                className="d-flex"
-                style={{
-                  marginRight: "7%",
-                  marginLeft: "7%",
-                  width: "100%",
-                }}
-              >
-                {/* <h3>بیمار:</h3> */}
+        <div id="content" className="w-100">
+          <SideBarToggler />
+          <div className="text-right mx-5 my-5">
+            <div>
+              <div className="d-flex flex-row m-2">
                 <div>
                   <img
-                    className="rounded"
+                    className="profile-img"
                     alt="User Pic"
                     src={this.state.patient.avatar}
-                    style={{
-                      width: "90px",
-                      height: "100px",
-                    }}
                   />
                 </div>
-                <div className="m-4 " style={{ width: "100%" }}>
+                <div className="m-4 w-75">
                   <div className="form-row">
                     <div className="form-group col-md">
-                      نام بیمار:
-                      {" " +
-                        this.state.patient.first_name +
+                      <strong> نام بیمار: </strong>
+                      {this.state.patient.first_name +
                         " " +
                         this.state.patient.last_name}
                     </div>
                     <div className="form-group col-md">
-                      نوبت:
+                      <strong> نوبت: </strong>
                       {this.state.turn}
                     </div>
                   </div>
                   <div className="form-row">
                     <div className="form-group col-md">
-                      زمان:
+                      <strong> زمان: </strong>
                       {this.state.calendar.start_time +
                         "  " +
                         this.state.calendar.day}
                     </div>
                     <div className="form-group col-md">
-                      آدرس:
+                      <strong> آدرس: </strong>
                       {this.state.patient.address}
                     </div>
                   </div>
@@ -230,7 +213,9 @@ export class AppointmentManage extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  isActive: state.sidebar.active,
+});
 
 const mapDispatchToProps = {};
 

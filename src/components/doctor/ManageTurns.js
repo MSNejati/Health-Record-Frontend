@@ -6,7 +6,8 @@ import AddTurnForm from "./AddTurnForm";
 import Loading from "./../layout/Loading";
 import SideBar from "./../layout/SideBar";
 import SideBarToggler from "./../layout/SideBarToggler";
-import "../../css/register.css";
+import "../../css/index.css";
+import "../../css/sidebar.css";
 import Swal from "sweetalert2";
 
 export class ManageTurns extends Component {
@@ -84,16 +85,20 @@ export class ManageTurns extends Component {
 
   render() {
     return this.state.turns ? (
-      <div className="wrapper">
+      <div
+        className={
+          this.props.isActive ? "wrapper doctor-bg active" : "wrapper doctor-bg"
+        }
+      >
         <SideBar />
         <div id="content">
           <SideBarToggler />
-          <div className="my-Register-page">
+          <div className="page-content">
             <div
               className={
                 this.props.isActive
-                  ? "add-turns-card card text-right active"
-                  : "add-turns-card card text-right"
+                  ? "my-card card text-right active"
+                  : "my-card card text-right"
               }
             >
               <h5 className="card-header text-body text-center pt-3 font-weight-bold">
@@ -106,87 +111,95 @@ export class ManageTurns extends Component {
             <div
               className={
                 this.props.isActive
-                  ? "add-turns-card card text-right active"
-                  : "add-turns-card card text-right"
+                  ? "my-card card text-right active"
+                  : "my-card card text-right"
               }
             >
               <h5 className="card-header text-body text-center pt-3 font-weight-bold">
                 لیست نوبت های ثبت شده
               </h5>
-              <table
-                className="table table-striped"
-                style={{ textAlign: "center" }}
-              >
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">روز</th>
-                    <th scope="col">ساعت شروع</th>
-                    <th scope="col">تعداد نوبت تعریف شده</th>
-                    <th scope="col">تعداد نوبت باقیمانده</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.turns.map((turn, index) => (
-                    <tr key={turn.id}>
-                      <td>{turn.id}</td>
-                      <td style={{ direction: "ltr" }}>
-                        {this.parser(turn.day)}
-                      </td>
-                      <td style={{ direction: "ltr" }}>
-                        {this.parser(turn.start_time)}
-                      </td>
-                      <td style={{ direction: "ltr" }}>{turn.total}</td>
-                      <td style={{ direction: "ltr" }}>{turn.remained}</td>
-                      <td>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => {
-                            axios
-                              .delete(doctorAPI("CALENDARS", turn.id), {}, {})
-                              .then((res) => {
-                                Swal.fire({
-                                  icon: "success",
-                                  title: "نوبت با موفقیت حذف شد",
-                                  showConfirmButton: false,
-                                  timer: 2000,
-                                });
-                                setTimeout(() => {
-                                  window.location.reload();
-                                }, 2000);
-                              });
-                          }}
-                        >
-                          حذف
+              <div className="card-body scrollable">
+                <div className="form-row col-md">
+                  <table className="table table-striped text-center">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">روز</th>
+                        <th scope="col">ساعت شروع</th>
+                        <th scope="col">تعداد نوبت تعریف شده</th>
+                        <th scope="col">تعداد نوبت باقیمانده</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.turns.map((turn, index) => (
+                        <tr key={turn.id}>
+                          <td>{index + 1}</td>
+                          <td style={{ direction: "ltr" }}>
+                            {this.parser(turn.day)}
+                          </td>
+                          <td style={{ direction: "ltr" }}>
+                            {this.parser(turn.start_time)}
+                          </td>
+                          <td style={{ direction: "ltr" }}>{turn.total}</td>
+                          <td style={{ direction: "ltr" }}>{turn.remained}</td>
+                          <td>
+                            <button
+                              className="btn exit-button btn-sm"
+                              onClick={() => {
+                                axios
+                                  .delete(
+                                    doctorAPI("CALENDARS", turn.id),
+                                    {},
+                                    {}
+                                  )
+                                  .then((res) => {
+                                    Swal.fire({
+                                      icon: "success",
+                                      title: "نوبت با موفقیت حذف شد",
+                                      showConfirmButton: false,
+                                      timer: 2000,
+                                    });
+                                    setTimeout(() => {
+                                      window.location.reload();
+                                    }, 2000);
+                                  });
+                              }}
+                            >
+                              حذف
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <nav aria-label="Page navigation" className="w-100">
+                    <ul
+                      className="pagination justify-content-center"
+                      style={{ marginRight: "-40px" }}
+                    >
+                      <li
+                        className={
+                          this.state.next ? "page-item" : "page-item disabled"
+                        }
+                      >
+                        <button className="page-link" onClick={this.nextPage}>
+                          &lt; بعدی
                         </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <nav aria-label="Page navigation">
-                <ul className="pagination justify-content-center">
-                  <li
-                    className={
-                      this.state.next ? "page-item" : "page-item disabled"
-                    }
-                  >
-                    <button className="page-link" onClick={this.nextPage}>
-                      &lt; بعدی
-                    </button>
-                  </li>
-                  <li
-                    className={
-                      this.state.prev ? "page-item" : "page-item disabled"
-                    }
-                  >
-                    <button className="page-link" onClick={this.prevPage}>
-                      قبلی &gt;
-                    </button>
-                  </li>
-                </ul>
-              </nav>
+                      </li>
+                      <li
+                        className={
+                          this.state.prev ? "page-item" : "page-item disabled"
+                        }
+                      >
+                        <button className="page-link" onClick={this.prevPage}>
+                          قبلی &gt;
+                        </button>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
             </div>
           </div>
         </div>

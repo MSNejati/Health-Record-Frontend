@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { patientAPI } from "./../../apis/requests";
 import SideBar from "./../layout/SideBar";
 import SideBarToggler from "./../layout/SideBarToggler";
 import axios from "axios";
 import Loading from "./../layout/Loading";
+import "../../css/index.css";
 
 export class Reserve extends Component {
   state = {
     calendar: null,
     reserved: true,
   };
+
   componentDidMount() {
     axios
       .post(
@@ -51,42 +52,35 @@ export class Reserve extends Component {
     return this.state.calendar ? (
       <div className="d-flex">
         <SideBar />
-        <div id="content" style={{ width: "100%" }}>
+        <div id="content" className="w-100">
           <SideBarToggler />
 
-          <div
-            className="mt-4 text-right"
-            style={{ margin: "4%", marginTop: "0" }}
-          >
+          <div className="text-right mx-5 my-5">
             <div>
               <h3>پزشک:</h3>
               <div className="border border-dark rounded shadow">
                 <div className="d-flex flex-row m-2">
                   <div>
                     <img
-                      className="rounded"
+                      className="profile-img pr-2 pt-2"
                       alt="User Pic"
                       src={
                         "http://localhost:8000" +
                         this.state.calendar.doctor.avatar
                       }
-                      style={{
-                        width: "90px",
-                        height: "100px",
-                      }}
                     />
                   </div>
-                  <div className="m-4 " style={{ width: "100%" }}>
+                  <div className="m-4 w-100">
                     <div className="form-row">
                       <div className="form-group col-md">
-                        نام:
+                        <strong> نام: </strong>
                         {"دکتر " +
                           this.state.calendar.doctor.first_name +
                           " " +
                           this.state.calendar.doctor.last_name}
                       </div>
                       <div className="form-group col-md">
-                        تخصص:
+                        <strong> تخصص: </strong>
                         {this.state.calendar.doctor.speciality}
                       </div>
                     </div>
@@ -99,14 +93,15 @@ export class Reserve extends Component {
                         &#9743;
                       </div>
                       <div className="form-group col-md">
-                        آدرس:
+                        <strong> آدرس: </strong>
                         {this.state.calendar.doctor.address}
                       </div>
                     </div>
                     {this.state.calendar.doctor.bio ? (
                       <div className="form-row ">
                         <div className="form-group col-md">
-                          &#9432; {this.state.calendar.doctor.bio}
+                          <strong> توضیحات: </strong>
+                          {this.state.calendar.doctor.bio}
                         </div>
                       </div>
                     ) : null}
@@ -132,13 +127,14 @@ export class Reserve extends Component {
                         </label>
                       </div>
                       <div className="form-group col-md">
-                        ساعت شروع پذیرش:
+                        <strong> ساعت شروع پذیرش: </strong>
                         {this.state.calendar.start_time}
                       </div>
                     </div>
                     <div className="form-row">
                       <div className="form-group col-md">
-                        نوبت شما:{this.state.turn}
+                        <strong> نوبت شما: </strong>
+                        {this.state.turn}
                       </div>
                       <div className="form-group col-md">
                         زمان تقریبی نوبت شما:
@@ -166,7 +162,9 @@ export class Reserve extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  isActive: state.sidebar.active,
+});
 
 const mapDispatchToProps = {};
 

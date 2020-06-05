@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { userAPI } from "./../../apis/requests";
 import Loading from "./../layout/Loading";
-import "./../../css/profile.css";
+import "./../../css/index.css";
 import EditIcon from "./../../static/icons/edit_icon.svg";
 import EditDialog from "./../layout/EditDialog";
 import ChangePasswordDialog from "./../layout/ChangePasswordDialog";
@@ -75,25 +75,31 @@ export class PatientProfile extends Component {
   };
   render() {
     return this.state.patient ? (
-      <div className="wrapper">
+      <div
+        className={
+          this.props.auth.user.role === 2
+            ? this.props.isActive
+              ? "wrapper patient-bg active"
+              : "wrapper patient-bg"
+            : this.props.isActive
+            ? "wrapper admin-bg active"
+            : "wrapper admin-bg"
+        }
+      >
         <SideBar />
         <div id="content">
           <SideBarToggler />
-          <div className="my-Register-page">
+          <div className="page-content">
             <div
               className={
                 this.props.isActive
-                  ? "my-Register-card card text-right active"
-                  : "my-Register-card card text-right"
+                  ? "my-card card text-right active"
+                  : "my-card card text-right"
               }
             >
               <div className="text-center card-header">
                 <img
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    borderRadius: "50%",
-                  }}
+                  className="profile-img"
                   src={this.state.patient.avatar}
                   alt="تصویر پروفایل"
                 ></img>
@@ -106,209 +112,176 @@ export class PatientProfile extends Component {
                     this.onEdit("avatar");
                   }}
                 >
-                  <img
-                    src={EditIcon}
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                    }}
-                    alt="ویرایش"
-                  ></img>
+                  <img src={EditIcon} className="edit-img" alt="ویرایش"></img>
                 </button>
               </div>
               <div className="card-body">
                 <div className="form-row">
-                  <div className="form-group col-md">
-                    <label htmlFor="firstName" className="float-right ml-2">
-                      <strong> نام: </strong>
-                      {this.state.patient.first_name}
+                  <div className="col-md">
+                    <div className="form-row">
+                      <div className="col-md-4">
+                        <p className="float-right ml-2">
+                          <strong> نام: </strong>
+                          {this.state.patient.first_name}
+                          <button
+                            type="button"
+                            className="btn float-left p-0"
+                            data-toggle="modal"
+                            data-target="#editDialog"
+                            onClick={() => {
+                              this.onEdit("first_name");
+                            }}
+                          >
+                            <img
+                              src={EditIcon}
+                              className="edit-img"
+                              alt="ویرایش"
+                            ></img>
+                          </button>
+                        </p>
+                      </div>
+                      <div className="col-md-4">
+                        <p className="float-right ml-2">
+                          <strong> نام خانوادگی: </strong>
+                          {this.state.patient.last_name}
+                          <button
+                            type="button"
+                            className="btn float-left p-0"
+                            data-toggle="modal"
+                            data-target="#editDialog"
+                            onClick={() => {
+                              this.onEdit("last_name");
+                            }}
+                          >
+                            <img
+                              src={EditIcon}
+                              className="edit-img"
+                              alt="ویرایش"
+                            ></img>
+                          </button>
+                        </p>
+                      </div>
+                      <div className="col-md-4">
+                        <p className="float-right ml-2">
+                          <strong> کدملی: </strong>
+                          {this.state.patient.user.username}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="form-row">
+                      <div className="col-md-4">
+                        <p className="float-right ml-2">
+                          <strong> تاریخ تولد: </strong>
+                          <label style={{ direction: "ltr" }}>
+                            {this.state.patient.birth_date}
+                          </label>
+                          <button
+                            type="button"
+                            className="btn float-left p-0"
+                            data-toggle="modal"
+                            data-target="#editDialog"
+                            onClick={() => {
+                              this.onEdit("birth_date");
+                            }}
+                          >
+                            <img
+                              src={EditIcon}
+                              className="edit-img"
+                              alt="ویرایش"
+                            ></img>
+                          </button>
+                        </p>
+                      </div>
+                      <div className="col-md-4">
+                        <p className="float-right ml-2">
+                          <strong> شماره موبایل: </strong>
+                          {this.state.patient.mobile_number}
+                          <button
+                            type="button"
+                            className="btn float-left p-0"
+                            data-toggle="modal"
+                            data-target="#editDialog"
+                            onClick={() => {
+                              this.onEdit("mobile_number");
+                            }}
+                          >
+                            <img
+                              src={EditIcon}
+                              className="edit-img"
+                              alt="ویرایش"
+                            ></img>
+                          </button>
+                        </p>
+                      </div>
+                      <div className="col-md-4">
+                        <p className="float-right ml-2">
+                          <strong> جنسیت: </strong>
+                          {this.state.patient.gender ? (
+                            <label>زن</label>
+                          ) : (
+                            <label>مرد</label>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="form-row">
+                      <div className="col-md">
+                        <p className="float-right ml-2">
+                          <strong> ایمیل: </strong>
+                          {this.state.patient.user.email}
+                          <button
+                            type="button"
+                            className="btn float-left p-0"
+                            data-toggle="modal"
+                            data-target="#editDialog"
+                            onClick={() => {
+                              this.onEdit("user.email");
+                            }}
+                          >
+                            <img
+                              src={EditIcon}
+                              className="edit-img"
+                              alt="ویرایش"
+                            ></img>
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="form-row">
+                      <div className="col-md">
+                        <p className="float-right ml-2">
+                          <strong> آدرس: </strong>
+                          {this.state.patient.address}
+                          <button
+                            type="button"
+                            className="btn float-left p-0"
+                            data-toggle="modal"
+                            data-target="#editDialog"
+                            onClick={() => {
+                              this.onEdit("address");
+                            }}
+                          >
+                            <img
+                              src={EditIcon}
+                              className="edit-img"
+                              alt="ویرایش"
+                            ></img>
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+                    {this.props.auth.user.role !== 0 ? (
                       <button
                         type="button"
-                        className="btn float-left p-0"
                         data-toggle="modal"
-                        data-target="#editDialog"
-                        onClick={() => {
-                          this.onEdit("first_name");
-                        }}
+                        data-target="#changePassDialog"
+                        className="btn purple-btn float-left"
                       >
-                        <img
-                          src={EditIcon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt="ویرایش"
-                        ></img>
+                        تغییر رمز عبور
                       </button>
-                    </label>
-                  </div>
-                  <div className="form-group col-md">
-                    <label htmlFor="lastName" className="float-right ml-2">
-                      <strong> نام خانوادگی: </strong>
-                      {this.state.patient.last_name}
-                      <button
-                        type="button"
-                        className="btn float-left p-0"
-                        data-toggle="modal"
-                        data-target="#editDialog"
-                        onClick={() => {
-                          this.onEdit("last_name");
-                        }}
-                      >
-                        <img
-                          src={EditIcon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt="ویرایش"
-                        ></img>
-                      </button>
-                    </label>
-                  </div>
-                  <div className="form-group col-md">
-                    <label htmlFor="lastName" className="float-right ml-2">
-                      <strong> کدملی: </strong>
-                      {this.state.patient.user.username}
-                    </label>
+                    ) : null}
                   </div>
                 </div>
-                <div className="form-row">
-                  <div className="form-group col-md">
-                    <label htmlFor="birthDate" className="float-right ml-2">
-                      <strong> تاریخ تولد: </strong>
-                      <label style={{ direction: "ltr" }}>
-                        {this.state.patient.birth_date}
-                      </label>
-                      <button
-                        type="button"
-                        className="btn float-left p-0"
-                        data-toggle="modal"
-                        data-target="#editDialog"
-                        onClick={() => {
-                          this.onEdit("birth_date");
-                        }}
-                      >
-                        <img
-                          src={EditIcon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt="ویرایش"
-                        ></img>
-                      </button>
-                    </label>
-                  </div>
-                  <div className="form-group col-md">
-                    <label htmlFor="phone" className="float-right ml-2">
-                      <strong> شماره موبایل: </strong>
-                      {this.state.patient.mobile_number}
-                      <button
-                        type="button"
-                        className="btn float-left p-0"
-                        data-toggle="modal"
-                        data-target="#editDialog"
-                        onClick={() => {
-                          this.onEdit("mobile_number");
-                        }}
-                      >
-                        <img
-                          src={EditIcon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt="ویرایش"
-                        ></img>
-                      </button>
-                    </label>
-                  </div>
-                  <div className="form-group col-md">
-                    <label htmlFor="phone" className="float-right ml-2">
-                      <strong> جنسیت: </strong>
-                      {this.state.patient.gender ? (
-                        <label>زن</label>
-                      ) : (
-                        <label>مرد</label>
-                      )}
-                    </label>
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-group col-md">
-                    <label htmlFor="address" className="float-right ml-2">
-                      <strong> ایمیل: </strong>
-                      <label style={{ direction: "ltr" }}>
-                        {this.state.patient.user.email}
-                      </label>
-                      <button
-                        type="button"
-                        className="btn float-left p-0"
-                        data-toggle="modal"
-                        data-target="#editDialog"
-                        onClick={() => {
-                          this.onEdit("user.email");
-                        }}
-                      >
-                        <img
-                          src={EditIcon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt="ویرایش"
-                        ></img>
-                      </button>
-                    </label>
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-group col-md">
-                    <label htmlFor="address" className="float-right ml-2">
-                      <strong> آدرس: </strong>
-                      {this.state.patient.address}
-                      <button
-                        type="button"
-                        className="btn float-left p-0"
-                        data-toggle="modal"
-                        data-target="#editDialog"
-                        onClick={() => {
-                          this.onEdit("address");
-                        }}
-                      >
-                        <img
-                          src={EditIcon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt="ویرایش"
-                        ></img>
-                      </button>
-                    </label>
-                  </div>
-                </div>
-                {this.props.auth.user.role !== 0 ? (
-                  <button
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#changePassDialog"
-                    className="btn btn-secondary "
-                  >
-                    تغییر رمز عبور
-                  </button>
-                ) : null}
-                {this.props.auth.user.role === 0 ? (
-                  <button
-                    type="button"
-                    onClick={this.handleDelete}
-                    className="btn delete-button"
-                    style={{ float: "left" }}
-                  >
-                    حذف
-                  </button>
-                ) : null}
               </div>
             </div>
           </div>

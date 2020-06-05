@@ -1,6 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 function Item(props) {
   return (
@@ -10,7 +8,6 @@ function Item(props) {
     >
       <span>{props.item.name}</span>
       <a onClick={props.onDelete} className="text-light" role="link">
-        {" "}
         &times;
       </a>
     </span>

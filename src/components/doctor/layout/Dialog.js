@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
 import { doctorAPI } from "./../../../apis/requests";
 
@@ -9,7 +8,6 @@ const translate = {
   description: "توضیحات",
   duration: "مدت(dd hh:mm:ss)",
   value: "مقدار",
-  advices: "توصیه",
   symptoms: "علامت",
   medicines: "دارو",
   diseases: "بیماری",
