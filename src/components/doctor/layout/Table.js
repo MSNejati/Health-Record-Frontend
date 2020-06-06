@@ -152,9 +152,8 @@ export default class Table extends Component {
           </div>
         </div>
         <table
-          className="table table-hover text-center table-sm"
+          className="table table-hover text-center table-sm w-100"
           cellSpacing="0"
-          width="100%"
         >
           <thead className="green-sb text-light">
             <tr>
@@ -185,7 +184,7 @@ export default class Table extends Component {
                 ))}
                 <td>
                   <button
-                    className="btn btn-sm btn-outline-info border-0 p-1"
+                    className="btn btn-sm btn-outline-info border-0 p-2"
                     data-toggle="modal"
                     data-target={"#" + this.props.name}
                     aria-expanded="false"
@@ -197,7 +196,7 @@ export default class Table extends Component {
                     ویرایش
                   </button>
                   <button
-                    className="btn btn-sm btn-outline-danger border-0 p-1"
+                    className="btn btn-sm btn-outline-danger border-0 p-2"
                     onClick={() => {
                       axios
                         .delete(doctorAPI(this.props.url, row.id))
@@ -209,7 +208,7 @@ export default class Table extends Component {
                     حذف
                   </button>
                   <button
-                    className="btn btn-sm btn-outline-primary border-0 p-1"
+                    className="btn btn-sm btn-outline-primary border-0 p-2"
                     onClick={() => this.props.add(row, this.props.name)}
                   >
                     &#10095;

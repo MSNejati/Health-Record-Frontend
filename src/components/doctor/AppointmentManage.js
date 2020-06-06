@@ -11,33 +11,13 @@ import Swal from "sweetalert2";
 
 function Row(props) {
   return (
-    <div
-      className="mt-4 text-right"
-      style={{
-        marginRight: "7%",
-        marginLeft: "7%",
-      }}
-    >
+    <div className="mt-4 text-right">
       <h3>{props.header}</h3>
       <div className="d-flex">
-        <div
-          className="border ml-2 shadow-sm"
-          style={{
-            height: "270px",
-            width: "50%",
-            overflowX: "auto",
-            overflowY: "auto",
-          }}
-        >
+        <div className="border-green ml-2 box-shadow w-50 appointment-card my-scrollable">
           <Table url={props.url} add={props.addItem} name={props.name} />
         </div>
-        <div
-          className="border mr-2 p-2 shadow-sm"
-          style={{
-            height: "270px",
-            width: "50%",
-          }}
-        >
+        <div className="border-green mr-2 p-2 box-shadow w-50 appointment-card">
           {props.items.map((item, index) => (
             <Item
               item={item}
@@ -196,14 +176,17 @@ export class AppointmentManage extends Component {
               addItem={this.addItem}
             />
             {/* ******************************** */}
-            <div className="text-center">
+            <div className="mt-4 text-right">
               <button
-                className="btn btn-lg btn-primary m-4"
+                className="btn purple-btn z-depth-0 float-left btn-lg mb-2"
                 onClick={this.onSubmit}
               >
-                ثبت تغییرات
+                ذخیره تغییرات
               </button>
             </div>
+            <br />
+            <br />
+            <br />
           </div>
         </div>
       </div>

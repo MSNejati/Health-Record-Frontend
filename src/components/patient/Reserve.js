@@ -58,7 +58,7 @@ export class Reserve extends Component {
           <div className="text-right mx-5 my-5">
             <div>
               <h3>پزشک:</h3>
-              <div className="border border-dark rounded shadow">
+              <div className="card border-warning rounded shadow">
                 <div className="d-flex flex-row m-2">
                   <div>
                     <img
@@ -86,11 +86,8 @@ export class Reserve extends Component {
                     </div>
                     <div className="form-row">
                       <div className="form-group col-md">
-                        تلفن مطب:
-                        <label style={{ direction: "ltr" }}>
-                          {this.state.calendar.doctor.phone_number}
-                        </label>
-                        &#9743;
+                        <strong> تلفن مطب: </strong>
+                        <label>{this.state.calendar.doctor.phone_number}</label>
                       </div>
                       <div className="form-group col-md">
                         <strong> آدرس: </strong>
@@ -111,20 +108,18 @@ export class Reserve extends Component {
             </div>
 
             {this.state.reserved ? (
-              <div className="text-center">
-                <h2 className="text-info mt-4">این نوبت برای شما رزرو شده.</h2>
+              <div className="d-flex justify-content-center mt-5">
+                <h2 className="text-info mt-4">این نوبت برای شما رزرو شده است!</h2>
               </div>
             ) : (
               <div className="mt-4">
                 <h3>نوبت شما:</h3>
-                <div className="border border-dark rounded shadow">
+                <div className="card border-warning rounded shadow">
                   <div className="m-4">
                     <div className="form-row">
                       <div className="form-group col-md">
-                        روز:
-                        <label style={{ direction: "ltr" }}>
-                          {this.state.calendar.day}
-                        </label>
+                        <strong> روز: </strong>
+                        <label>{this.state.calendar.day}</label>
                       </div>
                       <div className="form-group col-md">
                         <strong> ساعت شروع پذیرش: </strong>
@@ -137,15 +132,15 @@ export class Reserve extends Component {
                         {this.state.turn}
                       </div>
                       <div className="form-group col-md">
-                        زمان تقریبی نوبت شما:
+                        <strong> زمان تقریبی نوبت شما: </strong>
                         {this.state.calendar.time}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="text-center">
+                <div className="d-flex justify-content-center mt-5">
                   <button
-                    className="btn btn-primary btn-lg m-3"
+                    className="btn purple-btn z-depth-0 btn-lg mb-2"
                     onClick={this.onClick}
                   >
                     رزرو نوبت

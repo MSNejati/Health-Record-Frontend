@@ -121,7 +121,8 @@ code {
 }
 
 .my-scrollable {
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: scroll;
 }
 /* cards */
 
