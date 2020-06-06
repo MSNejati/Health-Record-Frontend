@@ -14,6 +14,7 @@ export class AddTurnForm extends Component {
     day: null,
     startTime: "",
     total: null,
+    msg: false,
   };
 
   static propTypes = {};
@@ -30,9 +31,9 @@ export class AddTurnForm extends Component {
       .post(doctorAPI("CALENDARS"), body, {})
       .then((res) => {
         this.props.onSubmit();
-        this.refs.startTime.value = "";
-        this.refs.day.value = "";
-        this.refs.total.value = "";
+        this.clear();
+        this.setState({ msg: true });
+        setTimeout(() => this.setState({ msg: false }), 5000);
       })
       .catch((err) => {
         this.setState({ errors: err.response });
@@ -43,12 +44,16 @@ export class AddTurnForm extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-
+  clear = () => {
+    this.refs.startTime.value = "";
+    this.refs.day.value = "";
+    this.refs.total.value = "";
+  };
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <div className="form-row">
-          <div className="form-group col-md-4 text-right">
+        <div>
+          <div className="form-group col-md text-right">
             <label htmlFor="day" className="float-right">
               تاریخ
             </label>
@@ -68,11 +73,10 @@ export class AddTurnForm extends Component {
               <div className="invalid-feedback">{errorMsg["day"]}</div>
             ) : null}
           </div>
-          <div className="form-group col-md-4 text-right">
+          <div className="form-group col-md text-right">
             <label htmlFor="startTime" className="float-right">
               ساعت شروع
             </label>
-
             <input
               type="time"
               className="form-control"
@@ -84,7 +88,7 @@ export class AddTurnForm extends Component {
               ref="startTime"
             />
           </div>
-          <div className="form-group col-md-4 text-right">
+          <div className="form-group col-md text-right">
             <label htmlFor="total" className="float-right">
               تعداد بیمار
             </label>
@@ -101,13 +105,20 @@ export class AddTurnForm extends Component {
               ref="total"
             />
           </div>
+          {this.state.msg ? (
+            <div className="alert alert-success alert-dismissible fade show">
+              تقویم با موفقیت اضافه شد.
+            </div>
+          ) : (
+            <br />
+          )}
+          <button
+            type="submit"
+            className="btn purple-btn z-depth-0 mb-2 float-left"
+          >
+            اضافه کردن
+          </button>
         </div>
-        <button
-          type="submit"
-          className="btn purple-btn z-depth-0 mb-2 float-left"
-        >
-          اضافه کردن
-        </button>
       </form>
     );
   }

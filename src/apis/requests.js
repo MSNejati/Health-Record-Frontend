@@ -50,7 +50,7 @@ export const patientAPI = (type, id = "") => {
     case "TURNS":
       return `${HOSTNAME}appointment/patient/turns/${id}?limit=6&ordering=day,start_time`;
     case "CALENDARS":
-      return `${HOSTNAME}appointment/doctor/calendar/${id}`;
+      return `${HOSTNAME}appointment/doctor/calendar/?limit=5&ordeing=day,start_time${id}`;
     default:
       return;
   }
