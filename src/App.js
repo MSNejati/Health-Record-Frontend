@@ -17,6 +17,7 @@ import DoctorsList from "./components/admin/doctorsList";
 import ManageTurns from "./components/doctor/ManageTurns";
 import Appointments from "./components/doctor/Appointments";
 import AppointmentManage from "./components/doctor/AppointmentManage";
+import MedicalHistory from "./components/patient/MedicalHistory";
 
 class App extends Component {
   componentDidMount() {
@@ -62,7 +63,7 @@ class App extends Component {
               path="/patients/:id"
               component={PatientProfile}
               role="manager"
-            ></PrivateRoute>
+            />
             <PrivateRoute
               exact
               path="/doctor/profile"
@@ -103,6 +104,12 @@ class App extends Component {
               exact
               path="/patient/turns/:id"
               component={Reserve}
+              role="patient"
+            />
+            <PrivateRoute
+              exact
+              path="/patient/history"
+              component={MedicalHistory}
               role="patient"
             />
           </Switch>
