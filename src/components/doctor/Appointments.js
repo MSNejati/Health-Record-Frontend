@@ -15,10 +15,17 @@ export class Appointments extends Component {
     start: null,
     end: null,
     search: null,
+    done: null,
+    url: null,
   };
 
-  componentDidMount() {
-    axios.get(doctorAPI("APPOINTMENTS"), {}, {}).then((res) => {
+  async componentDidMount() {
+    await this.setState({
+      url:
+        doctorAPI("APPOINTMENTS") +
+        this.props.location.search.replace("?", "&"),
+    });
+    axios.get(this.state.url, {}, {}).then((res) => {
       this.setState({
         appointments: res.data.results,
         next: res.data.next,
@@ -49,11 +56,12 @@ export class Appointments extends Component {
 
   handelSerach = (e) => {
     e.preventDefault();
-    let url = doctorAPI("APPOINTMENTS");
+    let url = this.state.url;
 
     url += this.state.start ? "&start=" + this.state.start : "";
     url += this.state.end ? "&end=" + this.state.end : "";
     url += this.state.search ? "&search=" + this.state.search : "";
+    url += this.state.done ? "&done=" + this.state.done : "";
 
     axios.get(url, {}, {}).then((res) => {
       this.setState({
@@ -124,6 +132,16 @@ export class Appointments extends Component {
                       />
                     </div>
                   </div>
+                  <select
+                    className="border rounded"
+                    style={{ fontSize: "12pt" }}
+                    name="done"
+                    onChange={this.onChange}
+                  >
+                    <option value={null}>همه</option>
+                    <option value="false">انجام نشده ها</option>
+                    <option value="true">انجام شده ها</option>
+                  </select>
                   <button
                     type="submit"
                     className="btn purple-btn z-depth-0 mb-2 float-left"
