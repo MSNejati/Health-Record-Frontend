@@ -51,6 +51,8 @@ export const patientAPI = (type, id = "") => {
       return `${HOSTNAME}appointment/patient/turns/${id}?limit=6&ordering=day,start_time`;
     case "CALENDARS":
       return `${HOSTNAME}appointment/doctor/calendar/?limit=5&ordeing=day,start_time${id}`;
+    case "HISTORY":
+      return `${HOSTNAME}appointment/patient/${id}?limit=6&ordering=day,start_time`;
     default:
       return;
   }

@@ -30,12 +30,6 @@ export class ManageTurns extends Component {
     });
   }
 
-  parser = (time) => {
-    time = time.replace("T", ", ");
-    time = time.replace("Z", "");
-    return time;
-  };
-
   nextPage = () => {
     axios.get(this.state.next, {}, {}).then((res) => {
       this.setState({
@@ -187,11 +181,9 @@ export class ManageTurns extends Component {
                       {this.state.turns.map((turn, index) => (
                         <tr key={turn.id}>
                           <td>{index + 1}</td>
+                          <td style={{ direction: "ltr" }}>{turn.day}</td>
                           <td style={{ direction: "ltr" }}>
-                            {this.parser(turn.day)}
-                          </td>
-                          <td style={{ direction: "ltr" }}>
-                            {this.parser(turn.start_time)}
+                            {turn.start_time}
                           </td>
                           <td style={{ direction: "ltr" }}>{turn.total}</td>
                           <td style={{ direction: "ltr" }}>{turn.remained}</td>
