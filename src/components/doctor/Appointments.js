@@ -97,7 +97,7 @@ export class Appointments extends Component {
                   <div className="form-row">
                     <div className="form-group col-md-4 text-right">
                       <label className="float-right" htmlFor="inputQ">
-                        نام بیمار
+                        نام بیمار:
                       </label>
                       <input
                         type="text"
