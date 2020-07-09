@@ -6,7 +6,7 @@ import Loading from "./../layout/Loading";
 import { patientAPI } from "./../../apis/requests";
 import axios from "axios";
 import "../../css/index.css";
-import HistoryDialog from "../layout/HistoryDialog";
+import HistoryDialog from "./layout/HistoryDialog";
 
 export class Appointments extends Component {
   state = {
@@ -108,7 +108,7 @@ export class Appointments extends Component {
                   <div className="form-row">
                     <div className="form-group col-md-4 text-right">
                       <label className="float-right" htmlFor="inputQ">
-                        نام پزشک
+                        نام پزشک:
                       </label>
                       <input
                         type="text"

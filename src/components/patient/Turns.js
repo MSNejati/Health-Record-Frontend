@@ -91,7 +91,7 @@ export class Turns extends Component {
                   <div className="form-row">
                     <div className="form-group col-md-4 text-right">
                       <label className="float-right" htmlFor="inputQ">
-                        نام پزشک یا تخصص
+                        نام پزشک یا تخصص:
                       </label>
                       <input
                         type="text"
