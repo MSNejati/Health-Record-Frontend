@@ -14,10 +14,10 @@ function Row(props) {
     <div className="mt-4 text-right">
       <h3>{props.header}</h3>
       <div className="d-flex">
-        <div className="border-green ml-2 box-shadow w-50 appointment-card my-scrollable">
+        <div className="border-green ml-2 box-shadow w-50 appointment-card my-scrollable bg-light">
           <Table url={props.url} add={props.addItem} name={props.name} />
         </div>
-        <div className="border-green mr-2 p-2 box-shadow w-50 appointment-card">
+        <div className="border-green mr-2 p-2 box-shadow w-50 appointment-card bg-light">
           {props.items.map((item, index) => (
             <Item
               item={item}
@@ -97,7 +97,10 @@ export class AppointmentManage extends Component {
 
   render() {
     return this.state.load ? (
-      <div className="d-flex bg-light">
+      <div
+        className="d-flex"
+        style={{ backgroundColor: "rgba(94, 207, 189, 0.35)" }}
+      >
         <SideBar />
         <div id="content" className="w-100">
           <SideBarToggler />
