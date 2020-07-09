@@ -201,7 +201,7 @@ export class Appointments extends Component {
                               app.calendar.doctor.last_name}
                           </td>
                           <td>
-                            {app.done === "true" ? (
+                            {app.done ? (
                               <button
                                 className="btn btn-sm purple-btn-sm z-depth-0"
                                 type="button"
@@ -215,11 +215,11 @@ export class Appointments extends Component {
                               </button>
                             ) : (
                               <button
-                                className="btn btn-sm purple-outline-btn z-depth-0"
+                                className="btn btn-sm purple-btn-sm z-depth-0"
                                 type="button"
                                 data-toggle="modal"
                                 data-target="#historyDialog"
-                                // disabled
+                                disabled
                                 onClick={() => {
                                   this.handleShowHistory(app.id);
                                 }}
@@ -278,7 +278,7 @@ export class Appointments extends Component {
           </div>
         </div>
         <div className="overlay"></div>
-        <HistoryDialog appointment={this.state.appointment}/>
+        <HistoryDialog appointment={this.state.appointment} />
       </div>
     ) : (
       <Loading />
