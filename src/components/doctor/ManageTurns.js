@@ -159,7 +159,7 @@ export class ManageTurns extends Component {
                   </div>
                   <button
                     type="button"
-                    className="btn btn-sm purple-btn m-1"
+                    className="btn purple-btn z-depth-0 mb-2 float-left"
                     onClick={this.submitFilter}
                   >
                     اعمال فیلتر
