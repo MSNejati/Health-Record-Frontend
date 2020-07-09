@@ -12,9 +12,9 @@ export const userAPI = (type, id = "") => {
     case "REFRESH":
       return `${HOSTNAME}auth/refresh/`;
     case "MANAGE_PATIENTS":
-      return `${HOSTNAME}auth/manager/patients/${id}`;
+      return `${HOSTNAME}auth/manager/patients/${id}?limit=5`;
     case "MANAGE_DOCTORS":
-      return `${HOSTNAME}auth/manager/doctors/${id}`;
+      return `${HOSTNAME}auth/manager/doctors/${id}?limit=5`;
     case "PROFILE":
       return `${HOSTNAME}auth/profile/`;
     case "CHANGE_PASSWORD":
