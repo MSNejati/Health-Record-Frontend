@@ -193,7 +193,7 @@ export class Turns extends Component {
                   </div>
                   <nav aria-label="Page navigation" className="w-100">
                     <ul
-                      className="pagination justify-content-center"
+                      className="pagination justify-content-center pagination-card"
                       style={{ marginRight: "-40px" }}
                     >
                       <li
