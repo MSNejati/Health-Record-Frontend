@@ -1,17 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-import Loading from "../../layout/Loading";
-
-const dict = {
-  first_name: "نام",
-  last_name: "نام خانوادگی",
-  speciality: "تخصص",
-};
 
 export class EditProfileDialog extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return this.props.appointment ? (

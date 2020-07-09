@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { doctorAPI, patientAPI } from "./../../apis/requests";
+import { doctorAPI } from "./../../apis/requests";
 import AddTurnForm from "./AddTurnForm";
 import Loading from "./../layout/Loading";
 import SideBar from "./../layout/SideBar";
