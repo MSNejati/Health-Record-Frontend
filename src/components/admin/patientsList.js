@@ -142,8 +142,10 @@ class listOfPatients extends Component {
                   ? "my-card card text-right active"
                   : "my-card card text-right"
               }
-              style={{ backgroundColor: "rgba(18, 186, 232, 0.8)" }}
             >
+              <h5 className="card-header text-body text-center pt-3 font-weight-bold">
+                فرم جست و جو
+              </h5>
               <div className="card-body">
                 <form className="align-items-center">
                   <div className="form-row justify-content-center d-flex w-50 mx-auto">
@@ -177,46 +179,6 @@ class listOfPatients extends Component {
                       </div>
                     </div>
                   </div>
-
-                  <div className="form-row justify-content-center d-flex">
-                    <nav aria-label="Page navigation" className="w-100">
-                      <ul
-                        className="pagination justify-content-center mb-1"
-                        style={{ marginRight: "-40px" }}
-                      >
-                        <li
-                          className={
-                            this.state.next ? "page-item" : "page-item disabled"
-                          }
-                        >
-                          <button
-                            type="button"
-                            className="page-link"
-                            onClick={() => {
-                              this.nextPage();
-                            }}
-                          >
-                            &lt; بعدی
-                          </button>
-                        </li>
-                        <li
-                          className={
-                            this.state.prev ? "page-item" : "page-item disabled"
-                          }
-                        >
-                          <button
-                            type="button"
-                            className="page-link"
-                            onClick={() => {
-                              this.prevPage();
-                            }}
-                          >
-                            قبلی &gt;
-                          </button>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
                 </form>
               </div>
             </div>
@@ -226,6 +188,48 @@ class listOfPatients extends Component {
               }
             >
               {patientsList}
+              <div className="form-row justify-content-center d-flex">
+                <nav aria-label="Page navigation" className="w-100">
+                  <ul
+                    className={
+                      this.props.isActive
+                        ? "pagination justify-content-center mb-1 pagination-card active"
+                        : "pagination justify-content-center mb-1 pagination-card"
+                    }
+                  >
+                    <li
+                      className={
+                        this.state.next ? "page-item" : "page-item disabled"
+                      }
+                    >
+                      <button
+                        type="button"
+                        className="page-link"
+                        onClick={() => {
+                          this.nextPage();
+                        }}
+                      >
+                        &lt; بعدی
+                      </button>
+                    </li>
+                    <li
+                      className={
+                        this.state.prev ? "page-item" : "page-item disabled"
+                      }
+                    >
+                      <button
+                        type="button"
+                        className="page-link"
+                        onClick={() => {
+                          this.prevPage();
+                        }}
+                      >
+                        قبلی &gt;
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
         </div>

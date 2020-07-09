@@ -74,6 +74,19 @@ code {
   margin-bottom: 0.5em;
 }
 
+.pagination-card {
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 0.5em;
+  width: 80rem;
+  max-width: 70vw;
+  transition: all 0.3s;
+}
+
+.pagination-card li button {
+  border-radius: 10px;
+}
+
 .my-card h5 {
   font-size: 1.5em;
 }
@@ -87,6 +100,10 @@ code {
 }
 
 .my-card.active {
+  margin-right: calc(10% + 150px);
+}
+
+.pagination-card.active {
   margin-right: calc(10% + 150px);
 }
 
@@ -183,10 +200,23 @@ code {
   .my-card.active {
     margin-right: calc(4% + 150px);
   }
+
+  .pagination-card {
+    margin-right: 4%;
+    max-width: 76vw;
+  }
+
+  .pagination-card.active {
+    margin-right: calc(4% + 150px);
+  }
 }
 
 @media only screen and (max-width: 1600px) {
   .my-card {
+    max-width: 72vw;
+  }
+
+  .pagination-card {
     max-width: 72vw;
   }
 }
@@ -195,10 +225,18 @@ code {
   .my-card {
     max-width: 67vw;
   }
+
+  .pagination-card {
+    max-width: 67vw;
+  }
 }
 
 @media only screen and (max-width: 1100px) {
   .my-card {
+    max-width: 65vw;
+  }
+
+  .pagination-card {
     max-width: 65vw;
   }
 }
@@ -210,6 +248,16 @@ code {
   }
 
   .my-card.active {
+    margin-right: 2%;
+    width: 95%;
+  }
+
+  .pagination-card {
+    max-width: 75vw;
+    margin-right: 15%;
+  }
+
+  .pagination-card.active {
     margin-right: 2%;
     width: 95%;
   }
