@@ -1,0 +1,296 @@
+@font-face {
+  font-family: Sahel;
+  src: url("./../static/fonts/Sahel-FD.ttf");
+  font-weight: bolder;
+}
+
+body {
+  margin: 0;
+  font-family: "Sahel";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
+  font-size: medium;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* main content */
+.wrapper {
+  display: flex;
+  width: 100%;
+  min-width: 98vw;
+  align-items: stretch;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: static;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.admin-bg {
+  background-image: url(../static/img/admin-background.jpg);
+}
+
+.patient-bg {
+  background-image: url(../static/img/patient-background.jpg);
+}
+
+.doctor-bg {
+  background-image: url(../static/img/doctor-background.jpg);
+}
+
+.page-content {
+  padding-top: 2em;
+}
+
+.yellow-line {
+  background-color: #fdc200;
+  height: 1px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 -0.5px 0.5px #fdc200, 10px -0.5px 0.5px #fdc200,
+    -10px -0.5px 0.5px #fdc200, 10px 0px 0.5px #fdc200, -10px 0px 0.5px #fdc200;
+}
+/* main content */
+
+/* cards */
+.my-card {
+  margin-right: 10%;
+  margin-left: 10%;
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.22),
+    0 15px 25px 0 rgba(0, 0, 0, 0.19);
+  transition: all 0.3s;
+  border-radius: 10px;
+  width: 80rem;
+  max-width: 70vw;
+  margin-bottom: 0.5em;
+}
+
+.pagination-card {
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 0.5em;
+  width: 80rem;
+  max-width: 70vw;
+  transition: all 0.3s;
+}
+
+.pagination-card li button {
+  border-radius: 10px;
+}
+
+.my-card h5 {
+  font-size: 1.5em;
+}
+
+.my-card form label,
+.my-card form input,
+.my-card form button,
+.my-card form select,
+.my-card form p {
+  font-size: 1.2em;
+}
+
+.my-card.active {
+  margin-right: calc(10% + 150px);
+}
+
+.pagination-card.active {
+  margin-right: calc(10% + 150px);
+}
+
+.my-radio-button {
+  width: 1em;
+  height: 1em;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.avatar-label {
+  text-align: center;
+}
+
+.my-card .card-body img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.my-card .card-body img.edit-img {
+  width: 20px;
+  height: 20px;
+}
+
+.border-green {
+  border: 1px solid #5ecfbd;
+}
+
+.appointment-card {
+  height: 290px;
+}
+
+.box-shadow {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.17);
+}
+
+.my-scrollable {
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+/* cards */
+
+/* buttons */
+.purple-btn {
+  background-color: #bf27d3f6;
+  color: #f1f1f1;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.24), 0 5px 40px 0 rgba(0, 0, 0, 0.19);
+}
+
+.purple-outline-btn {
+  border-color: #bf27d3f6;
+  background-color: #ffffff00;
+}
+
+.purple-btn:hover {
+  background-color: #ae24c0f6;
+  color: #f1f1f1;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.24),
+    0 5px 15px 0 rgba(0, 0, 0, 0.19);
+}
+
+.purple-btn-sm {
+  background-color: #bf27d3f6;
+  color: #f1f1f1;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.24), 0 4px 7px 0 rgba(0, 0, 0, 0.19);
+}
+
+.purple-btn-sm:enabled:hover {
+  background-color: #ae24c0f6;
+  color: #f1f1f1;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.24),
+    0 2px 4px 0 rgba(0, 0, 0, 0.19);
+}
+
+.purple-btn-sm:disabled:hover {
+  color: #f1f1f1;
+}
+/* buttons */
+
+/* responsivity */
+@media only screen and (max-width: 1700px) {
+  .my-card {
+    margin-right: 4%;
+    max-width: 76vw;
+  }
+
+  .my-card.active {
+    margin-right: calc(4% + 150px);
+  }
+
+  .pagination-card {
+    margin-right: 4%;
+    max-width: 76vw;
+  }
+
+  .pagination-card.active {
+    margin-right: calc(4% + 150px);
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .my-card {
+    max-width: 72vw;
+  }
+
+  .pagination-card {
+    max-width: 72vw;
+  }
+}
+
+@media only screen and (max-width: 1450px) {
+  .my-card {
+    max-width: 67vw;
+  }
+
+  .pagination-card {
+    max-width: 67vw;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .my-card {
+    max-width: 65vw;
+  }
+
+  .pagination-card {
+    max-width: 65vw;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .my-card {
+    max-width: 75vw;
+    margin-right: 15%;
+  }
+
+  .my-card.active {
+    margin-right: 2%;
+    width: 95%;
+  }
+
+  .pagination-card {
+    max-width: 75vw;
+    margin-right: 15%;
+  }
+
+  .pagination-card.active {
+    margin-right: 2%;
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .wrapper.active {
+    width: 115vw;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .my-card .scrollable {
+    overflow-x: scroll;
+  }
+  .wrapper.active {
+    width: 135vw;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  .my-card.active {
+    max-width: 100vw;
+  }
+
+  .wrapper.active {
+    width: 175vw;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .wrapper.active {
+    width: 195vw;
+  }
+}
+/* responsivity */
