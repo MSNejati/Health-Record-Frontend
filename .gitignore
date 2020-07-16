@@ -36,9 +36,3 @@ yarn-error.log*
 
 .history
 
-venv
-*.pyc
-.vscode
-**/__pycache__
-db.sqlite3
-/backend/media/avatar
