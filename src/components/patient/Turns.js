@@ -91,7 +91,7 @@ export class Turns extends Component {
                   <div className="form-row">
                     <div className="form-group col-md-4 text-right">
                       <label className="float-right" htmlFor="inputQ">
-                        نام پزشک یا تخصص
+                        نام پزشک یا تخصص:
                       </label>
                       <input
                         type="text"
@@ -193,7 +193,7 @@ export class Turns extends Component {
                   </div>
                   <nav aria-label="Page navigation" className="w-100">
                     <ul
-                      className="pagination justify-content-center"
+                      className="pagination justify-content-center pagination-card"
                       style={{ marginRight: "-40px" }}
                     >
                       <li

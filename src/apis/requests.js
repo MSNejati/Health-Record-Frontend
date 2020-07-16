@@ -12,9 +12,9 @@ export const userAPI = (type, id = "") => {
     case "REFRESH":
       return `${HOSTNAME}auth/refresh/`;
     case "MANAGE_PATIENTS":
-      return `${HOSTNAME}auth/manager/patients/${id}`;
+      return `${HOSTNAME}auth/manager/patients/${id}?limit=5`;
     case "MANAGE_DOCTORS":
-      return `${HOSTNAME}auth/manager/doctors/${id}`;
+      return `${HOSTNAME}auth/manager/doctors/${id}?limit=5`;
     case "PROFILE":
       return `${HOSTNAME}auth/profile/`;
     case "CHANGE_PASSWORD":
@@ -51,6 +51,8 @@ export const patientAPI = (type, id = "") => {
       return `${HOSTNAME}appointment/patient/turns/${id}?limit=6&ordering=day,start_time`;
     case "CALENDARS":
       return `${HOSTNAME}appointment/doctor/calendar/?limit=5&ordeing=day,start_time${id}`;
+    case "HISTORY":
+      return `${HOSTNAME}appointment/patient/${id}?limit=6&ordering=day,start_time`;
     default:
       return;
   }

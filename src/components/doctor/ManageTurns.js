@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { doctorAPI, patientAPI } from "./../../apis/requests";
+import { doctorAPI } from "./../../apis/requests";
 import AddTurnForm from "./AddTurnForm";
 import Loading from "./../layout/Loading";
 import SideBar from "./../layout/SideBar";
@@ -29,12 +29,6 @@ export class ManageTurns extends Component {
       });
     });
   }
-
-  parser = (time) => {
-    time = time.replace("T", ", ");
-    time = time.replace("Z", "");
-    return time;
-  };
 
   nextPage = () => {
     axios.get(this.state.next, {}, {}).then((res) => {
@@ -87,6 +81,7 @@ export class ManageTurns extends Component {
     params[e.target.name] = e.target.value;
     this.setState({ params: params });
   };
+
   submitFilter = () => {
     axios
       .get(
@@ -105,6 +100,7 @@ export class ManageTurns extends Component {
         });
       });
   };
+
   render() {
     return this.state.turns ? (
       <div
@@ -123,52 +119,64 @@ export class ManageTurns extends Component {
                   : "my-card card text-right"
               }
             >
+              <div className="card-body">
+                <form>
+                  <div className="form-row">
+                    <div className="form-group col-md-4 text-right">
+                      <input
+                        placeholder="چند روز آینده"
+                        type="number"
+                        className="form-control"
+                        value={this.state.params.delta_day}
+                        onChange={this.onParamsChange}
+                        name="delta_day"
+                      />
+                    </div>
+                    <div className="form-group col-md-4 text-right">
+                      <input
+                        placeholder="حد پایین زمانی"
+                        onFocus={(e) => (e.target.type = "date")}
+                        onBlur={(e) => (e.target.type = "text")}
+                        type="text"
+                        value={this.state.params.start}
+                        onChange={this.onParamsChange}
+                        name="start"
+                        className="form-control"
+                      />
+                    </div>
+                    <div className="form-group col-md-4 text-right">
+                      <input
+                        placeholder="حد بالا زمانی"
+                        onFocus={(e) => (e.target.type = "date")}
+                        onBlur={(e) => (e.target.type = "text")}
+                        type="text"
+                        value={this.state.params.end}
+                        onChange={this.onParamsChange}
+                        name="end"
+                        className="form-control"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn purple-btn z-depth-0 mb-2 float-left"
+                    onClick={this.submitFilter}
+                  >
+                    اعمال فیلتر
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div
+              className={
+                this.props.isActive
+                  ? "my-card card text-right active"
+                  : "my-card card text-right"
+              }
+            >
               <h5 className="card-header text-body text-center pt-3 font-weight-bold">
                 لیست نوبت های ثبت شده
               </h5>
-              <div
-                className="d-sm-inline-flex p-2 justify-content-center"
-                style={{ whiteSpace: "nowrap" }}
-              >
-                <input
-                  placeholder="چند روز آینده"
-                  type="number"
-                  style={{ maxWidth: "160px" }}
-                  className="rounded border"
-                  value={this.state.params.delta_day}
-                  onChange={this.onParamsChange}
-                  name="delta_day"
-                />
-                <input
-                  placeholder="حد پایین زمانی"
-                  onFocus={(e) => (e.target.type = "date")}
-                  onBlur={(e) => (e.target.type = "text")}
-                  type="text"
-                  style={{ maxWidth: "160px" }}
-                  className="rounded border"
-                  value={this.state.params.start}
-                  onChange={this.onParamsChange}
-                  name="start"
-                />
-                <input
-                  placeholder="حد بالا زمانی"
-                  onFocus={(e) => (e.target.type = "date")}
-                  onBlur={(e) => (e.target.type = "text")}
-                  type="text"
-                  style={{ maxWidth: "160px" }}
-                  className="rounded border"
-                  value={this.state.params.end}
-                  onChange={this.onParamsChange}
-                  name="end"
-                />
-                <button
-                  className="btn btn-sm purple-btn m-1"
-                  onClick={this.submitFilter}
-                >
-                  اعمال فیلتر
-                </button>
-                {/* <button className="btn btn-sm btn-dark m-1">تایم لاین</button> */}
-              </div>
               <div className="card-body scrollable">
                 <div className="form-row col-md">
                   <table className="table table-striped text-center">
@@ -187,11 +195,9 @@ export class ManageTurns extends Component {
                       {this.state.turns.map((turn, index) => (
                         <tr key={turn.id}>
                           <td>{index + 1}</td>
+                          <td style={{ direction: "ltr" }}>{turn.day}</td>
                           <td style={{ direction: "ltr" }}>
-                            {this.parser(turn.day)}
-                          </td>
-                          <td style={{ direction: "ltr" }}>
-                            {this.parser(turn.start_time)}
+                            {turn.start_time}
                           </td>
                           <td style={{ direction: "ltr" }}>{turn.total}</td>
                           <td style={{ direction: "ltr" }}>{turn.remained}</td>
@@ -239,7 +245,7 @@ export class ManageTurns extends Component {
                   </table>
                   <nav aria-label="Page navigation" className="w-100">
                     <ul
-                      className="pagination justify-content-center"
+                      className="pagination justify-content-center pagination-card"
                       style={{ marginRight: "-40px" }}
                     >
                       <li

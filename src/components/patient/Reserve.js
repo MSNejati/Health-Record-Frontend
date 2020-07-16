@@ -50,7 +50,7 @@ export class Reserve extends Component {
   };
   render() {
     return this.state.calendar ? (
-      <div className="d-flex">
+      <div className="d-flex" style={{ backgroundColor: "rgba(253, 194, 0, 0.45)"}}>
         <SideBar />
         <div id="content" className="w-100">
           <SideBarToggler />
@@ -58,7 +58,7 @@ export class Reserve extends Component {
           <div className="text-right mx-5 my-5">
             <div>
               <h3>پزشک:</h3>
-              <div className="card border-warning rounded shadow">
+              <div className="card border-warning rounded shadow" style={{ backgroundColor: "rgba(253, 194, 0, 0.6)"}}>
                 <div className="d-flex flex-row m-2">
                   <div>
                     <img
@@ -114,7 +114,7 @@ export class Reserve extends Component {
             ) : (
               <div className="mt-4">
                 <h3>نوبت شما:</h3>
-                <div className="card border-warning rounded shadow">
+                <div className="card border-warning rounded shadow" style={{ backgroundColor: "rgba(253, 194, 0, 0.6)"}}>
                   <div className="m-4">
                     <div className="form-row">
                       <div className="form-group col-md">

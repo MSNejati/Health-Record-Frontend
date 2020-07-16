@@ -11,15 +11,55 @@ import { connect } from "react-redux";
 class listOfPatients extends Component {
   state = {
     doctors: null,
-    aboutDoctor: true,
-    isList: true,
+    next: null,
+    prev: null,
+    search: null,
   };
 
   componentDidMount() {
-    axios.get(userAPI("MANAGE_DOCTORS")).then((res) => {
-      this.setState({ doctors: res.data.results });
+    axios.get(userAPI("MANAGE_DOCTORS"), {}, {}).then((res) => {
+      this.setState({
+        doctors: res.data.results,
+        next: res.data.next,
+        prev: res.data.previous,
+      });
     });
   }
+
+  prevPage = () => {
+    axios.get(this.state.prev, {}, {}).then((res) => {
+      this.setState({
+        doctors: res.data.results,
+        next: res.data.next,
+        prev: res.data.previous,
+      });
+    });
+  };
+
+  nextPage = () => {
+    axios.get(this.state.next, {}, {}).then((res) => {
+      this.setState({
+        doctors: res.data.results,
+        next: res.data.next,
+        prev: res.data.previous,
+      });
+    });
+  };
+
+  handelSerach = (e) => {
+    e.preventDefault();
+    let url = userAPI("MANAGE_DOCTORS");
+    url += this.state.search ? "&search=" + this.state.search : "";
+    axios.get(url, {}, {}).then((res) => {
+      this.setState({
+        doctors: res.data.results,
+        next: res.data.next,
+        prev: res.data.previous,
+      });
+    });
+  };
+
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     const { doctors } = this.state;
@@ -98,10 +138,98 @@ class listOfPatients extends Component {
           <div className="page-content">
             <div
               className={
+                this.props.isActive
+                  ? "my-card card text-right active"
+                  : "my-card card text-right"
+              }
+            >
+              <h5 className="card-header text-body text-center pt-3 font-weight-bold">
+                فرم جست و جو
+              </h5>
+              <div className="card-body">
+                <form className="align-items-center">
+                  <div className="form-row justify-content-center d-flex w-50 mx-auto">
+                    <div className="input-group mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="inputQ"
+                        name="search"
+                        placeholder="جست و جو در لیست پزشکان..."
+                        onChange={this.onChange}
+                        style={{
+                          borderBottomLeftRadius: "0px",
+                          borderBottomRightRadius: "5px",
+                          borderTopLeftRadius: "0px",
+                          borderTopRightRadius: "5px",
+                        }}
+                      />
+                      <div className="input-group-prepend">
+                        <button
+                          type="button"
+                          className="btn purple-btn z-depth-0 float-left"
+                          onClick={this.handelSerach}
+                          style={{
+                            borderBottomLeftRadius: "5px",
+                            borderTopLeftRadius: "5px",
+                          }}
+                        >
+                          جست و جو
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div
+              className={
                 this.props.isActive ? "text-right active" : "text-right"
               }
             >
               {doctorsList}
+              <div className="form-row justify-content-center d-flex">
+                <nav aria-label="Page navigation" className="w-100">
+                  <ul
+                    className={
+                      this.props.isActive
+                        ? "pagination justify-content-center mb-1 pagination-card active"
+                        : "pagination justify-content-center mb-1 pagination-card"
+                    }
+                  >
+                    <li
+                      className={
+                        this.state.next ? "page-item" : "page-item disabled"
+                      }
+                    >
+                      <button
+                        type="button"
+                        className="page-link"
+                        onClick={() => {
+                          this.nextPage();
+                        }}
+                      >
+                        &lt; بعدی
+                      </button>
+                    </li>
+                    <li
+                      className={
+                        this.state.prev ? "page-item" : "page-item disabled"
+                      }
+                    >
+                      <button
+                        type="button"
+                        className="page-link"
+                        onClick={() => {
+                          this.prevPage();
+                        }}
+                      >
+                        قبلی &gt;
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
         </div>

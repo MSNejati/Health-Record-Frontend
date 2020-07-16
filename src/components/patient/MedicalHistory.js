@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import SideBar from "../layout/SideBar";
 import SideBarToggler from "../layout/SideBarToggler";
 import Loading from "./../layout/Loading";
-import { doctorAPI } from "./../../apis/requests";
+import { patientAPI } from "./../../apis/requests";
 import axios from "axios";
 import "../../css/index.css";
+import HistoryDialog from "./layout/HistoryDialog";
 
 export class Appointments extends Component {
   state = {
@@ -17,15 +18,11 @@ export class Appointments extends Component {
     search: null,
     done: null,
     url: null,
+    appointment: null,
   };
 
   async componentDidMount() {
-    await this.setState({
-      url:
-        doctorAPI("APPOINTMENTS") +
-        this.props.location.search.replace("?", "&"),
-    });
-    axios.get(this.state.url, {}, {}).then((res) => {
+    axios.get(patientAPI("HISTORY"), {}, {}).then((res) => {
       this.setState({
         appointments: res.data.results,
         next: res.data.next,
@@ -56,7 +53,7 @@ export class Appointments extends Component {
 
   handelSerach = (e) => {
     e.preventDefault();
-    let url = this.state.url;
+    let url = patientAPI("HISTORY");
 
     url += this.state.start ? "&start=" + this.state.start : "";
     url += this.state.end ? "&end=" + this.state.end : "";
@@ -72,13 +69,27 @@ export class Appointments extends Component {
     });
   };
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  handleShowHistory = (id) => {
+    axios.get(patientAPI("HISTORY", id), {}, {}).then((res) => {
+      console.log(res);
+      this.setState({
+        appointment: res.data,
+      });
+    });
+  };
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(this.state.done);
+  };
 
   render() {
     return this.state.appointments ? (
       <div
         className={
-          this.props.isActive ? "wrapper doctor-bg active" : "wrapper doctor-bg"
+          this.props.isActive
+            ? "wrapper patient-bg active"
+            : "wrapper patient-bg"
         }
       >
         <SideBar />
@@ -97,7 +108,7 @@ export class Appointments extends Component {
                   <div className="form-row">
                     <div className="form-group col-md-4 text-right">
                       <label className="float-right" htmlFor="inputQ">
-                        نام بیمار:
+                        نام پزشک:
                       </label>
                       <input
                         type="text"
@@ -132,25 +143,32 @@ export class Appointments extends Component {
                       />
                     </div>
                   </div>
-                  <select
-                    className="border rounded"
-                    style={{ fontSize: "12pt" }}
-                    name="done"
-                    onChange={this.onChange}
-                  >
-                    <option value={null}>همه</option>
-                    <option value="false">انجام نشده ها</option>
-                    <option value="true">انجام شده ها</option>
-                  </select>
-                  <button
-                    type="submit"
-                    className="btn purple-btn z-depth-0 mb-2 float-left"
-                  >
-                    جست و جو
-                  </button>
+                  <div className="form-row">
+                    <div className="form-group col-md">
+                      <select
+                        className="border rounded"
+                        name="done"
+                        onChange={this.onChange}
+                      >
+                        <option value={null}>همه</option>
+                        <option value="false">انجام نشده ها</option>
+                        <option value="true">انجام شده ها</option>
+                      </select>
+                    </div>
+
+                    <div className="form-group col-md">
+                      <button
+                        type="submit"
+                        className="btn purple-btn z-depth-0 mb-2 float-left"
+                      >
+                        جست و جو
+                      </button>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>
+
             <div
               className={
                 this.props.isActive
@@ -159,7 +177,7 @@ export class Appointments extends Component {
               }
             >
               <h5 className="card-header text-body text-center pt-3 font-weight-bold">
-                لیست نوبت های یافت شده
+                تاریخچه نوبت ها
               </h5>
               <div className="card-body scrollable">
                 <div className="form-row col-md">
@@ -167,11 +185,8 @@ export class Appointments extends Component {
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">روز</th>
-                        <th scope="col">ساعت</th>
-                        <th scope="col">نام بیمار</th>
-                        <th scope="col">نوبت</th>
-                        <th scope="col"></th>
+                        <th scope="col">تاریخ</th>
+                        <th scope="col">نام پزشک</th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
@@ -179,28 +194,39 @@ export class Appointments extends Component {
                       {this.state.appointments.map((app, index) => (
                         <tr key={app.id} className="border-bottom">
                           <td>{index + 1}</td>
-                          <td style={{ direction: "ltr" }}>
-                            {app.calendar.day}
-                          </td>
-                          <td style={{ direction: "ltr" }}>
-                            {app.calendar.start_time}
-                          </td>
+                          <td>{app.calendar.day}</td>
                           <td>
-                            {app.patient.first_name +
+                            {app.calendar.doctor.first_name +
                               " " +
-                              app.patient.last_name}
+                              app.calendar.doctor.last_name}
                           </td>
-                          <td>{app.turn}</td>
-                          <td>{app.done ? "انجام شده" : "انجام نشده"}</td>
                           <td>
-                            <button
-                              className="btn purple-btn z-depth-0"
-                              onClick={() => {
-                                this.props.history.push("app/" + app.id);
-                              }}
-                            >
-                              {app.done ? "ویرایش" : "انجام"}
-                            </button>
+                            {app.done ? (
+                              <button
+                                className="btn btn-sm purple-btn-sm z-depth-0"
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#historyDialog"
+                                onClick={() => {
+                                  this.handleShowHistory(app.id);
+                                }}
+                              >
+                                نمایش
+                              </button>
+                            ) : (
+                              <button
+                                className="btn btn-sm purple-btn-sm z-depth-0"
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#historyDialog"
+                                disabled
+                                onClick={() => {
+                                  this.handleShowHistory(app.id);
+                                }}
+                              >
+                                نمایش
+                              </button>
+                            )}
                           </td>
                         </tr>
                       ))}
@@ -251,6 +277,8 @@ export class Appointments extends Component {
             </div>
           </div>
         </div>
+        <div className="overlay"></div>
+        <HistoryDialog appointment={this.state.appointment} />
       </div>
     ) : (
       <Loading />
